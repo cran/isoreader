@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+<meta name="date" content="2020-10-27" />
+
+<title>Operations</title>
+
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
+<style type="text/css">
+a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
+a.anchor-section::before {content: '#';}
+.hasAnchor:hover a.anchor-section {visibility: visible;}
+</style>
+<script>// Anchor sections v1.0 written by Atsushi Yasumoto on Oct 3rd, 2020.
+document.addEventListener('DOMContentLoaded', function() {
+  const h = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+  // Do nothing if sections are already anchored
+  if (Array.from(h).some(x => x.classList.contains('hasAnchor'))) {
+    return null;
+  }
+
+  // Use section id when pandoc runs with --section-divs
+  const section_id = function(x) {
+    return ((x.classList.contains('section') || (x.tagName === 'SECTION'))
+            ? x.id : '');
+  };
+
+  // Add anchors
+  h.forEach(function(x) {
+    const id = x.id || section_id(x.parentElement);
+    if (id === '') {
+      return null;
+    }
+    let anchor = document.createElement('a');
+    anchor.href = '#' + id;
+    anchor.classList = ['anchor-section'];
+    x.classList.add('hasAnchor');
+    x.appendChild(anchor);
+  });
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Operations</h1>
+<h4 class="date">2020-10-27</h4>
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Isoreader provides a number of general purpose operations that work on all supported IRMS data formats such as caching of files, parallel processing and catching read errors. This vignette demonstrates some of these general operations.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># load isoreader package</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(isoreader)</span></code></pre></div>
+</div>
+<div id="supported-file-types" class="section level1">
+<h1>Supported file types</h1>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># list all suported file types</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">iso_get_supported_file_types</span>() <span class="op">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(extension, software, description, type) <span class="op">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">extension</th>
+<th align="left">software</th>
+<th align="left">description</th>
+<th align="left">type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">.did</td>
+<td align="left">Isodat</td>
+<td align="left">Dual Inlet file format (newer)</td>
+<td align="left">dual inlet</td>
+</tr>
+<tr class="even">
+<td align="left">.caf</td>
+<td align="left">Isodat</td>
+<td align="left">Dual Inlet file format (older)</td>
+<td align="left">dual inlet</td>
+</tr>
+<tr class="odd">
+<td align="left">.txt</td>
+<td align="left">Nu</td>
+<td align="left">Dual Inlet file format</td>
+<td align="left">dual inlet</td>
+</tr>
+<tr class="even">
+<td align="left">.di.rda</td>
+<td align="left">isoreader</td>
+<td align="left">R Data Archive (deprecated)</td>
+<td align="left">dual inlet</td>
+</tr>
+<tr class="odd">
+<td align="left">.di.rds</td>
+<td align="left">isoreader</td>
+<td align="left">R Data Storage</td>
+<td align="left">dual inlet</td>
+</tr>
+<tr class="even">
+<td align="left">.cf</td>
+<td align="left">Isodat</td>
+<td align="left">Continuous Flow file format (older)</td>
+<td align="left">continuous flow</td>
+</tr>
+<tr class="odd">
+<td align="left">.dxf</td>
+<td align="left">Isodat</td>
+<td align="left">Continuous Flow file format (newer)</td>
+<td align="left">continuous flow</td>
+</tr>
+<tr class="even">
+<td align="left">.iarc</td>
+<td align="left">ionOS</td>
+<td align="left">Continuous Flow data archive</td>
+<td align="left">continuous flow</td>
+</tr>
+<tr class="odd">
+<td align="left">.cf.rda</td>
+<td align="left">isoreader</td>
+<td align="left">R Data Archive (deprecated)</td>
+<td align="left">continuous flow</td>
+</tr>
+<tr class="even">
+<td align="left">.cf.rds</td>
+<td align="left">isoreader</td>
+<td align="left">R Data Storage</td>
+<td align="left">continuous flow</td>
+</tr>
+<tr class="odd">
+<td align="left">.scn</td>
+<td align="left">Isodat</td>
+<td align="left">Scan file format</td>
+<td align="left">scan</td>
+</tr>
+<tr class="even">
+<td align="left">.scan.rds</td>
+<td align="left">isoreader</td>
+<td align="left">R Data Storage</td>
+<td align="left">scan</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="messages" class="section level1">
+<h1>Messages</h1>
+<p>By default, isoreader is quite verbose to let the user know what is happening. However, most functions can be silenced by adding the parameter <code>quiet = TRUE</code> to the function call. This can also be done globally using <code>iso_turn_info_message_off()</code></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># read a file in the default verbose mode</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">iso_get_reader_example</span>(<span class="st">&quot;dual_inlet_example.did&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="st">  </span><span class="kw">iso_read_dual_inlet</span>() <span class="op">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="st">  </span><span class="kw">iso_select_file_info</span>(file_datetime, <span class="st">`</span><span class="dt">Identifier 1</span><span class="st">`</span>) <span class="op">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="st">  </span><span class="kw">iso_get_file_info</span>() <span class="op">%&gt;%</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; Info: preparing to read 1 data files...</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; Info: reading file &#39;dual_inlet_example.did&#39; with &#39;.did&#39; reader...</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; Info: finished reading 1 files in 0.66 secs</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; Info: selecting/renaming the following file info across 1 data file(s): &#39;file_datetime&#39;, &#39;Identifier 1&#39;</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; Info: aggregating file info from 1 data file(s)</span></span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">file_id</th>
+<th align="left">file_datetime</th>
+<th align="left">Identifier 1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">dual_inlet_example.did</td>
+<td align="left">2014-10-27 05:23:54</td>
+<td align="left">CIT Carrara</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co"># read the same file but make the read process quiet</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="kw">iso_get_reader_example</span>(<span class="st">&quot;dual_inlet_example.did&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="st">  </span><span class="kw">iso_read_dual_inlet</span>(<span class="dt">quiet =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="st">  </span><span class="kw">iso_select_file_info</span>(file_datetime, <span class="st">`</span><span class="dt">Identifier 1</span><span class="st">`</span>) <span class="op">%&gt;%</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="st">  </span><span class="kw">iso_get_file_info</span>() <span class="op">%&gt;%</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; Info: selecting/renaming the following file info across 1 data file(s): &#39;file_datetime&#39;, &#39;Identifier 1&#39;</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; Info: aggregating file info from 1 data file(s)</span></span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">file_id</th>
+<th align="left">file_datetime</th>
+<th align="left">Identifier 1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">dual_inlet_example.did</td>
+<td align="left">2014-10-27 05:23:54</td>
+<td align="left">CIT Carrara</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co"># read the same file but turn all isoreader messages off</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">iso_turn_info_messages_off</span>()</span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="kw">iso_get_reader_example</span>(<span class="st">&quot;dual_inlet_example.did&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="st">  </span><span class="kw">iso_read_dual_inlet</span>(<span class="dt">quiet =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="st">  </span><span class="kw">iso_select_file_info</span>(file_datetime, <span class="st">`</span><span class="dt">Identifier 1</span><span class="st">`</span>) <span class="op">%&gt;%</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="st">  </span><span class="kw">iso_get_file_info</span>() <span class="op">%&gt;%</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">file_id</th>
+<th align="left">file_datetime</th>
+<th align="left">Identifier 1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">dual_inlet_example.did</td>
+<td align="left">2014-10-27 05:23:54</td>
+<td align="left">CIT Carrara</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co"># turn message back on</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">iso_turn_info_messages_on</span>()</span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt; Info: information messages turned on</span></span></code></pre></div>
+</div>
+<div id="caching" class="section level1">
+<h1>Caching</h1>
+<p>By default, isoreader caches files as R objects to make access faster in the future. This feature can be turned off if you want to force a fresh read from the source file. Alternatively, you can clear the entire isoreader cache in your working directory to clean up previous file reads.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># cleanup reader cache</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">iso_cleanup_reader_cache</span>()</span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co">#&gt; Info: removed all (0) cached isoreader files.</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co"># read a new file (notice the time elapsed)</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>cf_file &lt;-<span class="st"> </span><span class="kw">iso_get_reader_example</span>(<span class="st">&quot;continuous_flow_example.dxf&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="st">  </span><span class="kw">iso_read_continuous_flow</span>()</span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt; Info: preparing to read 1 data files...</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="co">#&gt; Info: reading file &#39;continuous_flow_example.dxf&#39; with &#39;.dxf&#39; reader...</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="co">#&gt; Info: processing config &#39;N2&#39; (332628-345196)</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt; Info: processing config &#39;CO2&#39; (345196-369809)</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt; Info: processing data for &#39;N2&#39; (128025-158837)</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt; Info: processing data for &#39;CO2&#39; (158931-196381)</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt; Info: finished reading 1 files in 1.91 secs</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="co"># re-read the same file much faster (it will be read from cache)</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a>cf_file &lt;-<span class="st"> </span><span class="kw">iso_get_reader_example</span>(<span class="st">&quot;continuous_flow_example.dxf&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a><span class="st">    </span><span class="kw">iso_read_continuous_flow</span>()</span>
+<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt; Info: preparing to read 1 data files...</span></span>
+<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt; Info: reading file &#39;continuous_flow_example.dxf&#39; with &#39;.dxf&#39; reader...</span></span>
+<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt; Info: processing config &#39;N2&#39; (332628-345196)</span></span>
+<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt; Info: processing config &#39;CO2&#39; (345196-369809)</span></span>
+<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt; Info: processing data for &#39;N2&#39; (128025-158837)</span></span>
+<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt; Info: processing data for &#39;CO2&#39; (158931-196381)</span></span>
+<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; Info: finished reading 1 files in 1.81 secs</span></span>
+<span id="cb7-26"><a href="#cb7-26"></a></span>
+<span id="cb7-27"><a href="#cb7-27"></a><span class="co"># turn reader caching off</span></span>
+<span id="cb7-28"><a href="#cb7-28"></a><span class="kw">iso_turn_reader_caching_off</span>()</span>
+<span id="cb7-29"><a href="#cb7-29"></a><span class="co">#&gt; Info: caching turned off</span></span>
+<span id="cb7-30"><a href="#cb7-30"></a></span>
+<span id="cb7-31"><a href="#cb7-31"></a><span class="co"># re-read the same file (it will NOT be read from cache)</span></span>
+<span id="cb7-32"><a href="#cb7-32"></a>cf_file &lt;-<span class="st"> </span><span class="kw">iso_get_reader_example</span>(<span class="st">&quot;continuous_flow_example.dxf&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb7-33"><a href="#cb7-33"></a><span class="st">  </span><span class="kw">iso_read_continuous_flow</span>()</span>
+<span id="cb7-34"><a href="#cb7-34"></a><span class="co">#&gt; Info: preparing to read 1 data files...</span></span>
+<span id="cb7-35"><a href="#cb7-35"></a><span class="co">#&gt; Info: reading file &#39;continuous_flow_example.dxf&#39; with &#39;.dxf&#39; reader...</span></span>
+<span id="cb7-36"><a href="#cb7-36"></a><span class="co">#&gt; Info: processing config &#39;N2&#39; (332628-345196)</span></span>
+<span id="cb7-37"><a href="#cb7-37"></a><span class="co">#&gt; Info: processing config &#39;CO2&#39; (345196-369809)</span></span>
+<span id="cb7-38"><a href="#cb7-38"></a><span class="co">#&gt; Info: processing data for &#39;N2&#39; (128025-158837)</span></span>
+<span id="cb7-39"><a href="#cb7-39"></a><span class="co">#&gt; Info: processing data for &#39;CO2&#39; (158931-196381)</span></span>
+<span id="cb7-40"><a href="#cb7-40"></a><span class="co">#&gt; Info: finished reading 1 files in 1.82 secs</span></span>
+<span id="cb7-41"><a href="#cb7-41"></a></span>
+<span id="cb7-42"><a href="#cb7-42"></a><span class="co"># turn reader caching back on</span></span>
+<span id="cb7-43"><a href="#cb7-43"></a><span class="kw">iso_turn_reader_caching_on</span>()</span>
+<span id="cb7-44"><a href="#cb7-44"></a><span class="co">#&gt; Info: caching turned on</span></span></code></pre></div>
+</div>
+<div id="parallel-processing" class="section level1">
+<h1>Parallel processing</h1>
+<p>Isoreader supports parallel processing of data files based on the number of processors available in a computer simply by setting the <code>parallel = TRUE</code> flag in any file read operation. This makes it possible to read large quantities of data files much more quickly on a multi-core system (i.e. most modern laptops).</p>
+<p>However, whether parallel processing yields significant improvements in read speeds depends on the number of available processors, file types and operating system. In theory, parallel processing always reduces computation time but in practice this is offset by various factors including the size of the data that needs to be sent back and forth between the processors, file system read/write speed, and the spin-up time for new processes. Generally speaking, parallel processing can provide significant improvements in speed with larger number of files (~10+) and more complex read operations (e.g. continuous flow &gt; dual inlet &gt; scan file). Reading from cache is so efficient that there are rarely gains from parallel processing and it is usually faster NOT to read in parallel once a set of files is already cached.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># read 3 files in parallel (note that this is usually not a large enough file number to be worth it)</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>di_files &lt;-</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw">iso_read_dual_inlet</span>(</span>
+<span id="cb8-4"><a href="#cb8-4"></a>    <span class="kw">iso_get_reader_example</span>(<span class="st">&quot;dual_inlet_example.did&quot;</span>),</span>
+<span id="cb8-5"><a href="#cb8-5"></a>    <span class="kw">iso_get_reader_example</span>(<span class="st">&quot;dual_inlet_example.caf&quot;</span>),</span>
+<span id="cb8-6"><a href="#cb8-6"></a>    <span class="kw">iso_get_reader_example</span>(<span class="st">&quot;dual_inlet_nu_example.txt&quot;</span>),</span>
+<span id="cb8-7"><a href="#cb8-7"></a>    <span class="dt">nu_masses =</span> <span class="dv">49</span><span class="op">:</span><span class="dv">44</span>,</span>
+<span id="cb8-8"><a href="#cb8-8"></a>    <span class="dt">parallel =</span> <span class="ot">TRUE</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>  )</span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="co">#&gt; Info: preparing to read 3 data files (all will be cached), setting up 3 par...</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="co">#&gt; </span></span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="co">#&gt; DEBUG  (log files will not be deleted afer run):</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt;  log file path &#39;/var/folders/ns/x0fwvm6x22v8gf5tmj9r3yww0000gn/T//RtmptWAsKn/filec8b4451bd00b.log&#39;</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt;  progress file path &#39;/var/folders/ns/x0fwvm6x22v8gf5tmj9r3yww0000gn/T//RtmptWAsKn/filec8b4451bd00b.progress&#39;</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt; Warning: `data_frame()` is deprecated as of tibble 1.1.0.</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt; Please use `tibble()` instead.</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></span>
+<span id="cb8-19"><a href="#cb8-19"></a><span class="co">#&gt; Info (process 1): reading file &#39;dual_inlet_example.did&#39; from cache...</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a><span class="co">#&gt; Info (process 2): reading file &#39;dual_inlet_example.caf&#39; from cache...</span></span>
+<span id="cb8-21"><a href="#cb8-21"></a><span class="co">#&gt; Info (process 3): reading file &#39;dual_inlet_nu_example.txt&#39; with &#39;.txt&#39; read...</span></span>
+<span id="cb8-22"><a href="#cb8-22"></a><span class="co">#&gt; Info: finished reading 3 files in 5.45 secs</span></span></code></pre></div>
+</div>
+<div id="combining-subsetting-isofiles" class="section level1">
+<h1>Combining / subsetting isofiles</h1>
+<p>All isoreader objects are lists that can be combined or subset to work with only specific files or create a larger collection.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># all 3 di_files read above</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>di_files</span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="co">#&gt; Data from 3 dual inlet iso files: </span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co">#&gt; # A tibble: 3 x 6</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="co">#&gt;   file_id     raw_data      file_info  method_info  vendor_data_tab… file_path  </span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;glue&gt;        &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;            &lt;chr&gt;      </span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="co">#&gt; 1 dual_inlet… 7 cycles, 6 … 16 entries standards, … 7 rows, 8 colum… dual_inlet…</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="co">#&gt; 2 dual_inlet… 8 cycles, 6 … 22 entries standards, … 8 rows, 9 colum… dual_inlet…</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="co">#&gt; 3 dual_inlet… 82 cycles, 6… 9 entries  no method i… no vendor data … dual_inlet…</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a></span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="co"># only one of the files (by index)</span></span>
+<span id="cb9-12"><a href="#cb9-12"></a>di_files[[<span class="dv">2</span>]]</span>
+<span id="cb9-13"><a href="#cb9-13"></a><span class="co">#&gt; Dual inlet iso file &#39;dual_inlet_example.caf&#39;: 8 cycles, 6 ions (44,45,46,47,48,49)</span></span>
+<span id="cb9-14"><a href="#cb9-14"></a></span>
+<span id="cb9-15"><a href="#cb9-15"></a><span class="co"># only one of the files (by file_id)</span></span>
+<span id="cb9-16"><a href="#cb9-16"></a>di_files<span class="op">$</span>dual_inlet_example.did</span>
+<span id="cb9-17"><a href="#cb9-17"></a><span class="co">#&gt; Dual inlet iso file &#39;dual_inlet_example.did&#39;: 7 cycles, 6 ions (44,45,46,47,48,49)</span></span>
+<span id="cb9-18"><a href="#cb9-18"></a></span>
+<span id="cb9-19"><a href="#cb9-19"></a><span class="co"># a subset of the files (by index)</span></span>
+<span id="cb9-20"><a href="#cb9-20"></a>di_files[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]</span>
+<span id="cb9-21"><a href="#cb9-21"></a><span class="co">#&gt; Data from 2 dual inlet iso files: </span></span>
+<span id="cb9-22"><a href="#cb9-22"></a><span class="co">#&gt; # A tibble: 2 x 6</span></span>
+<span id="cb9-23"><a href="#cb9-23"></a><span class="co">#&gt;   file_id     raw_data      file_info  method_info  vendor_data_tab… file_path  </span></span>
+<span id="cb9-24"><a href="#cb9-24"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;glue&gt;        &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;            &lt;chr&gt;      </span></span>
+<span id="cb9-25"><a href="#cb9-25"></a><span class="co">#&gt; 1 dual_inlet… 7 cycles, 6 … 16 entries standards, … 7 rows, 8 colum… dual_inlet…</span></span>
+<span id="cb9-26"><a href="#cb9-26"></a><span class="co">#&gt; 2 dual_inlet… 82 cycles, 6… 9 entries  no method i… no vendor data … dual_inlet…</span></span>
+<span id="cb9-27"><a href="#cb9-27"></a></span>
+<span id="cb9-28"><a href="#cb9-28"></a><span class="co"># a subset of the files (by file_id)</span></span>
+<span id="cb9-29"><a href="#cb9-29"></a>di_files[<span class="kw">c</span>(<span class="st">&quot;dual_inlet_example.did&quot;</span>, <span class="st">&quot;dual_inlet_example.caf&quot;</span>)]</span>
+<span id="cb9-30"><a href="#cb9-30"></a><span class="co">#&gt; Data from 2 dual inlet iso files: </span></span>
+<span id="cb9-31"><a href="#cb9-31"></a><span class="co">#&gt; # A tibble: 2 x 6</span></span>
+<span id="cb9-32"><a href="#cb9-32"></a><span class="co">#&gt;   file_id    raw_data       file_info  method_info  vendor_data_tab… file_path  </span></span>
+<span id="cb9-33"><a href="#cb9-33"></a><span class="co">#&gt;   &lt;chr&gt;      &lt;glue&gt;         &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;            &lt;chr&gt;      </span></span>
+<span id="cb9-34"><a href="#cb9-34"></a><span class="co">#&gt; 1 dual_inle… 7 cycles, 6 i… 16 entries standards, … 7 rows, 8 colum… dual_inlet…</span></span>
+<span id="cb9-35"><a href="#cb9-35"></a><span class="co">#&gt; 2 dual_inle… 8 cycles, 6 i… 22 entries standards, … 8 rows, 9 colum… dual_inlet…</span></span>
+<span id="cb9-36"><a href="#cb9-36"></a></span>
+<span id="cb9-37"><a href="#cb9-37"></a><span class="co"># same result using iso_filter_files (more flexible + verbose output)</span></span>
+<span id="cb9-38"><a href="#cb9-38"></a>di_files <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iso_filter_files</span>(</span>
+<span id="cb9-39"><a href="#cb9-39"></a>  file_id <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;dual_inlet_example.did&quot;</span>, <span class="st">&quot;dual_inlet_example.caf&quot;</span>)</span>
+<span id="cb9-40"><a href="#cb9-40"></a>)</span>
+<span id="cb9-41"><a href="#cb9-41"></a><span class="co">#&gt; Info: applying file filter, keeping 2 of 3 files</span></span>
+<span id="cb9-42"><a href="#cb9-42"></a><span class="co">#&gt; Data from 2 dual inlet iso files: </span></span>
+<span id="cb9-43"><a href="#cb9-43"></a><span class="co">#&gt; # A tibble: 2 x 6</span></span>
+<span id="cb9-44"><a href="#cb9-44"></a><span class="co">#&gt;   file_id    raw_data       file_info  method_info  vendor_data_tab… file_path  </span></span>
+<span id="cb9-45"><a href="#cb9-45"></a><span class="co">#&gt;   &lt;chr&gt;      &lt;glue&gt;         &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;            &lt;chr&gt;      </span></span>
+<span id="cb9-46"><a href="#cb9-46"></a><span class="co">#&gt; 1 dual_inle… 7 cycles, 6 i… 16 entries standards, … 7 rows, 8 colum… dual_inlet…</span></span>
+<span id="cb9-47"><a href="#cb9-47"></a><span class="co">#&gt; 2 dual_inle… 8 cycles, 6 i… 22 entries standards, … 8 rows, 9 colum… dual_inlet…</span></span>
+<span id="cb9-48"><a href="#cb9-48"></a></span>
+<span id="cb9-49"><a href="#cb9-49"></a><span class="co"># recombining subset files</span></span>
+<span id="cb9-50"><a href="#cb9-50"></a><span class="kw">c</span>(</span>
+<span id="cb9-51"><a href="#cb9-51"></a>  di_files[<span class="dv">3</span>],</span>
+<span id="cb9-52"><a href="#cb9-52"></a>  di_files[<span class="dv">1</span>]</span>
+<span id="cb9-53"><a href="#cb9-53"></a>)</span>
+<span id="cb9-54"><a href="#cb9-54"></a><span class="co">#&gt; Data from 2 dual inlet iso files: </span></span>
+<span id="cb9-55"><a href="#cb9-55"></a><span class="co">#&gt; # A tibble: 2 x 6</span></span>
+<span id="cb9-56"><a href="#cb9-56"></a><span class="co">#&gt;   file_id     raw_data      file_info  method_info  vendor_data_tab… file_path  </span></span>
+<span id="cb9-57"><a href="#cb9-57"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;glue&gt;        &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;            &lt;chr&gt;      </span></span>
+<span id="cb9-58"><a href="#cb9-58"></a><span class="co">#&gt; 1 dual_inlet… 82 cycles, 6… 9 entries  no method i… no vendor data … dual_inlet…</span></span>
+<span id="cb9-59"><a href="#cb9-59"></a><span class="co">#&gt; 2 dual_inlet… 7 cycles, 6 … 16 entries standards, … 7 rows, 8 colum… dual_inlet…</span></span></code></pre></div>
+</div>
+<div id="dealing-with-file-read-problems" class="section level1">
+<h1>Dealing with file read problems</h1>
+<p>Isoreader is designed to catch problems during file reading without crashing the read pipeline. It keeps track of all problems encountered along the way to make it easy to see what went wrong and remove erroneous files. Most times, files that were only partly saved because of an interrupted instrument analysis will have errors. If you encounter a file that should have intact data in it but has an error in isoreader, please file a bug report and submit your file at <a href="https://github.com/isoverse/isoreader/issues" class="uri">https://github.com/isoverse/isoreader/issues</a></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># read two files, one of which is erroneous</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>iso_files &lt;-</span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="st">  </span><span class="kw">iso_read_continuous_flow</span>(</span>
+<span id="cb10-4"><a href="#cb10-4"></a>    <span class="kw">iso_get_reader_example</span>(<span class="st">&quot;continuous_flow_example.dxf&quot;</span>),</span>
+<span id="cb10-5"><a href="#cb10-5"></a>    <span class="kw">system.file</span>(<span class="st">&quot;errdata&quot;</span>, <span class="st">&quot;cf_without_data.dxf&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;isoreader&quot;</span>)</span>
+<span id="cb10-6"><a href="#cb10-6"></a>  )</span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="co">#&gt; Info: preparing to read 2 data files (all will be cached)...</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="co">#&gt; Info: reading file &#39;extdata/continuous_flow_example.dxf&#39; from cache...</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="co">#&gt; Info: reading file &#39;errdata/cf_without_data.dxf&#39; with &#39;.dxf&#39; reader...</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="co">#&gt; Warning: caught error - cannot identify measured masses - block &#39;CEvalDataI...</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="co">#&gt; Info: finished reading 2 files in 0.40 secs</span></span>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="co">#&gt; Warning: encountered 1 problem.</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a><span class="co">#&gt; # | FILE                | PROBLEM | OCCURRED IN                  | DETAILS</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a><span class="co">#&gt; 1 | cf_without_data.dxf | error   | extract_dxf_raw_voltage_data | cannot ide...</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a><span class="co">#&gt; Use iso_get_problems(...) for more details.</span></span>
+<span id="cb10-16"><a href="#cb10-16"></a></span>
+<span id="cb10-17"><a href="#cb10-17"></a><span class="co"># retrieve problem summary</span></span>
+<span id="cb10-18"><a href="#cb10-18"></a>iso_files <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iso_get_problems_summary</span>() <span class="op">%&gt;%</span><span class="st"> </span>knitr<span class="op">::</span><span class="kw">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">file_id</th>
+<th align="right">error</th>
+<th align="right">warning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">cf_without_data.dxf</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="co"># retrieve problem details</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>iso_files <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iso_get_problems</span>() <span class="op">%&gt;%</span><span class="st"> </span>knitr<span class="op">::</span><span class="kw">kable</span>()</span></code></pre></div>
+<table>
+<colgroup>
+<col width="12%"></col>
+<col width="3%"></col>
+<col width="18%"></col>
+<col width="65%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">file_id</th>
+<th align="left">type</th>
+<th align="left">func</th>
+<th align="left">details</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">cf_without_data.dxf</td>
+<td align="left">error</td>
+<td align="left">extract_dxf_raw_voltage_data</td>
+<td align="left">cannot identify measured masses - block ‘CEvalDataIntTransferPart’ not found after position 1 (pos 65327)</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="co"># filter out erroneous files</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>iso_files &lt;-<span class="st"> </span>iso_files <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iso_filter_files_with_problems</span>()</span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="co">#&gt; Info: removing 1/2 files that have any error (keeping 1)</span></span></code></pre></div>
+</div>
+<div id="re-reading-files" class="section level1">
+<h1>Re-reading files</h1>
+<p>If a file has changed (e.g. is edited through the vendor software) and the changes should be loaded in isoreader, it is easy to re-read and update just those files within a file collection by using the <code>iso_reread_changed_files()</code> function. If some of the files are no longer accessible at their original location, it will throw a warning. If the location for all files has changed, it can be easily adjusted by modifying the <code>file_root</code> file info parameter using <code>iso_set_file_root()</code>.</p>
+<p>Similar functions can be used to re-read outdated files from an older isoreader version (<code>iso_reread_outdated_files()</code>), attempt to re-read problematic files that had read errors/warnings (<code>iso_reread_problem_files()</code>), or simply re-read all files in a collection (<code>iso_reread_all_files()</code>).</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># re-read the 3 dual inlet files from their original location if any have changed</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>di_files <span class="op">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="st">  </span><span class="kw">iso_reread_changed_files</span>()</span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="co">#&gt; Info: found 0 changed data file(s), re-reading 0/3.</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="co">#&gt; Data from 3 dual inlet iso files: </span></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="co">#&gt; # A tibble: 3 x 6</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="co">#&gt;   file_id     raw_data      file_info  method_info  vendor_data_tab… file_path  </span></span>
+<span id="cb13-8"><a href="#cb13-8"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;glue&gt;        &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;            &lt;chr&gt;      </span></span>
+<span id="cb13-9"><a href="#cb13-9"></a><span class="co">#&gt; 1 dual_inlet… 7 cycles, 6 … 16 entries standards, … 7 rows, 8 colum… dual_inlet…</span></span>
+<span id="cb13-10"><a href="#cb13-10"></a><span class="co">#&gt; 2 dual_inlet… 8 cycles, 6 … 22 entries standards, … 8 rows, 9 colum… dual_inlet…</span></span>
+<span id="cb13-11"><a href="#cb13-11"></a><span class="co">#&gt; 3 dual_inlet… 82 cycles, 6… 9 entries  no method i… no vendor data … dual_inlet…</span></span>
+<span id="cb13-12"><a href="#cb13-12"></a></span>
+<span id="cb13-13"><a href="#cb13-13"></a><span class="co"># update the file_root for the files before re-read (in this case to a location</span></span>
+<span id="cb13-14"><a href="#cb13-14"></a><span class="co"># that does not hold these files and hence will lead to a warning)</span></span>
+<span id="cb13-15"><a href="#cb13-15"></a>di_files <span class="op">%&gt;%</span></span>
+<span id="cb13-16"><a href="#cb13-16"></a><span class="st">  </span><span class="kw">iso_set_file_root</span>(<span class="dt">root =</span> <span class="st">&quot;.&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb13-17"><a href="#cb13-17"></a><span class="st">  </span><span class="kw">iso_reread_all_files</span>()</span>
+<span id="cb13-18"><a href="#cb13-18"></a><span class="co">#&gt; Info: setting file root for 3 data file(s) to &#39;.&#39;</span></span>
+<span id="cb13-19"><a href="#cb13-19"></a><span class="co">#&gt; Warning: 3 file(s) do not exist at their referenced location and can not be re-read. Consider setting a new root directory with iso_set_file_root() first:</span></span>
+<span id="cb13-20"><a href="#cb13-20"></a><span class="co">#&gt;  - &#39;dual_inlet_example.did&#39; in root &#39;.&#39;</span></span>
+<span id="cb13-21"><a href="#cb13-21"></a><span class="co">#&gt;  - &#39;dual_inlet_example.caf&#39; in root &#39;.&#39;</span></span>
+<span id="cb13-22"><a href="#cb13-22"></a><span class="co">#&gt;  - &#39;dual_inlet_nu_example.txt&#39; in root &#39;.&#39;</span></span>
+<span id="cb13-23"><a href="#cb13-23"></a><span class="co">#&gt; Info: found 0 data file(s), re-reading 0/3.</span></span>
+<span id="cb13-24"><a href="#cb13-24"></a><span class="co">#&gt; Data from 3 dual inlet iso files: </span></span>
+<span id="cb13-25"><a href="#cb13-25"></a><span class="co">#&gt; # A tibble: 3 x 6</span></span>
+<span id="cb13-26"><a href="#cb13-26"></a><span class="co">#&gt;   file_id     raw_data      file_info  method_info  vendor_data_tab… file_path  </span></span>
+<span id="cb13-27"><a href="#cb13-27"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;glue&gt;        &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;            &lt;chr&gt;      </span></span>
+<span id="cb13-28"><a href="#cb13-28"></a><span class="co">#&gt; 1 dual_inlet… 7 cycles, 6 … 16 entries standards, … 7 rows, 8 colum… dual_inlet…</span></span>
+<span id="cb13-29"><a href="#cb13-29"></a><span class="co">#&gt; 2 dual_inlet… 8 cycles, 6 … 22 entries standards, … 8 rows, 9 colum… dual_inlet…</span></span>
+<span id="cb13-30"><a href="#cb13-30"></a><span class="co">#&gt; 3 dual_inlet… 82 cycles, 6… 9 entries  no method i… no vendor data … dual_inlet…</span></span>
+<span id="cb13-31"><a href="#cb13-31"></a><span class="co">#&gt; </span></span>
+<span id="cb13-32"><a href="#cb13-32"></a><span class="co">#&gt; Problem summary:</span></span>
+<span id="cb13-33"><a href="#cb13-33"></a><span class="co">#&gt; # A tibble: 3 x 3</span></span>
+<span id="cb13-34"><a href="#cb13-34"></a><span class="co">#&gt;   file_id                   warning error</span></span>
+<span id="cb13-35"><a href="#cb13-35"></a><span class="co">#&gt;   &lt;chr&gt;                       &lt;int&gt; &lt;int&gt;</span></span>
+<span id="cb13-36"><a href="#cb13-36"></a><span class="co">#&gt; 1 dual_inlet_example.caf          1     0</span></span>
+<span id="cb13-37"><a href="#cb13-37"></a><span class="co">#&gt; 2 dual_inlet_example.did          1     0</span></span>
+<span id="cb13-38"><a href="#cb13-38"></a><span class="co">#&gt; 3 dual_inlet_nu_example.txt       1     0</span></span></code></pre></div>
+</div>
+<div id="units" class="section level1">
+<h1>Units</h1>
+<p>Isoreader provides a built in data type with units (<code>iso_with_units</code>) that can be used to easily keep track of units inside data frame. These units can be made explicit (=included in the column header), stripped altogether, or turned back to be implicit.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># strip all units</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>cf_file <span class="op">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="st">  </span><span class="kw">iso_get_vendor_data_table</span>(<span class="dt">select =</span> <span class="kw">c</span>(<span class="st">`</span><span class="dt">Ampl 28</span><span class="st">`</span>, <span class="st">`</span><span class="dt">rIntensity 28</span><span class="st">`</span>, <span class="st">`</span><span class="dt">d 15N/14N</span><span class="st">`</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="st">  </span><span class="kw">iso_strip_units</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">3</span>)</span>
+<span id="cb14-5"><a href="#cb14-5"></a><span class="co">#&gt; Info: aggregating vendor data table from 1 data file(s)</span></span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="co">#&gt; # A tibble: 3 x 4</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a><span class="co">#&gt;   file_id                     `Ampl 28` `rIntensity 28` `d 15N/14N`</span></span>
+<span id="cb14-8"><a href="#cb14-8"></a><span class="co">#&gt;   &lt;chr&gt;                           &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;</span></span>
+<span id="cb14-9"><a href="#cb14-9"></a><span class="co">#&gt; 1 continuous_flow_example.dxf     3024.          57524.      0.0160</span></span>
+<span id="cb14-10"><a href="#cb14-10"></a><span class="co">#&gt; 2 continuous_flow_example.dxf     3023.          57383.      0     </span></span>
+<span id="cb14-11"><a href="#cb14-11"></a><span class="co">#&gt; 3 continuous_flow_example.dxf     2074.          52732.      1.05</span></span>
+<span id="cb14-12"><a href="#cb14-12"></a></span>
+<span id="cb14-13"><a href="#cb14-13"></a><span class="co"># make units explicit</span></span>
+<span id="cb14-14"><a href="#cb14-14"></a>cf_file <span class="op">%&gt;%</span></span>
+<span id="cb14-15"><a href="#cb14-15"></a><span class="st">  </span><span class="kw">iso_get_vendor_data_table</span>(<span class="dt">select =</span> <span class="kw">c</span>(<span class="st">`</span><span class="dt">Ampl 28</span><span class="st">`</span>, <span class="st">`</span><span class="dt">rIntensity 28</span><span class="st">`</span>, <span class="st">`</span><span class="dt">d 15N/14N</span><span class="st">`</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb14-16"><a href="#cb14-16"></a><span class="st">  </span><span class="kw">iso_make_units_explicit</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">3</span>)</span>
+<span id="cb14-17"><a href="#cb14-17"></a><span class="co">#&gt; Info: aggregating vendor data table from 1 data file(s)</span></span>
+<span id="cb14-18"><a href="#cb14-18"></a><span class="co">#&gt; # A tibble: 3 x 4</span></span>
+<span id="cb14-19"><a href="#cb14-19"></a><span class="co">#&gt;   file_id                 `Ampl 28 [mV]` `rIntensity 28 [mV… `d 15N/14N [permil…</span></span>
+<span id="cb14-20"><a href="#cb14-20"></a><span class="co">#&gt;   &lt;chr&gt;                            &lt;dbl&gt;               &lt;dbl&gt;               &lt;dbl&gt;</span></span>
+<span id="cb14-21"><a href="#cb14-21"></a><span class="co">#&gt; 1 continuous_flow_exampl…          3024.              57524.              0.0160</span></span>
+<span id="cb14-22"><a href="#cb14-22"></a><span class="co">#&gt; 2 continuous_flow_exampl…          3023.              57383.              0     </span></span>
+<span id="cb14-23"><a href="#cb14-23"></a><span class="co">#&gt; 3 continuous_flow_exampl…          2074.              52732.              1.05</span></span>
+<span id="cb14-24"><a href="#cb14-24"></a></span>
+<span id="cb14-25"><a href="#cb14-25"></a><span class="co"># introduce new unit columns e.g. in the file info</span></span>
+<span id="cb14-26"><a href="#cb14-26"></a>cf_file <span class="op">%&gt;%</span></span>
+<span id="cb14-27"><a href="#cb14-27"></a><span class="st">  </span><span class="kw">iso_mutate_file_info</span>(<span class="dt">weight =</span> <span class="kw">iso_with_units</span>(<span class="fl">0.42</span>, <span class="st">&quot;mg&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb14-28"><a href="#cb14-28"></a><span class="st">  </span><span class="kw">iso_get_vendor_data_table</span>(<span class="dt">select =</span> <span class="kw">c</span>(<span class="st">`</span><span class="dt">Ampl 28</span><span class="st">`</span>, <span class="st">`</span><span class="dt">rIntensity 28</span><span class="st">`</span>, <span class="st">`</span><span class="dt">d 15N/14N</span><span class="st">`</span>),</span>
+<span id="cb14-29"><a href="#cb14-29"></a>                            <span class="dt">include_file_info =</span> weight) <span class="op">%&gt;%</span></span>
+<span id="cb14-30"><a href="#cb14-30"></a><span class="st">  </span><span class="kw">iso_make_units_explicit</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">3</span>)</span>
+<span id="cb14-31"><a href="#cb14-31"></a><span class="co">#&gt; Info: mutating file info for 1 data file(s)</span></span>
+<span id="cb14-32"><a href="#cb14-32"></a><span class="co">#&gt; Info: aggregating vendor data table from 1 data file(s), including file info &#39;weight&#39;</span></span>
+<span id="cb14-33"><a href="#cb14-33"></a><span class="co">#&gt; # A tibble: 3 x 5</span></span>
+<span id="cb14-34"><a href="#cb14-34"></a><span class="co">#&gt;   file_id       `weight [mg]` `Ampl 28 [mV]` `rIntensity 28 [… `d 15N/14N [perm…</span></span>
+<span id="cb14-35"><a href="#cb14-35"></a><span class="co">#&gt;   &lt;chr&gt;                 &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;</span></span>
+<span id="cb14-36"><a href="#cb14-36"></a><span class="co">#&gt; 1 continuous_f…          0.42          3024.            57524.            0.0160</span></span>
+<span id="cb14-37"><a href="#cb14-37"></a><span class="co">#&gt; 2 continuous_f…          0.42          3023.            57383.            0     </span></span>
+<span id="cb14-38"><a href="#cb14-38"></a><span class="co">#&gt; 3 continuous_f…          0.42          2074.            52732.            1.05</span></span>
+<span id="cb14-39"><a href="#cb14-39"></a></span>
+<span id="cb14-40"><a href="#cb14-40"></a><span class="co"># or turn a column e.g. with custom format units in the header into implicit units</span></span>
+<span id="cb14-41"><a href="#cb14-41"></a>cf_file <span class="op">%&gt;%</span></span>
+<span id="cb14-42"><a href="#cb14-42"></a><span class="st">  </span><span class="kw">iso_mutate_file_info</span>(<span class="dt">weight.mg =</span> <span class="fl">0.42</span>) <span class="op">%&gt;%</span></span>
+<span id="cb14-43"><a href="#cb14-43"></a><span class="st">  </span><span class="kw">iso_get_vendor_data_table</span>(<span class="dt">select =</span> <span class="kw">c</span>(<span class="st">`</span><span class="dt">Ampl 28</span><span class="st">`</span>, <span class="st">`</span><span class="dt">rIntensity 28</span><span class="st">`</span>, <span class="st">`</span><span class="dt">d 15N/14N</span><span class="st">`</span>),</span>
+<span id="cb14-44"><a href="#cb14-44"></a>                            <span class="dt">include_file_info =</span> weight.mg) <span class="op">%&gt;%</span></span>
+<span id="cb14-45"><a href="#cb14-45"></a><span class="st">  </span><span class="kw">iso_make_units_implicit</span>(<span class="dt">prefix =</span> <span class="st">&quot;.&quot;</span>, <span class="dt">suffix =</span> <span class="st">&quot;&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">3</span>)</span>
+<span id="cb14-46"><a href="#cb14-46"></a><span class="co">#&gt; Info: mutating file info for 1 data file(s)</span></span>
+<span id="cb14-47"><a href="#cb14-47"></a><span class="co">#&gt; Info: aggregating vendor data table from 1 data file(s), including file info &#39;weight.mg&#39;</span></span>
+<span id="cb14-48"><a href="#cb14-48"></a><span class="co">#&gt; # A tibble: 3 x 5</span></span>
+<span id="cb14-49"><a href="#cb14-49"></a><span class="co">#&gt;   file_id                        weight `Ampl 28` `rIntensity 28`   `d 15N/14N`</span></span>
+<span id="cb14-50"><a href="#cb14-50"></a><span class="co">#&gt;   &lt;chr&gt;                       &lt;dbl[mg]&gt; &lt;dbl[mV]&gt;      &lt;dbl[mVs]&gt; &lt;dbl[permil]&gt;</span></span>
+<span id="cb14-51"><a href="#cb14-51"></a><span class="co">#&gt; 1 continuous_flow_example.dxf      0.42  3024.040        57524.32    0.01600287</span></span>
+<span id="cb14-52"><a href="#cb14-52"></a><span class="co">#&gt; 2 continuous_flow_example.dxf      0.42  3022.789        57383.21    0.00000000</span></span>
+<span id="cb14-53"><a href="#cb14-53"></a><span class="co">#&gt; 3 continuous_flow_example.dxf      0.42  2073.872        52731.67    1.04910065</span></span></code></pre></div>
+</div>
+<div id="formatting" class="section level1">
+<h1>Formatting</h1>
+<p>Formatting data into text is easily achieved with the built in R function <code>sprintf</code> but this package also provides a convenience function that knows how to incorporate units information from <code>iso_with_units</code> values. Use <code>iso_format</code> to format and concatenate any single values or entire columns inside a data frame.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># concatenation example with single values</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="kw">iso_format</span>(</span>
+<span id="cb15-3"><a href="#cb15-3"></a>   <span class="dt">pi =</span> <span class="fl">3.14159</span>,</span>
+<span id="cb15-4"><a href="#cb15-4"></a>   <span class="dt">x =</span> <span class="kw">iso_with_units</span>(<span class="dv">42</span>, <span class="st">&quot;mg&quot;</span>),</span>
+<span id="cb15-5"><a href="#cb15-5"></a>   <span class="dt">ID =</span> <span class="st">&quot;ABC&quot;</span>,</span>
+<span id="cb15-6"><a href="#cb15-6"></a>   <span class="dt">signif =</span> <span class="dv">4</span>,</span>
+<span id="cb15-7"><a href="#cb15-7"></a>   <span class="dt">sep =</span> <span class="st">&quot; | &quot;</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a>)</span>
+<span id="cb15-9"><a href="#cb15-9"></a><span class="co">#&gt; [1] &quot;pi: 3.142 | x: 42mg | ID: ABC&quot;</span></span>
+<span id="cb15-10"><a href="#cb15-10"></a></span>
+<span id="cb15-11"><a href="#cb15-11"></a><span class="co"># example inside a data frame</span></span>
+<span id="cb15-12"><a href="#cb15-12"></a>cf_file <span class="op">%&gt;%</span></span>
+<span id="cb15-13"><a href="#cb15-13"></a><span class="st">  </span><span class="kw">iso_get_vendor_data_table</span>(<span class="dt">select =</span> <span class="kw">c</span>(<span class="st">`</span><span class="dt">Nr.</span><span class="st">`</span>, <span class="st">`</span><span class="dt">Ampl 28</span><span class="st">`</span>, <span class="st">`</span><span class="dt">d 15N/14N</span><span class="st">`</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb15-14"><a href="#cb15-14"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>file_id) <span class="op">%&gt;%</span></span>
+<span id="cb15-15"><a href="#cb15-15"></a><span class="st">  </span><span class="kw">head</span>(<span class="dv">3</span>) <span class="op">%&gt;%</span></span>
+<span id="cb15-16"><a href="#cb15-16"></a><span class="st">  </span><span class="co"># introduce new label columns using iso_format</span></span>
+<span id="cb15-17"><a href="#cb15-17"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</span>
+<span id="cb15-18"><a href="#cb15-18"></a>    <span class="co"># default concatenation of values</span></span>
+<span id="cb15-19"><a href="#cb15-19"></a>    <span class="dt">label_default =</span> <span class="kw">iso_format</span>(</span>
+<span id="cb15-20"><a href="#cb15-20"></a>      <span class="st">`</span><span class="dt">Nr.</span><span class="st">`</span>, <span class="st">`</span><span class="dt">Ampl 28</span><span class="st">`</span>, <span class="st">`</span><span class="dt">d 15N/14N</span><span class="st">`</span>,</span>
+<span id="cb15-21"><a href="#cb15-21"></a>      <span class="dt">sep =</span> <span class="st">&quot;, &quot;</span></span>
+<span id="cb15-22"><a href="#cb15-22"></a>    ),</span>
+<span id="cb15-23"><a href="#cb15-23"></a>    <span class="co"># concatenate with custom names for each value</span></span>
+<span id="cb15-24"><a href="#cb15-24"></a>    <span class="dt">label_named =</span> <span class="kw">iso_format</span>(</span>
+<span id="cb15-25"><a href="#cb15-25"></a>      <span class="st">`</span><span class="dt">#</span><span class="st">`</span> =<span class="st"> `</span><span class="dt">Nr.</span><span class="st">`</span>, <span class="dt">A =</span> <span class="st">`</span><span class="dt">Ampl 28</span><span class="st">`</span>, <span class="dt">d15 =</span> <span class="st">`</span><span class="dt">d 15N/14N</span><span class="st">`</span>,</span>
+<span id="cb15-26"><a href="#cb15-26"></a>      <span class="dt">sep =</span> <span class="st">&quot;, &quot;</span></span>
+<span id="cb15-27"><a href="#cb15-27"></a>    ),</span>
+<span id="cb15-28"><a href="#cb15-28"></a>    <span class="co"># concatenate just the values and increase significant digits</span></span>
+<span id="cb15-29"><a href="#cb15-29"></a>    <span class="dt">label_value =</span> <span class="kw">iso_format</span>(</span>
+<span id="cb15-30"><a href="#cb15-30"></a>      <span class="st">`</span><span class="dt">Nr.</span><span class="st">`</span>, <span class="st">`</span><span class="dt">Ampl 28</span><span class="st">`</span>, <span class="st">`</span><span class="dt">d 15N/14N</span><span class="st">`</span>,</span>
+<span id="cb15-31"><a href="#cb15-31"></a>      <span class="dt">sep =</span> <span class="st">&quot;, &quot;</span>, <span class="dt">format_names =</span> <span class="ot">NULL</span>, <span class="dt">signif =</span> <span class="dv">6</span></span>
+<span id="cb15-32"><a href="#cb15-32"></a>    )</span>
+<span id="cb15-33"><a href="#cb15-33"></a>  )</span>
+<span id="cb15-34"><a href="#cb15-34"></a><span class="co">#&gt; Info: aggregating vendor data table from 1 data file(s)</span></span>
+<span id="cb15-35"><a href="#cb15-35"></a><span class="co">#&gt; # A tibble: 3 x 6</span></span>
+<span id="cb15-36"><a href="#cb15-36"></a><span class="co">#&gt;     Nr. `Ampl 28`  `d 15N/14N` label_default        label_named    label_value  </span></span>
+<span id="cb15-37"><a href="#cb15-37"></a><span class="co">#&gt;   &lt;int&gt; &lt;dbl[mV]&gt; &lt;dbl[permil&gt; &lt;chr&gt;                &lt;chr&gt;          &lt;chr&gt;        </span></span>
+<span id="cb15-38"><a href="#cb15-38"></a><span class="co">#&gt; 1     1  3024.040   0.01600287 Nr.: 1, Ampl 28: 30… #: 1, A: 3020… 1, 3024.04mV…</span></span>
+<span id="cb15-39"><a href="#cb15-39"></a><span class="co">#&gt; 2     2  3022.789   0.00000000 Nr.: 2, Ampl 28: 30… #: 2, A: 3020… 2, 3022.79mV…</span></span>
+<span id="cb15-40"><a href="#cb15-40"></a><span class="co">#&gt; 3     3  2073.872   1.04910065 Nr.: 3, Ampl 28: 20… #: 3, A: 2070… 3, 2073.87mV…</span></span></code></pre></div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

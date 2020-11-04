@@ -1,0 +1,2066 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+<meta name="date" content="2020-10-27" />
+
+<title>Dual Inlet Examples</title>
+
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
+<style type="text/css">
+a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
+a.anchor-section::before {content: '#';}
+.hasAnchor:hover a.anchor-section {visibility: visible;}
+</style>
+<script>// Anchor sections v1.0 written by Atsushi Yasumoto on Oct 3rd, 2020.
+document.addEventListener('DOMContentLoaded', function() {
+  const h = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+  // Do nothing if sections are already anchored
+  if (Array.from(h).some(x => x.classList.contains('hasAnchor'))) {
+    return null;
+  }
+
+  // Use section id when pandoc runs with --section-divs
+  const section_id = function(x) {
+    return ((x.classList.contains('section') || (x.tagName === 'SECTION'))
+            ? x.id : '');
+  };
+
+  // Add anchors
+  h.forEach(function(x) {
+    const id = x.id || section_id(x.parentElement);
+    if (id === '') {
+      return null;
+    }
+    let anchor = document.createElement('a');
+    anchor.href = '#' + id;
+    anchor.classList = ['anchor-section'];
+    x.classList.add('hasAnchor');
+    x.appendChild(anchor);
+  });
+});
+</script>
+<style type="text/css">.pagedtable {
+overflow: auto;
+padding-left: 8px;
+padding-right: 8px;
+}
+.pagedtable-wrapper {
+border: 1px solid #ccc;
+border-radius: 4px;
+margin-bottom: 10px;
+}
+.pagedtable table {
+width: 100%;
+max-width: 100%;
+margin: 0;
+}
+.pagedtable th {
+padding: 0 5px 0 5px;
+border: none;
+border-bottom: 2px solid #dddddd;
+min-width: 45px;
+}
+.pagedtable-empty th {
+display: none;
+}
+.pagedtable td {
+padding: 0 4px 0 4px;
+}
+.pagedtable .even {
+background-color: rgba(140, 140, 140, 0.1);
+}
+.pagedtable-padding-col {
+display: none;
+}
+.pagedtable a {
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+.pagedtable-index-nav {
+cursor: pointer;
+padding: 0 5px 0 5px;
+float: right;
+border: 0;
+}
+.pagedtable-index-nav-disabled {
+cursor: default;
+text-decoration: none;
+color: #999;
+}
+a.pagedtable-index-nav-disabled:hover {
+text-decoration: none;
+color: #999;
+}
+.pagedtable-indexes {
+cursor: pointer;
+float: right;
+border: 0;
+}
+.pagedtable-index-current {
+cursor: default;
+text-decoration: none;
+font-weight: bold;
+color: #333;
+border: 0;
+}
+a.pagedtable-index-current:hover {
+text-decoration: none;
+font-weight: bold;
+color: #333;
+}
+.pagedtable-index {
+width: 30px;
+display: inline-block;
+text-align: center;
+border: 0;
+}
+.pagedtable-index-separator-left {
+display: inline-block;
+color: #333;
+font-size: 9px;
+padding: 0 0 0 0;
+cursor: default;
+}
+.pagedtable-index-separator-right {
+display: inline-block;
+color: #333;
+font-size: 9px;
+padding: 0 4px 0 0;
+cursor: default;
+}
+.pagedtable-footer {
+padding-top: 4px;
+padding-bottom: 5px;
+}
+.pagedtable-not-empty .pagedtable-footer {
+border-top: 2px solid #dddddd;
+}
+.pagedtable-info {
+overflow: hidden;
+color: #999;
+white-space: nowrap;
+text-overflow: ellipsis;
+}
+.pagedtable-header-name {
+overflow: hidden;
+text-overflow: ellipsis;
+}
+.pagedtable-header-type {
+color: #999;
+font-weight: 400;
+}
+.pagedtable-na-cell {
+font-style: italic;
+opacity: 0.3;
+}
+</style>
+<script>// Production steps of ECMA-262, Edition 5, 15.4.4.18
+// Reference: http://es5.github.io/#x15.4.4.18
+if (!Array.prototype.forEach) {
+
+  Array.prototype.forEach = function(callback, thisArg) {
+
+    var T, k;
+
+    if (this === null) {
+      throw new TypeError(' this is null or not defined');
+    }
+
+    // 1. Let O be the result of calling toObject() passing the
+    // |this| value as the argument.
+    var O = Object(this);
+
+    // 2. Let lenValue be the result of calling the Get() internal
+    // method of O with the argument "length".
+    // 3. Let len be toUint32(lenValue).
+    var len = O.length >>> 0;
+
+    // 4. If isCallable(callback) is false, throw a TypeError exception.
+    // See: http://es5.github.com/#x9.11
+    if (typeof callback !== "function") {
+      throw new TypeError(callback + ' is not a function');
+    }
+
+    // 5. If thisArg was supplied, let T be thisArg; else let
+    // T be undefined.
+    if (arguments.length > 1) {
+      T = thisArg;
+    }
+
+    // 6. Let k be 0
+    k = 0;
+
+    // 7. Repeat, while k < len
+    while (k < len) {
+
+      var kValue;
+
+      // a. Let Pk be ToString(k).
+      //    This is implicit for LHS operands of the in operator
+      // b. Let kPresent be the result of calling the HasProperty
+      //    internal method of O with argument Pk.
+      //    This step can be combined with c
+      // c. If kPresent is true, then
+      if (k in O) {
+
+        // i. Let kValue be the result of calling the Get internal
+        // method of O with argument Pk.
+        kValue = O[k];
+
+        // ii. Call the Call internal method of callback with T as
+        // the this value and argument list containing kValue, k, and O.
+        callback.call(T, kValue, k, O);
+      }
+      // d. Increase k by 1.
+      k++;
+    }
+    // 8. return undefined
+  };
+}
+
+// Production steps of ECMA-262, Edition 5, 15.4.4.19
+// Reference: http://es5.github.io/#x15.4.4.19
+if (!Array.prototype.map) {
+
+  Array.prototype.map = function(callback, thisArg) {
+
+    var T, A, k;
+
+    if (this == null) {
+      throw new TypeError(' this is null or not defined');
+    }
+
+    // 1. Let O be the result of calling ToObject passing the |this|
+    //    value as the argument.
+    var O = Object(this);
+
+    // 2. Let lenValue be the result of calling the Get internal
+    //    method of O with the argument "length".
+    // 3. Let len be ToUint32(lenValue).
+    var len = O.length >>> 0;
+
+    // 4. If IsCallable(callback) is false, throw a TypeError exception.
+    // See: http://es5.github.com/#x9.11
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
+
+    // 5. If thisArg was supplied, let T be thisArg; else let T be undefined.
+    if (arguments.length > 1) {
+      T = thisArg;
+    }
+
+    // 6. Let A be a new array created as if by the expression new Array(len)
+    //    where Array is the standard built-in constructor with that name and
+    //    len is the value of len.
+    A = new Array(len);
+
+    // 7. Let k be 0
+    k = 0;
+
+    // 8. Repeat, while k < len
+    while (k < len) {
+
+      var kValue, mappedValue;
+
+      // a. Let Pk be ToString(k).
+      //   This is implicit for LHS operands of the in operator
+      // b. Let kPresent be the result of calling the HasProperty internal
+      //    method of O with argument Pk.
+      //   This step can be combined with c
+      // c. If kPresent is true, then
+      if (k in O) {
+
+        // i. Let kValue be the result of calling the Get internal
+        //    method of O with argument Pk.
+        kValue = O[k];
+
+        // ii. Let mappedValue be the result of calling the Call internal
+        //     method of callback with T as the this value and argument
+        //     list containing kValue, k, and O.
+        mappedValue = callback.call(T, kValue, k, O);
+
+        // iii. Call the DefineOwnProperty internal method of A with arguments
+        // Pk, Property Descriptor
+        // { Value: mappedValue,
+        //   Writable: true,
+        //   Enumerable: true,
+        //   Configurable: true },
+        // and false.
+
+        // In browsers that support Object.defineProperty, use the following:
+        // Object.defineProperty(A, k, {
+        //   value: mappedValue,
+        //   writable: true,
+        //   enumerable: true,
+        //   configurable: true
+        // });
+
+        // For best browser support, use the following:
+        A[k] = mappedValue;
+      }
+      // d. Increase k by 1.
+      k++;
+    }
+
+    // 9. return A
+    return A;
+  };
+}
+
+var PagedTable = function (pagedTable) {
+  var me = this;
+
+  var source = function(pagedTable) {
+    var sourceElems = [].slice.call(pagedTable.children).filter(function(e) {
+      return e.hasAttribute("data-pagedtable-source");
+    });
+
+    if (sourceElems === null || sourceElems.length !== 1) {
+      throw("A single data-pagedtable-source was not found");
+    }
+
+    return JSON.parse(sourceElems[0].innerHTML);
+  }(pagedTable);
+
+  var options = function(source) {
+    var options = typeof(source.options) !== "undefined" &&
+      source.options !== null ? source.options : {};
+
+    var columns = typeof(options.columns) !== "undefined" ? options.columns : {};
+    var rows = typeof(options.rows) !== "undefined" ? options.rows : {};
+
+    var positiveIntOrNull = function(value) {
+      return parseInt(value) >= 0 ? parseInt(value) : null;
+    };
+
+    return {
+      pages: positiveIntOrNull(options.pages),
+      rows: {
+        min: positiveIntOrNull(rows.min),
+        max: positiveIntOrNull(rows.max),
+        total: positiveIntOrNull(rows.total)
+      },
+      columns: {
+        min: positiveIntOrNull(columns.min),
+        max: positiveIntOrNull(columns.max),
+        total: positiveIntOrNull(columns.total)
+      }
+    };
+  }(source);
+
+  var Measurer = function() {
+
+    // set some default initial values that will get adjusted in runtime
+    me.measures = {
+      padding: 12,
+      character: 8,
+      height: 15,
+      defaults: true
+    };
+
+    me.calculate = function(measuresCell) {
+      if (!me.measures.defaults)
+        return;
+
+      var measuresCellStyle = window.getComputedStyle(measuresCell, null);
+
+      var newPadding = parsePadding(measuresCellStyle.paddingLeft) +
+            parsePadding(measuresCellStyle.paddingRight);
+
+      var sampleString = "ABCDEFGHIJ0123456789";
+      var newCharacter = Math.ceil(measuresCell.clientWidth / sampleString.length);
+
+      if (newPadding <= 0 || newCharacter <= 0)
+        return;
+
+      me.measures.padding = newPadding;
+      me.measures.character = newCharacter;
+      me.measures.height = measuresCell.clientHeight;
+      me.measures.defaults = false;
+    };
+
+    return me;
+  };
+
+  var Page = function(data, options) {
+    var me = this;
+
+    var defaults = {
+      max: 7,
+      rows: 10
+    };
+
+    var totalPages = function() {
+      return Math.ceil(data.length / me.rows);
+    };
+
+    me.number = 0;
+    me.max = options.pages !== null ? options.pages : defaults.max;
+    me.visible = me.max;
+    me.rows = options.rows.min !== null ? options.rows.min : defaults.rows;
+    me.total = totalPages();
+
+    me.setRows = function(newRows) {
+      me.rows = newRows;
+      me.total = totalPages();
+    };
+
+    me.setPageNumber = function(newPageNumber) {
+      if (newPageNumber < 0) newPageNumber = 0;
+      if (newPageNumber >= me.total) newPageNumber = me.total - 1;
+
+      me.number = newPageNumber;
+    };
+
+    me.setVisiblePages = function(visiblePages) {
+      me.visible = Math.min(me.max, visiblePages);
+      me.setPageNumber(me.number);
+    };
+
+    me.getVisiblePageRange = function() {
+      var start = me.number - Math.max(Math.floor((me.visible - 1) / 2), 0);
+      var end = me.number + Math.floor(me.visible / 2) + 1;
+      var pageCount = me.total;
+
+      if (start < 0) {
+        var diffToStart = 0 - start;
+        start += diffToStart;
+        end += diffToStart;
+      }
+
+      if (end > pageCount) {
+        var diffToEnd = end - pageCount;
+        start -= diffToEnd;
+        end -= diffToEnd;
+      }
+
+      start = start < 0 ? 0 : start;
+      end = end >= pageCount ? pageCount : end;
+
+      var first = false;
+      var last = false;
+
+      if (start > 0 && me.visible > 1) {
+        start = start + 1;
+        first = true;
+      }
+
+      if (end < pageCount && me.visible > 2) {
+        end = end - 1;
+        last = true;
+      }
+
+      return {
+        first: first,
+        start: start,
+        end: end,
+        last: last
+      };
+    };
+
+    me.getRowStart = function() {
+      var rowStart = page.number * page.rows;
+      if (rowStart < 0)
+        rowStart = 0;
+
+      return rowStart;
+    };
+
+    me.getRowEnd = function() {
+      var rowStart = me.getRowStart();
+      return Math.min(rowStart + me.rows, data.length);
+    };
+
+    me.getPaddingRows = function() {
+      var rowStart = me.getRowStart();
+      var rowEnd = me.getRowEnd();
+      return data.length > me.rows ? me.rows - (rowEnd - rowStart) : 0;
+    };
+  };
+
+  var Columns = function(data, columns, options) {
+    var me = this;
+
+    me.defaults = {
+      min: 5
+    };
+
+    me.number = 0;
+    me.visible = 0;
+    me.total = columns.length;
+    me.subset = [];
+    me.padding = 0;
+    me.min = options.columns.min !== null ? options.columns.min : me.defaults.min;
+    me.max = options.columns.max !== null ? options.columns.max : null;
+    me.widths = {};
+
+    var widthsLookAhead = Math.max(100, options.rows.min);
+    var paddingColChars = 10;
+
+    me.emptyNames = function() {
+      columns.forEach(function(column) {
+        if (columns.label !== null && columns.label !== "")
+          return false;
+      });
+
+      return true;
+    };
+
+    var parsePadding = function(value) {
+      return parseInt(value) >= 0 ? parseInt(value) : 0;
+    };
+
+    me.calculateWidths = function(measures) {
+      columns.forEach(function(column) {
+        var maxChars = Math.max(
+          column.label.toString().length,
+          column.type.toString().length
+        );
+
+        for (var idxRow = 0; idxRow < Math.min(widthsLookAhead, data.length); idxRow++) {
+          maxChars = Math.max(maxChars, data[idxRow][column.name.toString()].length);
+        }
+
+        me.widths[column.name] = {
+          // width in characters
+          chars: maxChars,
+          // width for the inner html columns
+          inner: maxChars * measures.character,
+          // width adding outer styles like padding
+          outer: maxChars * measures.character + measures.padding
+        };
+      });
+    };
+
+    me.getWidth = function() {
+      var widthOuter = 0;
+      for (var idxCol = 0; idxCol < me.subset.length; idxCol++) {
+        var columnName = me.subset[idxCol].name;
+        widthOuter = widthOuter + me.widths[columnName].outer;
+      }
+
+      widthOuter = widthOuter + me.padding * paddingColChars * measurer.measures.character;
+
+      if (me.hasMoreLeftColumns()) {
+        widthOuter = widthOuter + columnNavigationWidthPX + measurer.measures.padding;
+      }
+
+      if (me.hasMoreRightColumns()) {
+        widthOuter = widthOuter + columnNavigationWidthPX + measurer.measures.padding;
+      }
+
+      return widthOuter;
+    };
+
+    me.updateSlice = function() {
+      if (me.number + me.visible >= me.total)
+        me.number = me.total - me.visible;
+
+      if (me.number < 0) me.number = 0;
+
+      me.subset = columns.slice(me.number, Math.min(me.number + me.visible, me.total));
+
+      me.subset = me.subset.map(function(column) {
+        Object.keys(column).forEach(function(colKey) {
+          column[colKey] = column[colKey] === null ? "" : column[colKey].toString();
+        });
+
+        column.width = null;
+        return column;
+      });
+    };
+
+    me.setVisibleColumns = function(columnNumber, newVisibleColumns, paddingCount) {
+      me.number = columnNumber;
+      me.visible = newVisibleColumns;
+      me.padding = paddingCount;
+
+      me.updateSlice();
+    };
+
+    me.incColumnNumber = function(increment) {
+      me.number = me.number + increment;
+    };
+
+    me.setColumnNumber = function(newNumber) {
+      me.number = newNumber;
+    };
+
+    me.setPaddingCount = function(newPadding) {
+      me.padding = newPadding;
+    };
+
+    me.getPaddingCount = function() {
+      return me.padding;
+    };
+
+    me.hasMoreLeftColumns = function() {
+      return me.number > 0;
+    };
+
+    me.hasMoreRightColumns = function() {
+      return me.number + me.visible < me.total;
+    };
+
+    me.updateSlice(0);
+    return me;
+  };
+
+  var data = source.data;
+  var page = new Page(data, options);
+  var measurer = new Measurer(data, options);
+  var columns = new Columns(data, source.columns, options);
+
+  var table = null;
+  var tableDiv = null;
+  var header = null;
+  var footer = null;
+  var tbody = null;
+
+  // Caches pagedTable.clientWidth, specially for webkit
+  var cachedPagedTableClientWidth = null;
+
+  var onChangeCallbacks = [];
+
+  var clearSelection = function() {
+    if(document.selection && document.selection.empty) {
+      document.selection.empty();
+    } else if(window.getSelection) {
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+    }
+  };
+
+  var columnNavigationWidthPX = 5;
+
+  var renderColumnNavigation = function(increment, backwards) {
+    var arrow = document.createElement("div");
+    arrow.setAttribute("style",
+      "border-top: " + columnNavigationWidthPX + "px solid transparent;" +
+      "border-bottom: " + columnNavigationWidthPX + "px solid transparent;" +
+      "border-" + (backwards ? "right" : "left") + ": " + columnNavigationWidthPX + "px solid;");
+
+    var header = document.createElement("th");
+    header.appendChild(arrow);
+    header.setAttribute("style",
+      "cursor: pointer;" +
+      "vertical-align: middle;" +
+      "min-width: " + columnNavigationWidthPX + "px;" +
+      "width: " + columnNavigationWidthPX + "px;");
+
+    header.onclick = function() {
+      columns.incColumnNumber(backwards ? -1 : increment);
+
+      me.animateColumns(backwards);
+      renderFooter();
+
+      clearSelection();
+      triggerOnChange();
+    };
+
+    return header;
+  };
+
+  var maxColumnWidth = function(width) {
+    var padding = 80;
+    var columnMax = Math.max(cachedPagedTableClientWidth - padding, 0);
+
+    return parseInt(width) > 0 ?
+      Math.min(columnMax, parseInt(width)) + "px" :
+      columnMax + "px";
+  };
+
+  var clearHeader = function() {
+    var thead = pagedTable.querySelectorAll("thead")[0];
+    thead.innerHTML = "";
+  };
+
+  var renderHeader = function(clear) {
+    cachedPagedTableClientWidth = pagedTable.clientWidth;
+
+    var fragment = document.createDocumentFragment();
+
+    header = document.createElement("tr");
+    fragment.appendChild(header);
+
+    if (columns.number > 0)
+      header.appendChild(renderColumnNavigation(-columns.visible, true));
+
+    columns.subset = columns.subset.map(function(columnData) {
+      var column = document.createElement("th");
+      column.setAttribute("align", columnData.align);
+      column.style.textAlign = columnData.align;
+
+      column.style.maxWidth = maxColumnWidth(null);
+      if (columnData.width) {
+        column.style.minWidth =
+          column.style.maxWidth = maxColumnWidth(columnData.width);
+      }
+
+      var columnName = document.createElement("div");
+      columnName.setAttribute("class", "pagedtable-header-name");
+      if (columnData.label === "") {
+        columnName.innerHTML = "&nbsp;";
+      }
+      else {
+        columnName.appendChild(document.createTextNode(columnData.label));
+      }
+      column.appendChild(columnName);
+
+      var columnType = document.createElement("div");
+      columnType.setAttribute("class", "pagedtable-header-type");
+      if (columnData.type === "") {
+        columnType.innerHTML = "&nbsp;";
+      }
+      else {
+        columnType.appendChild(document.createTextNode("<" + columnData.type + ">"));
+      }
+      column.appendChild(columnType);
+
+      header.appendChild(column);
+
+      columnData.element = column;
+
+      return columnData;
+    });
+
+    for (var idx = 0; idx < columns.getPaddingCount(); idx++) {
+      var paddingCol = document.createElement("th");
+      paddingCol.setAttribute("class", "pagedtable-padding-col");
+      header.appendChild(paddingCol);
+    }
+
+    if (columns.number + columns.visible < columns.total)
+      header.appendChild(renderColumnNavigation(columns.visible, false));
+
+    if (typeof(clear) == "undefined" || clear) clearHeader();
+    var thead = pagedTable.querySelectorAll("thead")[0];
+    thead.appendChild(fragment);
+  };
+
+  me.animateColumns = function(backwards) {
+    var thead = pagedTable.querySelectorAll("thead")[0];
+
+    var headerOld = thead.querySelectorAll("tr")[0];
+    var tbodyOld = table.querySelectorAll("tbody")[0];
+
+    me.fitColumns(backwards);
+
+    renderHeader(false);
+
+    header.style.opacity = "0";
+    header.style.transform = backwards ? "translateX(-30px)" : "translateX(30px)";
+    header.style.transition = "transform 200ms linear, opacity 200ms";
+    header.style.transitionDelay = "0";
+
+    renderBody(false);
+
+    if (headerOld) {
+      headerOld.style.position = "absolute";
+      headerOld.style.transform = "translateX(0px)";
+      headerOld.style.opacity = "1";
+      headerOld.style.transition = "transform 100ms linear, opacity 100ms";
+      headerOld.setAttribute("class", "pagedtable-remove-head");
+      if (headerOld.style.transitionEnd) {
+        headerOld.addEventListener("transitionend", function() {
+          var headerOldByClass = thead.querySelector(".pagedtable-remove-head");
+          if (headerOldByClass) thead.removeChild(headerOldByClass);
+        });
+      }
+      else {
+        thead.removeChild(headerOld);
+      }
+    }
+
+    if (tbodyOld) table.removeChild(tbodyOld);
+
+    tbody.style.opacity = "0";
+    tbody.style.transition = "transform 200ms linear, opacity 200ms";
+    tbody.style.transitionDelay = "0ms";
+
+    // force relayout
+    window.getComputedStyle(header).opacity;
+    window.getComputedStyle(tbody).opacity;
+
+    if (headerOld) {
+      headerOld.style.transform = backwards ? "translateX(20px)" : "translateX(-30px)";
+      headerOld.style.opacity = "0";
+    }
+
+    header.style.transform = "translateX(0px)";
+    header.style.opacity = "1";
+
+    tbody.style.opacity = "1";
+  }
+
+  me.onChange = function(callback) {
+    onChangeCallbacks.push(callback);
+  };
+
+  var triggerOnChange = function() {
+    onChangeCallbacks.forEach(function(onChange) {
+      onChange();
+    });
+  };
+
+  var clearBody = function() {
+    if (tbody) {
+      table.removeChild(tbody);
+      tbody = null;
+    }
+  };
+
+  var renderBody = function(clear) {
+    cachedPagedTableClientWidth = pagedTable.clientWidth
+
+    var fragment = document.createDocumentFragment();
+
+    var pageData = data.slice(page.getRowStart(), page.getRowEnd());
+
+    pageData.forEach(function(dataRow, idxRow) {
+      var htmlRow = document.createElement("tr");
+      htmlRow.setAttribute("class", (idxRow % 2 !==0) ? "even" : "odd");
+
+      if (columns.hasMoreLeftColumns())
+        htmlRow.appendChild(document.createElement("td"));
+
+      columns.subset.forEach(function(columnData) {
+        var cellName = columnData.name;
+        var dataCell = dataRow[cellName];
+        var htmlCell = document.createElement("td");
+
+        if (dataCell === "NA") htmlCell.setAttribute("class", "pagedtable-na-cell");
+        if (dataCell === "__NA__") dataCell = "NA";
+
+        var cellText = document.createTextNode(dataCell);
+        htmlCell.appendChild(cellText);
+        if (dataCell.length > 50) {
+          htmlCell.setAttribute("title", dataCell);
+        }
+        htmlCell.setAttribute("align", columnData.align);
+        htmlCell.style.textAlign = columnData.align;
+        htmlCell.style.maxWidth = maxColumnWidth(null);
+        if (columnData.width) {
+          htmlCell.style.minWidth = htmlCell.style.maxWidth = maxColumnWidth(columnData.width);
+        }
+        htmlRow.appendChild(htmlCell);
+      });
+
+      for (var idx = 0; idx < columns.getPaddingCount(); idx++) {
+        var paddingCol = document.createElement("td");
+        paddingCol.setAttribute("class", "pagedtable-padding-col");
+        htmlRow.appendChild(paddingCol);
+      }
+
+      if (columns.hasMoreRightColumns())
+        htmlRow.appendChild(document.createElement("td"));
+
+      fragment.appendChild(htmlRow);
+    });
+
+    for (var idxPadding = 0; idxPadding < page.getPaddingRows(); idxPadding++) {
+      var paddingRow = document.createElement("tr");
+
+      var paddingCellRow = document.createElement("td");
+      paddingCellRow.innerHTML = "&nbsp;";
+      paddingCellRow.setAttribute("colspan", "100%");
+      paddingRow.appendChild(paddingCellRow);
+
+      fragment.appendChild(paddingRow);
+    }
+
+    if (typeof(clear) == "undefined" || clear) clearBody();
+    tbody = document.createElement("tbody");
+    tbody.appendChild(fragment);
+
+    table.appendChild(tbody);
+  };
+
+  var getLabelInfo = function() {
+    var pageStart = page.getRowStart();
+    var pageEnd = page.getRowEnd();
+    var totalRows = data.length;
+
+    var totalRowsLabel = options.rows.total ? options.rows.total : totalRows;
+    var totalRowsLabelFormat = totalRowsLabel.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+
+    var infoText = (pageStart + 1) + "-" + pageEnd + " of " + totalRowsLabelFormat + " rows";
+    if (totalRows < page.rows) {
+      infoText = totalRowsLabel + " row" + (totalRows != 1 ? "s" : "");
+    }
+    if (columns.total > columns.visible) {
+      var totalColumnsLabel = options.columns.total ? options.columns.total : columns.total;
+
+      infoText = infoText + " | " + (columns.number + 1) + "-" +
+        (Math.min(columns.number + columns.visible, columns.total)) +
+        " of " + totalColumnsLabel + " columns";
+    }
+
+    return infoText;
+  };
+
+  var clearFooter = function() {
+    footer = pagedTable.querySelectorAll("div.pagedtable-footer")[0];
+    footer.innerHTML = "";
+
+    return footer;
+  };
+
+  var createPageLink = function(idxPage) {
+    var pageLink = document.createElement("a");
+    pageLinkClass = idxPage === page.number ? "pagedtable-index pagedtable-index-current" : "pagedtable-index";
+    pageLink.setAttribute("class", pageLinkClass);
+    pageLink.setAttribute("data-page-index", idxPage);
+    pageLink.onclick = function() {
+      page.setPageNumber(parseInt(this.getAttribute("data-page-index")));
+      renderBody();
+      renderFooter();
+
+      triggerOnChange();
+    };
+
+    pageLink.appendChild(document.createTextNode(idxPage + 1));
+
+    return pageLink;
+  }
+
+  var renderFooter = function() {
+    footer = clearFooter();
+
+    var next = document.createElement("a");
+    next.appendChild(document.createTextNode("Next"));
+    next.onclick = function() {
+      page.setPageNumber(page.number + 1);
+      renderBody();
+      renderFooter();
+
+      triggerOnChange();
+    };
+    if (data.length > page.rows) footer.appendChild(next);
+
+    var pageNumbers = document.createElement("div");
+    pageNumbers.setAttribute("class", "pagedtable-indexes");
+
+    var pageRange = page.getVisiblePageRange();
+
+    if (pageRange.first) {
+      var pageLink = createPageLink(0);
+      pageNumbers.appendChild(pageLink);
+
+      var pageSeparator = document.createElement("div");
+      pageSeparator.setAttribute("class", "pagedtable-index-separator-left");
+      pageSeparator.appendChild(document.createTextNode("..."))
+      pageNumbers.appendChild(pageSeparator);
+    }
+
+    for (var idxPage = pageRange.start; idxPage < pageRange.end; idxPage++) {
+      var pageLink = createPageLink(idxPage);
+
+      pageNumbers.appendChild(pageLink);
+    }
+
+    if (pageRange.last) {
+      var pageSeparator = document.createElement("div");
+      pageSeparator.setAttribute("class", "pagedtable-index-separator-right");
+      pageSeparator.appendChild(document.createTextNode("..."))
+      pageNumbers.appendChild(pageSeparator);
+
+      var pageLink = createPageLink(page.total - 1);
+      pageNumbers.appendChild(pageLink);
+    }
+
+    if (data.length > page.rows) footer.appendChild(pageNumbers);
+
+    var previous = document.createElement("a");
+    previous.appendChild(document.createTextNode("Previous"));
+    previous.onclick = function() {
+      page.setPageNumber(page.number - 1);
+      renderBody();
+      renderFooter();
+
+      triggerOnChange();
+    };
+    if (data.length > page.rows) footer.appendChild(previous);
+
+    var infoLabel = document.createElement("div");
+    infoLabel.setAttribute("class", "pagedtable-info");
+    infoLabel.setAttribute("title", getLabelInfo());
+    infoLabel.appendChild(document.createTextNode(getLabelInfo()));
+    footer.appendChild(infoLabel);
+
+    var enabledClass = "pagedtable-index-nav";
+    var disabledClass = "pagedtable-index-nav pagedtable-index-nav-disabled";
+    previous.setAttribute("class", page.number <= 0 ? disabledClass : enabledClass);
+    next.setAttribute("class", (page.number + 1) * page.rows >= data.length ? disabledClass : enabledClass);
+  };
+
+  var measuresCell = null;
+
+  var renderMeasures = function() {
+    var measuresTable = document.createElement("table");
+    measuresTable.style.visibility = "hidden";
+    measuresTable.style.position = "absolute";
+    measuresTable.style.whiteSpace = "nowrap";
+    measuresTable.style.height = "auto";
+    measuresTable.style.width = "auto";
+
+    var measuresRow = document.createElement("tr");
+    measuresTable.appendChild(measuresRow);
+
+    measuresCell = document.createElement("td");
+    var sampleString = "ABCDEFGHIJ0123456789";
+    measuresCell.appendChild(document.createTextNode(sampleString));
+
+    measuresRow.appendChild(measuresCell);
+
+    tableDiv.appendChild(measuresTable);
+  }
+
+  me.init = function() {
+    tableDiv = document.createElement("div");
+    pagedTable.appendChild(tableDiv);
+    var pagedTableClass = data.length > 0 ?
+      "pagedtable pagedtable-not-empty" :
+      "pagedtable pagedtable-empty";
+
+    if (columns.total == 0 || (columns.emptyNames() && data.length == 0)) {
+      pagedTableClass = pagedTableClass + " pagedtable-empty-columns";
+    }
+
+    tableDiv.setAttribute("class", pagedTableClass);
+
+    renderMeasures();
+    measurer.calculate(measuresCell);
+    columns.calculateWidths(measurer.measures);
+
+    table = document.createElement("table");
+    table.setAttribute("cellspacing", "0");
+    table.setAttribute("class", "table table-condensed");
+    tableDiv.appendChild(table);
+
+    table.appendChild(document.createElement("thead"));
+
+    var footerDiv = document.createElement("div");
+    footerDiv.setAttribute("class", "pagedtable-footer");
+    tableDiv.appendChild(footerDiv);
+
+    // if the host has not yet provided horizontal space, render hidden
+    if (tableDiv.clientWidth <= 0) {
+      tableDiv.style.opacity = "0";
+    }
+
+    me.render();
+
+    // retry seizing columns later if the host has not provided space
+    function retryFit() {
+      if (tableDiv.clientWidth <= 0) {
+        setTimeout(retryFit, 100);
+      } else {
+        me.render();
+        triggerOnChange();
+      }
+    }
+    if (tableDiv.clientWidth <= 0) {
+      retryFit();
+    }
+  };
+
+  var registerWidths = function() {
+    columns.subset = columns.subset.map(function(column) {
+      column.width = columns.widths[column.name].inner;
+      return column;
+    });
+  };
+
+  var parsePadding = function(value) {
+    return parseInt(value) >= 0 ? parseInt(value) : 0;
+  };
+
+  me.fixedHeight = function() {
+    return options.rows.max != null;
+  }
+
+  me.fitRows = function() {
+    if (me.fixedHeight())
+      return;
+
+    measurer.calculate(measuresCell);
+
+    var rows = options.rows.min !== null ? options.rows.min : 0;
+    var headerHeight = header !== null && header.offsetHeight > 0 ? header.offsetHeight : 0;
+    var footerHeight = footer !== null && footer.offsetHeight > 0 ? footer.offsetHeight : 0;
+
+    if (pagedTable.offsetHeight > 0) {
+      var availableHeight = pagedTable.offsetHeight - headerHeight - footerHeight;
+      rows = Math.floor((availableHeight) / measurer.measures.height);
+    }
+
+    rows = options.rows.min !== null ? Math.max(options.rows.min, rows) : rows;
+
+    page.setRows(rows);
+  }
+
+  // The goal of this function is to add as many columns as possible
+  // starting from left-to-right, when the right most limit is reached
+  // it tries to add columns from the left as well.
+  //
+  // When startBackwards is true columns are added from right-to-left
+  me.fitColumns = function(startBackwards) {
+    measurer.calculate(measuresCell);
+    columns.calculateWidths(measurer.measures);
+
+    if (tableDiv.clientWidth > 0) {
+      tableDiv.style.opacity = 1;
+    }
+
+    var visibleColumns = tableDiv.clientWidth <= 0 ? Math.max(columns.min, 1) : 1;
+    var columnNumber = columns.number;
+    var paddingCount = 0;
+
+    // track a list of added columns as we build the visible ones to allow us
+    // to remove columns when they don't fit anymore.
+    var columnHistory = [];
+
+    var lastTableHeight = 0;
+    var backwards = startBackwards;
+
+    var tableDivStyle = window.getComputedStyle(tableDiv, null);
+    var tableDivPadding = parsePadding(tableDivStyle.paddingLeft) +
+      parsePadding(tableDivStyle.paddingRight);
+
+    var addPaddingCol = false;
+    var currentWidth = 0;
+
+    while (true) {
+      columns.setVisibleColumns(columnNumber, visibleColumns, paddingCount);
+      currentWidth = columns.getWidth();
+
+      if (tableDiv.clientWidth - tableDivPadding < currentWidth) {
+        break;
+      }
+
+      columnHistory.push({
+        columnNumber: columnNumber,
+        visibleColumns: visibleColumns,
+        paddingCount: paddingCount
+      });
+
+      if (columnHistory.length > 100) {
+        console.error("More than 100 tries to fit columns, aborting");
+        break;
+      }
+
+      if (columns.max !== null &&
+        columns.visible + columns.getPaddingCount() >= columns.max) {
+        break;
+      }
+
+      // if we run out of right-columns
+      if (!backwards && columnNumber + columns.visible >= columns.total) {
+        // if we started adding right-columns, try adding left-columns
+        if (!startBackwards && columnNumber > 0) {
+          backwards = true;
+        }
+        else if (columns.min === null || visibleColumns + columns.getPaddingCount() >= columns.min) {
+          break;
+        }
+        else {
+          paddingCount = paddingCount + 1;
+        }
+      }
+
+      // if we run out of left-columns
+      if (backwards && columnNumber == 0) {
+        // if we started adding left-columns, try adding right-columns
+        if (startBackwards && columnNumber + columns.visible < columns.total) {
+          backwards = false;
+        }
+        else if (columns.min === null || visibleColumns + columns.getPaddingCount() >= columns.min) {
+          break;
+        }
+        else {
+          paddingCount = paddingCount + 1;
+        }
+      }
+
+      // when moving backwards try fitting left columns first
+      if (backwards && columnNumber > 0) {
+        columnNumber = columnNumber - 1;
+      }
+
+      if (columnNumber + visibleColumns < columns.total) {
+        visibleColumns = visibleColumns + 1;
+      }
+    }
+
+    var lastRenderableColumn = {
+        columnNumber: columnNumber,
+        visibleColumns: visibleColumns,
+        paddingCount: paddingCount
+    };
+
+    if (columnHistory.length > 0) {
+      lastRenderableColumn = columnHistory[columnHistory.length - 1];
+    }
+
+    columns.setVisibleColumns(
+      lastRenderableColumn.columnNumber,
+      lastRenderableColumn.visibleColumns,
+      lastRenderableColumn.paddingCount);
+
+    if (pagedTable.offsetWidth > 0) {
+      page.setVisiblePages(Math.max(Math.ceil(1.0 * (pagedTable.offsetWidth - 250) / 40), 2));
+    }
+
+    registerWidths();
+  };
+
+  me.fit = function(startBackwards) {
+    me.fitRows();
+    me.fitColumns(startBackwards);
+  }
+
+  me.render = function() {
+    me.fitColumns(false);
+
+    // render header/footer to measure height accurately
+    renderHeader();
+    renderFooter();
+
+    me.fitRows();
+    renderBody();
+
+    // re-render footer to match new rows
+    renderFooter();
+  }
+
+  var resizeLastWidth = -1;
+  var resizeLastHeight = -1;
+  var resizeNewWidth = -1;
+  var resizeNewHeight = -1;
+  var resizePending = false;
+
+  me.resize = function(newWidth, newHeight) {
+
+    function resizeDelayed() {
+      resizePending = false;
+
+      if (
+        (resizeNewWidth !== resizeLastWidth) ||
+        (!me.fixedHeight() && resizeNewHeight !== resizeLastHeight)
+      ) {
+        resizeLastWidth = resizeNewWidth;
+        resizeLastHeight = resizeNewHeight;
+
+        setTimeout(resizeDelayed, 200);
+        resizePending = true;
+      } else {
+        me.render();
+        triggerOnChange();
+
+        resizeLastWidth = -1;
+        resizeLastHeight = -1;
+      }
+    }
+
+    resizeNewWidth = newWidth;
+    resizeNewHeight = newHeight;
+
+    if (!resizePending) resizeDelayed();
+  };
+};
+
+var PagedTableDoc;
+(function (PagedTableDoc) {
+  var allPagedTables = [];
+
+  PagedTableDoc.initAll = function() {
+    allPagedTables = [];
+
+    var pagedTables = [].slice.call(document.querySelectorAll('[data-pagedtable="false"],[data-pagedtable=""]'));
+    pagedTables.forEach(function(pagedTable, idx) {
+      pagedTable.setAttribute("data-pagedtable", "true");
+      pagedTable.setAttribute("pagedtable-page", 0);
+      pagedTable.setAttribute("class", "pagedtable-wrapper");
+
+      var pagedTableInstance = new PagedTable(pagedTable);
+      pagedTableInstance.init();
+
+      allPagedTables.push(pagedTableInstance);
+    });
+  };
+
+  PagedTableDoc.resizeAll = function() {
+    allPagedTables.forEach(function(pagedTable) {
+      pagedTable.render();
+    });
+  };
+
+  window.addEventListener("resize", PagedTableDoc.resizeAll);
+
+  return PagedTableDoc;
+})(PagedTableDoc || (PagedTableDoc = {}));
+
+window.onload = function() {
+  PagedTableDoc.initAll();
+};
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Dual Inlet Examples</h1>
+<h4 class="date">2020-10-27</h4>
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Isoreader supports several dual inlet IRMS data formats. This vignette shows some of the functionality for dual inlet data files. For additional information on operations more generally (caching, combining read files, data export, etc.), please consult the <a href="https://isoreader.isoverse.org/articles/operations.html">operations vignette</a>. For details on downstream data processing and visualization, see the <a href="https://isoprocessor.isoverse.org">isoprocessor package</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># load isoreader package</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(isoreader)</span></code></pre></div>
+</div>
+<div id="reading-files" class="section level1">
+<h1>Reading files</h1>
+<p>Reading dual inlet files is as simple as passing one or multiple file or folder paths to the <code>iso_read_dual_inlet()</code> function. If folders are provided, any files that have a recognized continuous flow file extensions within those folders will be processed (e.g. all <code>.did</code> and <code>.caf</code>). Here we read several files that are bundled with the package as examples (and whose paths can be retrieved using the <code>iso_get_reader_example()</code> function).</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># all available examples</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">iso_get_reader_examples</span>() <span class="op">%&gt;%</span><span class="st"> </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["filename"],"name":[1],"type":["chr"],"align":["left"]},{"label":["type"],"name":[2],"type":["chr"],"align":["left"]},{"label":["software"],"name":[3],"type":["chr"],"align":["left"]},{"label":["description"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"continuous_flow_example.cf","2":"continuous flow","3":"Isodat","4":"Continuous Flow file format (older)"},{"1":"continuous_flow_example.dxf","2":"continuous flow","3":"Isodat","4":"Continuous Flow file format (newer)"},{"1":"continuous_flow_example.iarc","2":"continuous flow","3":"ionOS","4":"Continuous Flow data archive"},{"1":"dual_inlet_example.caf","2":"dual inlet","3":"Isodat","4":"Dual Inlet file format (older)"},{"1":"dual_inlet_example.did","2":"dual inlet","3":"Isodat","4":"Dual Inlet file format (newer)"},{"1":"dual_inlet_nu_example.txt","2":"dual inlet","3":"Nu","4":"Dual Inlet file format"},{"1":"background_scan_example.scn","2":"scan","3":"Isodat","4":"Scan file format"},{"1":"full_scan_example.scn","2":"scan","3":"Isodat","4":"Scan file format"},{"1":"peak_shape_scan_example.scn","2":"scan","3":"Isodat","4":"Scan file format"},{"1":"time_scan_example.scn","2":"scan","3":"Isodat","4":"Scan file format"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># read dual inlet examples</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>di_files &lt;-</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="st">  </span><span class="kw">iso_read_dual_inlet</span>(</span>
+<span id="cb3-4"><a href="#cb3-4"></a>    <span class="kw">iso_get_reader_example</span>(<span class="st">&quot;dual_inlet_example.did&quot;</span>),</span>
+<span id="cb3-5"><a href="#cb3-5"></a>    <span class="kw">iso_get_reader_example</span>(<span class="st">&quot;dual_inlet_example.caf&quot;</span>),</span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="kw">iso_get_reader_example</span>(<span class="st">&quot;dual_inlet_nu_example.txt&quot;</span>),</span>
+<span id="cb3-7"><a href="#cb3-7"></a>    <span class="dt">nu_masses =</span> <span class="dv">49</span><span class="op">:</span><span class="dv">44</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>  )</span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; Info: preparing to read 3 data files...</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; Info: reading file &#39;dual_inlet_example.did&#39; with &#39;.did&#39; reader...</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; Info: reading file &#39;dual_inlet_example.caf&#39; with &#39;.caf&#39; reader...</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt; Info: reading file &#39;dual_inlet_nu_example.txt&#39; with &#39;.txt&#39; reader...</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt; Info: finished reading 3 files in 3.78 secs</span></span></code></pre></div>
+</div>
+<div id="file-summary" class="section level1">
+<h1>File summary</h1>
+<p>The <code>di_files</code> variable now contains a set of isoreader objects, one for each file. Take a look at what information was retrieved from the files using the <code>iso_get_data_summary()</code> function.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>di_files <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iso_get_data_summary</span>() <span class="op">%&gt;%</span><span class="st"> </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&gt; Info: aggregating data summary from 3 data file(s)</span></span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["raw_data"],"name":[2],"type":["glue"],"align":["right"]},{"label":["file_info"],"name":[3],"type":["chr"],"align":["left"]},{"label":["method_info"],"name":[4],"type":["chr"],"align":["left"]},{"label":["vendor_data_table"],"name":[5],"type":["chr"],"align":["left"]},{"label":["file_path"],"name":[6],"type":["chr"],"align":["left"]}],"data":[{"1":"dual_inlet_example.did","2":"7 cycles, 6 ions (44,45,46,47,48,49)","3":"16 entries","4":"standards, resistors","5":"7 rows, 8 columns","6":"dual_inlet_example.did","_row":"dual_inlet_example.did"},{"1":"dual_inlet_example.caf","2":"8 cycles, 6 ions (44,45,46,47,48,49)","3":"22 entries","4":"standards, resistors","5":"8 rows, 9 columns","6":"dual_inlet_example.caf","_row":"dual_inlet_example.caf"},{"1":"dual_inlet_nu_example.txt","2":"82 cycles, 6 ions (44,45,46,47,48,49)","3":"9 entries","4":"no method info","5":"no vendor data table","6":"dual_inlet_nu_example.txt","_row":"dual_inlet_nu_example.txt"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div id="problems" class="section level2">
+<h2>Problems</h2>
+<p>In case there was any trouble with reading any of the files, the following functions provide an overview summary as well as details of all errors and warnings, respectively. The examples here contain no errors but if you run into any unexpected file read problems, please file a bug report in the <a href="https://github.com/isoverse/isoreader/issues">isoreader issue tracker</a>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>di_files <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iso_get_problems_summary</span>() <span class="op">%&gt;%</span><span class="st"> </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["error"],"name":[2],"type":["lgl"],"align":["right"]},{"label":["warning"],"name":[3],"type":["lgl"],"align":["right"]}],"data":[],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>di_files <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iso_get_problems</span>() <span class="op">%&gt;%</span><span class="st"> </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["type"],"name":[2],"type":["chr"],"align":["left"]},{"label":["func"],"name":[3],"type":["chr"],"align":["left"]},{"label":["details"],"name":[4],"type":["chr"],"align":["left"]}],"data":[],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div id="file-information" class="section level1">
+<h1>File Information</h1>
+<p>Detailed file information can be aggregated for all isofiles using the <code>iso_get_file_info()</code> function which supports the full <a href="https://dplyr.tidyverse.org/reference/select.html">select syntax</a> of the <a href="https://dplyr.tidyverse.org/">dplyr</a> package to specify which columns are of interest (by default, all file information is retrieved). Additionally, file information from different file formats can be renamed to the same column name for easy of downstream processing. The following provides a few examples for how this can be used (the names of the interesting info columns may vary between different file formats):</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># all file information</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>di_files <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iso_get_file_info</span>(<span class="dt">select =</span> <span class="kw">c</span>(<span class="op">-</span>file_root)) <span class="op">%&gt;%</span><span class="st"> </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co">#&gt; Info: aggregating file info from 3 data file(s), selecting info columns &#39;c(-file_root)&#39;</span></span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["file_path"],"name":[2],"type":["chr"],"align":["left"]},{"label":["file_subpath"],"name":[3],"type":["chr"],"align":["left"]},{"label":["file_datetime"],"name":[4],"type":["dttm"],"align":["right"]},{"label":["file_size"],"name":[5],"type":["int"],"align":["right"]},{"label":["Line"],"name":[6],"type":["chr"],"align":["left"]},{"label":["Peak Center"],"name":[7],"type":["chr"],"align":["left"]},{"label":["Pressadjust"],"name":[8],"type":["chr"],"align":["left"]},{"label":["Background"],"name":[9],"type":["chr"],"align":["left"]},{"label":["Identifier 1"],"name":[10],"type":["chr"],"align":["left"]},{"label":["Identifier 2"],"name":[11],"type":["chr"],"align":["left"]},{"label":["Analysis"],"name":[12],"type":["chr"],"align":["left"]},{"label":["Method"],"name":[13],"type":["chr"],"align":["left"]},{"label":["measurement_info"],"name":[14],"type":["list"],"align":["right"]},{"label":["MS_integration_time.s"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["Reference Refill"],"name":[16],"type":["chr"],"align":["left"]},{"label":["Weight [mg]"],"name":[17],"type":["chr"],"align":["left"]},{"label":["Sample"],"name":[18],"type":["chr"],"align":["left"]},{"label":["Comment"],"name":[19],"type":["chr"],"align":["left"]},{"label":["Preparation"],"name":[20],"type":["chr"],"align":["left"]},{"label":["Pre Script"],"name":[21],"type":["chr"],"align":["left"]},{"label":["Post Script"],"name":[22],"type":["chr"],"align":["left"]},{"label":["Sample Name"],"name":[23],"type":["chr"],"align":["left"]},{"label":["Sample Weight"],"name":[24],"type":["chr"],"align":["left"]},{"label":["Method File Name"],"name":[25],"type":["chr"],"align":["left"]}],"data":[{"1":"dual_inlet_example.did","2":"dual_inlet_example.did","3":"NA","4":"2014-10-27 05:23:54","5":"134446","6":"158","7":"1","8":"1","9":"1","10":"CIT Carrara","11":"13","12":"49077","13":"CO2_multiply_16V.met","14":"<chr [3]>","15":"26","16":"NA","17":"NA","18":"NA","19":"NA","20":"NA","21":"NA","22":"NA","23":"NA","24":"NA","25":"NA"},{"1":"dual_inlet_example.caf","2":"dual_inlet_example.caf","3":"NA","4":"2017-07-03 16:57:57","5":"651704","6":"1","7":"NA","8":"NA","9":"NA","10":"2H6","11":"CARBO IIIUvU_Clump.met","12":"16068","13":"CARBO IIIUvU_Clump.met","14":"<chr [1]>","15":"26","16":"NA","17":"113","18":"9","19":"NA","20":"NA","21":"NA","22":"NA","23":"NA","24":"NA","25":"NA"},{"1":"dual_inlet_nu_example.txt","2":"dual_inlet_nu_example.txt","3":"NA","4":"2017-02-21 10:46:17","5":"309491","6":"NA","7":"NA","8":"NA","9":"NA","10":"NA","11":"NA","12":"NA","13":"NA","14":"<chr [1]>","15":"NA","16":"NA","17":"NA","18":"NA","19":"NA","20":"NA","21":"NA","22":"NA","23":"ETH-01","24":"3480","25":"C:\\\\Nu Stable\\\\Analyses\\\\DI\\\\CO2 4-20-8-20.rdf"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># select file information</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>di_files <span class="op">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw">iso_get_file_info</span>(</span>
+<span id="cb8-4"><a href="#cb8-4"></a>    <span class="dt">select =</span> <span class="kw">c</span>(</span>
+<span id="cb8-5"><a href="#cb8-5"></a>      <span class="co"># rename sample id columns from the different file types to a new ID column</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>      <span class="dt">ID =</span> <span class="st">`</span><span class="dt">Identifier 1</span><span class="st">`</span>, <span class="dt">ID =</span> <span class="st">`</span><span class="dt">Sample Name</span><span class="st">`</span>,</span>
+<span id="cb8-7"><a href="#cb8-7"></a>      <span class="co"># select columns without renaming</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>      Analysis, Method, <span class="st">`</span><span class="dt">Peak Center</span><span class="st">`</span>,</span>
+<span id="cb8-9"><a href="#cb8-9"></a>      <span class="co"># select the time stamp and rename it to `Date &amp; Time`</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a>      <span class="st">`</span><span class="dt">Date &amp; Time</span><span class="st">`</span> =<span class="st"> </span>file_datetime,</span>
+<span id="cb8-11"><a href="#cb8-11"></a>      <span class="co"># rename weight columns from the different file types</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a>      <span class="st">`</span><span class="dt">Sample Weight</span><span class="st">`</span>, <span class="st">`</span><span class="dt">Sample Weight</span><span class="st">`</span> =<span class="st"> `</span><span class="dt">Weight [mg]</span><span class="st">`</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a>    ),</span>
+<span id="cb8-14"><a href="#cb8-14"></a>    <span class="co"># explicitly allow for file specific rename (for the new ID column)</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a>    <span class="dt">file_specific =</span> <span class="ot">TRUE</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span>
+<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#&gt; Info: aggregating file info from 3 data file(s), selecting info columns &#39;c(ID = `Identifier 1`, ID = `Sample Name`, Analysis, Method, `Peak Center`, `Date &amp; Time` = file_datetime, `Sample Weight`, `Sample Weight` = `Weight [mg]`)&#39;</span></span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["ID"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Analysis"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Method"],"name":[4],"type":["chr"],"align":["left"]},{"label":["Peak Center"],"name":[5],"type":["chr"],"align":["left"]},{"label":["Date & Time"],"name":[6],"type":["dttm"],"align":["right"]},{"label":["Sample Weight"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"dual_inlet_example.did","2":"CIT Carrara","3":"49077","4":"CO2_multiply_16V.met","5":"1","6":"2014-10-27 05:23:54","7":"NA"},{"1":"dual_inlet_example.caf","2":"2H6","3":"16068","4":"CARBO IIIUvU_Clump.met","5":"NA","6":"2017-07-03 16:57:57","7":"113"},{"1":"dual_inlet_nu_example.txt","2":"ETH-01","3":"NA","4":"NA","5":"NA","6":"2017-02-21 10:46:17","7":"3480"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div id="selectrename" class="section level2">
+<h2>Select/Rename</h2>
+<p>Rather than retrieving specific file info columns using the above example of <code>iso_get_file_info(select = ...)</code>, these information can also be modified across an entire collection of isofiles using the <code>iso_select_file_info()</code> and <code>iso_rename_file_info()</code> functions. For example, the above example could be similarly achieved with the following use of <code>iso_select_file_info()</code>:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># select + rename specific file info columns</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>di_files2 &lt;-<span class="st"> </span>di_files <span class="op">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span><span class="kw">iso_select_file_info</span>(</span>
+<span id="cb9-4"><a href="#cb9-4"></a>    <span class="dt">ID =</span> <span class="st">`</span><span class="dt">Identifier 1</span><span class="st">`</span>, <span class="dt">ID =</span> <span class="st">`</span><span class="dt">Sample Name</span><span class="st">`</span>, Analysis, Method,</span>
+<span id="cb9-5"><a href="#cb9-5"></a>    <span class="st">`</span><span class="dt">Peak Center</span><span class="st">`</span>, <span class="st">`</span><span class="dt">Date &amp; Time</span><span class="st">`</span> =<span class="st"> </span>file_datetime,</span>
+<span id="cb9-6"><a href="#cb9-6"></a>    <span class="st">`</span><span class="dt">Sample Weight</span><span class="st">`</span>, <span class="st">`</span><span class="dt">Sample Weight</span><span class="st">`</span> =<span class="st"> `</span><span class="dt">Weight [mg]</span><span class="st">`</span>,</span>
+<span id="cb9-7"><a href="#cb9-7"></a>    <span class="dt">file_specific =</span> <span class="ot">TRUE</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>  )</span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="co">#&gt; Info: selecting/renaming the following file info:</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="co">#&gt;  - for 1 file(s): &#39;file_id&#39;, &#39;Identifier 1&#39;-&gt;&#39;ID&#39;, &#39;Analysis&#39;, &#39;Method&#39;, &#39;Peak Center&#39;, &#39;file_datetime&#39;-&gt;&#39;Date &amp; Time&#39;</span></span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="co">#&gt;  - for 1 file(s): &#39;file_id&#39;, &#39;Identifier 1&#39;-&gt;&#39;ID&#39;, &#39;Analysis&#39;, &#39;Method&#39;, &#39;Peak Center&#39;, &#39;file_datetime&#39;-&gt;&#39;Date &amp; Time&#39;, &#39;Weight [mg]&#39;-&gt;&#39;Sample Weight&#39;</span></span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="co">#&gt;  - for 1 file(s): &#39;file_id&#39;, &#39;Sample Name&#39;-&gt;&#39;ID&#39;, &#39;file_datetime&#39;-&gt;&#39;Date &amp; Time&#39;, &#39;Sample Weight&#39;</span></span>
+<span id="cb9-13"><a href="#cb9-13"></a></span>
+<span id="cb9-14"><a href="#cb9-14"></a><span class="co"># fetch all file info</span></span>
+<span id="cb9-15"><a href="#cb9-15"></a>di_files2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iso_get_file_info</span>() <span class="op">%&gt;%</span><span class="st"> </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span>
+<span id="cb9-16"><a href="#cb9-16"></a><span class="co">#&gt; Info: aggregating file info from 3 data file(s)</span></span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["ID"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Analysis"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Method"],"name":[4],"type":["chr"],"align":["left"]},{"label":["Peak Center"],"name":[5],"type":["chr"],"align":["left"]},{"label":["Date & Time"],"name":[6],"type":["dttm"],"align":["right"]},{"label":["Sample Weight"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"dual_inlet_example.did","2":"CIT Carrara","3":"49077","4":"CO2_multiply_16V.met","5":"1","6":"2014-10-27 05:23:54","7":"NA"},{"1":"dual_inlet_example.caf","2":"2H6","3":"16068","4":"CARBO IIIUvU_Clump.met","5":"NA","6":"2017-07-03 16:57:57","7":"113"},{"1":"dual_inlet_nu_example.txt","2":"ETH-01","3":"NA","4":"NA","5":"NA","6":"2017-02-21 10:46:17","7":"3480"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="filter" class="section level2">
+<h2>Filter</h2>
+<p>Any collection of isofiles can also be filtered based on the available file information using the function <code>iso_filter_files</code>. This function can operate on any column available in the file information and supports full <a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr</a> syntax.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># find files that have &#39;CIT&#39; in the new ID field</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>di_files2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iso_filter_files</span>(<span class="kw">grepl</span>(<span class="st">&quot;CIT&quot;</span>, ID)) <span class="op">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="st">  </span><span class="kw">iso_get_file_info</span>() <span class="op">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="st">  </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt; Info: applying file filter, keeping 1 of 3 files</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt; Info: aggregating file info from 1 data file(s)</span></span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["ID"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Analysis"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Method"],"name":[4],"type":["chr"],"align":["left"]},{"label":["Peak Center"],"name":[5],"type":["chr"],"align":["left"]},{"label":["Date & Time"],"name":[6],"type":["dttm"],"align":["right"]}],"data":[{"1":"dual_inlet_example.did","2":"CIT Carrara","3":"49077","4":"CO2_multiply_16V.met","5":"1","6":"2014-10-27 05:23:54"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="co"># find files that were run in 2017</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>di_files2 <span class="op">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="st">  </span><span class="kw">iso_filter_files</span>(<span class="st">`</span><span class="dt">Date &amp; Time</span><span class="st">`</span> <span class="op">&gt;</span><span class="st"> &quot;2017-01-01&quot;</span> <span class="op">&amp;</span><span class="st"> `</span><span class="dt">Date &amp; Time</span><span class="st">`</span> <span class="op">&lt;</span><span class="st"> &quot;2018-01-01&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="st">  </span><span class="kw">iso_get_file_info</span>() <span class="op">%&gt;%</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="st">  </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="co">#&gt; Info: applying file filter, keeping 2 of 3 files</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="co">#&gt; Info: aggregating file info from 2 data file(s)</span></span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["ID"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Analysis"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Method"],"name":[4],"type":["chr"],"align":["left"]},{"label":["Peak Center"],"name":[5],"type":["chr"],"align":["left"]},{"label":["Date & Time"],"name":[6],"type":["dttm"],"align":["right"]},{"label":["Sample Weight"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"dual_inlet_example.caf","2":"2H6","3":"16068","4":"CARBO IIIUvU_Clump.met","5":"NA","6":"2017-07-03 16:57:57","7":"113"},{"1":"dual_inlet_nu_example.txt","2":"ETH-01","3":"NA","4":"NA","5":"NA","6":"2017-02-21 10:46:17","7":"3480"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="mutate" class="section level2">
+<h2>Mutate</h2>
+<p>The file information in any collection of isofiles can also be mutated using the function <code>iso_mutate_file_info</code>. This function can introduce new columns and operate on/overwrite any existing columns available in the file information (even if it does not exist in all files) and supports full <a href="https://dplyr.tidyverse.org/reference/mutate.html">dplyr</a> syntax. It can also be used in conjunction with <code>iso_with_unit</code> to generate values with implicit units.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>di_files3 &lt;-<span class="st"> </span>di_files2 <span class="op">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="st">  </span><span class="kw">iso_mutate_file_info</span>(</span>
+<span id="cb12-3"><a href="#cb12-3"></a>    <span class="co"># update existing column</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a>    <span class="dt">ID =</span> <span class="kw">paste</span>(<span class="st">&quot;ID:&quot;</span>, ID),</span>
+<span id="cb12-5"><a href="#cb12-5"></a>    <span class="co"># introduce new column</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a>    <span class="st">`</span><span class="dt">Run in 2017?</span><span class="st">`</span> =<span class="st"> `</span><span class="dt">Date &amp; Time</span><span class="st">`</span> <span class="op">&gt;</span><span class="st"> &quot;2017-01-01&quot;</span> <span class="op">&amp;</span><span class="st"> `</span><span class="dt">Date &amp; Time</span><span class="st">`</span> <span class="op">&lt;</span><span class="st"> &quot;2018-01-01&quot;</span>,</span>
+<span id="cb12-7"><a href="#cb12-7"></a>    <span class="co"># parse weight as a number and turn into a column with units</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a>    <span class="st">`</span><span class="dt">Sample Weight</span><span class="st">`</span> =<span class="st"> `</span><span class="dt">Sample Weight</span><span class="st">`</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">parse_number</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iso_with_units</span>(<span class="st">&quot;mg&quot;</span>)</span>
+<span id="cb12-9"><a href="#cb12-9"></a>  )</span>
+<span id="cb12-10"><a href="#cb12-10"></a><span class="co">#&gt; Info: mutating file info for 3 data file(s)</span></span>
+<span id="cb12-11"><a href="#cb12-11"></a></span>
+<span id="cb12-12"><a href="#cb12-12"></a>di_files3 <span class="op">%&gt;%</span></span>
+<span id="cb12-13"><a href="#cb12-13"></a><span class="st">  </span><span class="kw">iso_get_file_info</span>() <span class="op">%&gt;%</span></span>
+<span id="cb12-14"><a href="#cb12-14"></a><span class="st">  </span><span class="kw">iso_make_units_explicit</span>() <span class="op">%&gt;%</span></span>
+<span id="cb12-15"><a href="#cb12-15"></a><span class="st">  </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span>
+<span id="cb12-16"><a href="#cb12-16"></a><span class="co">#&gt; Info: aggregating file info from 3 data file(s)</span></span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["ID"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Analysis"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Method"],"name":[4],"type":["chr"],"align":["left"]},{"label":["Peak Center"],"name":[5],"type":["chr"],"align":["left"]},{"label":["Date & Time"],"name":[6],"type":["dttm"],"align":["right"]},{"label":["Sample Weight [mg]"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["Run in 2017?"],"name":[8],"type":["lgl"],"align":["right"]}],"data":[{"1":"dual_inlet_example.did","2":"ID: CIT Carrara","3":"49077","4":"CO2_multiply_16V.met","5":"1","6":"2014-10-27 05:23:54","7":"NA","8":"FALSE"},{"1":"dual_inlet_example.caf","2":"ID: 2H6","3":"16068","4":"CARBO IIIUvU_Clump.met","5":"NA","6":"2017-07-03 16:57:57","7":"113","8":"TRUE"},{"1":"dual_inlet_nu_example.txt","2":"ID: ETH-01","3":"NA","4":"NA","5":"NA","6":"2017-02-21 10:46:17","7":"3480","8":"TRUE"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="add" class="section level2">
+<h2>Add</h2>
+<p>Additionally, a wide range of new file information can be added in the form of a data frame with any number of columns (usually read from a comma-separated-value/csv file or an Excel/xlsx file) using the function <code>iso_add_file_info</code> and specifying which existing file information should be used to merge in the new information. It is similar to <a href="https://dplyr.tidyverse.org/reference/join.html">dplyr’s left_join</a> but with additional safety checks and the possibility to join the new information sequentially as illustrated below.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># this kind of information data frame is frequently read in from a csv or xlsx file</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>new_info &lt;-</span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">bind_rows</span>(</span>
+<span id="cb13-4"><a href="#cb13-4"></a>    <span class="co"># new information based on new vs. old samples</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>    dplyr<span class="op">::</span><span class="kw">tribble</span>(</span>
+<span id="cb13-6"><a href="#cb13-6"></a>      <span class="op">~</span>Analysis, <span class="op">~</span><span class="st">`</span><span class="dt">Run in 2017?</span><span class="st">`</span>,  <span class="op">~</span>process,  <span class="op">~</span>info,</span>
+<span id="cb13-7"><a href="#cb13-7"></a>       <span class="ot">NA</span>,       <span class="ot">TRUE</span>,              <span class="st">&quot;yes&quot;</span>,     <span class="st">&quot;2017 runs&quot;</span>,</span>
+<span id="cb13-8"><a href="#cb13-8"></a>       <span class="ot">NA</span>,       <span class="ot">FALSE</span>,             <span class="st">&quot;yes&quot;</span>,     <span class="st">&quot;other runs&quot;</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a>    ),</span>
+<span id="cb13-10"><a href="#cb13-10"></a>    <span class="co"># new information for a single specific file</span></span>
+<span id="cb13-11"><a href="#cb13-11"></a>    dplyr<span class="op">::</span><span class="kw">tribble</span>(</span>
+<span id="cb13-12"><a href="#cb13-12"></a>      <span class="op">~</span>Analysis, <span class="op">~</span>process,  <span class="op">~</span>note,</span>
+<span id="cb13-13"><a href="#cb13-13"></a>       <span class="st">&quot;16068&quot;</span>,   <span class="st">&quot;no&quot;</span>,      <span class="st">&quot;did not inject properly&quot;</span></span>
+<span id="cb13-14"><a href="#cb13-14"></a>    )</span>
+<span id="cb13-15"><a href="#cb13-15"></a>  )</span>
+<span id="cb13-16"><a href="#cb13-16"></a>new_info <span class="op">%&gt;%</span><span class="st"> </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Analysis"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Run in 2017?"],"name":[2],"type":["lgl"],"align":["right"]},{"label":["process"],"name":[3],"type":["chr"],"align":["left"]},{"label":["info"],"name":[4],"type":["chr"],"align":["left"]},{"label":["note"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"NA","2":"TRUE","3":"yes","4":"2017 runs","5":"NA"},{"1":"NA","2":"FALSE","3":"yes","4":"other runs","5":"NA"},{"1":"16068","2":"NA","3":"no","4":"NA","5":"did not inject properly"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="co"># adding it to the isofiles</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>di_files3 <span class="op">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="st">  </span><span class="kw">iso_add_file_info</span>(new_info, <span class="dt">by1 =</span> <span class="st">&quot;Run in 2017?&quot;</span>, <span class="dt">by2 =</span> <span class="st">&quot;Analysis&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a><span class="st">  </span><span class="kw">iso_get_file_info</span>(<span class="dt">select =</span> <span class="op">!!</span><span class="kw">names</span>(new_info)) <span class="op">%&gt;%</span></span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="st">  </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span>
+<span id="cb14-7"><a href="#cb14-7"></a><span class="co">#&gt; Info: adding new file information (&#39;process&#39;, &#39;info&#39;, &#39;note&#39;) to 3 data file(s), joining by &#39;Run in 2017?&#39; then &#39;Analysis&#39;...</span></span>
+<span id="cb14-8"><a href="#cb14-8"></a><span class="co">#&gt;  - &#39;Run in 2017?&#39; join: 2/2 new info rows matched 3/3 data files - 1 of these was/were also matched by subsequent joins which took precedence</span></span>
+<span id="cb14-9"><a href="#cb14-9"></a><span class="co">#&gt;  - &#39;Analysis&#39; join: 1/1 new info rows matched 1/3 data files</span></span>
+<span id="cb14-10"><a href="#cb14-10"></a><span class="co">#&gt; Info: aggregating file info from 3 data file(s), selecting info columns &#39;Analysis&#39;, &#39;Run in 2017?&#39;, &#39;process&#39;, &#39;info&#39;, &#39;note&#39;</span></span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Analysis"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Run in 2017?"],"name":[3],"type":["lgl"],"align":["right"]},{"label":["process"],"name":[4],"type":["chr"],"align":["left"]},{"label":["info"],"name":[5],"type":["chr"],"align":["left"]},{"label":["note"],"name":[6],"type":["chr"],"align":["left"]}],"data":[{"1":"dual_inlet_example.did","2":"49077","3":"FALSE","4":"yes","5":"other runs","6":"NA"},{"1":"dual_inlet_example.caf","2":"16068","3":"TRUE","4":"no","5":"NA","6":"did not inject properly"},{"1":"dual_inlet_nu_example.txt","2":"NA","3":"TRUE","4":"yes","5":"2017 runs","6":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="parse" class="section level2">
+<h2>Parse</h2>
+<p>Most file information is initially read as text to avoid cumbersome specifications during the read process and compatibility issues between different IRMS file formats. However, many file info columns are not easily processed as text. The isoreader package therefore provides several parsing and data extraction functions to facilitate processing the text-based data (some via functionality implemented by the <a href="https://readr.tidyverse.org">readr</a> package). See code block below for examples. For a complete overview, see the <code>?extract_data</code> and <code>?iso_parse_file_info</code> documentation.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># use parsing and extraction in iso_mutate_file_info</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>di_files2 <span class="op">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="st">  </span><span class="kw">iso_mutate_file_info</span>(</span>
+<span id="cb15-4"><a href="#cb15-4"></a>    <span class="co"># change type of Peak Center to logical</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a>    <span class="st">`</span><span class="dt">Peak Center</span><span class="st">`</span> =<span class="st"> </span><span class="kw">parse_logical</span>(<span class="st">`</span><span class="dt">Peak Center</span><span class="st">`</span>),</span>
+<span id="cb15-6"><a href="#cb15-6"></a>    <span class="co"># retrieve first word of Method column</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a>    <span class="dt">Method_1st =</span> <span class="kw">extract_word</span>(Method),</span>
+<span id="cb15-8"><a href="#cb15-8"></a>    <span class="co"># retrieve second word of Method column</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a>    <span class="dt">Method_2nd =</span> <span class="kw">extract_word</span>(Method, <span class="dv">2</span>),</span>
+<span id="cb15-10"><a href="#cb15-10"></a>    <span class="co"># retrieve file extension from the file_id using regular expression</span></span>
+<span id="cb15-11"><a href="#cb15-11"></a>    <span class="dt">extension =</span> <span class="kw">extract_substring</span>(file_id, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.(</span><span class="ch">\\</span><span class="st">w+)$&quot;</span>, <span class="dt">capture_bracket =</span> <span class="dv">1</span>)</span>
+<span id="cb15-12"><a href="#cb15-12"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb15-13"><a href="#cb15-13"></a><span class="st">  </span><span class="kw">iso_get_file_info</span>(<span class="dt">select =</span> <span class="kw">c</span>(extension, <span class="st">`</span><span class="dt">Peak Center</span><span class="st">`</span>, <span class="kw">matches</span>(<span class="st">&quot;Method&quot;</span>))) <span class="op">%&gt;%</span></span>
+<span id="cb15-14"><a href="#cb15-14"></a><span class="st">  </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span>
+<span id="cb15-15"><a href="#cb15-15"></a><span class="co">#&gt; Info: mutating file info for 3 data file(s)</span></span>
+<span id="cb15-16"><a href="#cb15-16"></a><span class="co">#&gt; Info: aggregating file info from 3 data file(s), selecting info columns &#39;c(extension, `Peak Center`, matches(&quot;Method&quot;))&#39;</span></span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["extension"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Peak Center"],"name":[3],"type":["lgl"],"align":["right"]},{"label":["Method"],"name":[4],"type":["chr"],"align":["left"]},{"label":["Method_1st"],"name":[5],"type":["chr"],"align":["left"]},{"label":["Method_2nd"],"name":[6],"type":["chr"],"align":["left"]}],"data":[{"1":"dual_inlet_example.did","2":"did","3":"TRUE","4":"CO2_multiply_16V.met","5":"CO2","6":"multiply"},{"1":"dual_inlet_example.caf","2":"caf","3":"NA","4":"CARBO IIIUvU_Clump.met","5":"CARBO","6":"IIIUvU"},{"1":"dual_inlet_nu_example.txt","2":"txt","3":"NA","4":"NA","5":"NA","6":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="co"># use parsing in iso_filter_file_info</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>di_files2 <span class="op">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="st">  </span><span class="kw">iso_filter_files</span>(<span class="kw">parse_integer</span>(Analysis) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1500</span>) <span class="op">%&gt;%</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="st">  </span><span class="kw">iso_get_file_info</span>() <span class="op">%&gt;%</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="st">  </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="co">#&gt; Info: applying file filter, keeping 2 of 3 files</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a><span class="co">#&gt; Info: aggregating file info from 2 data file(s)</span></span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["ID"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Analysis"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Method"],"name":[4],"type":["chr"],"align":["left"]},{"label":["Peak Center"],"name":[5],"type":["chr"],"align":["left"]},{"label":["Date & Time"],"name":[6],"type":["dttm"],"align":["right"]},{"label":["Sample Weight"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"dual_inlet_example.did","2":"CIT Carrara","3":"49077","4":"CO2_multiply_16V.met","5":"1","6":"2014-10-27 05:23:54","7":"NA"},{"1":"dual_inlet_example.caf","2":"2H6","3":"16068","4":"CARBO IIIUvU_Clump.met","5":"NA","6":"2017-07-03 16:57:57","7":"113"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="co"># use iso_parse_file_info for simplified parsing of column data types</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>di_files2 <span class="op">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="st">  </span><span class="kw">iso_parse_file_info</span>(</span>
+<span id="cb17-5"><a href="#cb17-5"></a>    <span class="dt">integer =</span> Analysis,</span>
+<span id="cb17-6"><a href="#cb17-6"></a>    <span class="dt">number =</span> <span class="st">`</span><span class="dt">Sample Weight</span><span class="st">`</span>,</span>
+<span id="cb17-7"><a href="#cb17-7"></a>    <span class="dt">logical =</span> <span class="st">`</span><span class="dt">Peak Center</span><span class="st">`</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a><span class="st">  </span><span class="kw">iso_get_file_info</span>() <span class="op">%&gt;%</span></span>
+<span id="cb17-10"><a href="#cb17-10"></a><span class="st">  </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span>
+<span id="cb17-11"><a href="#cb17-11"></a><span class="co">#&gt; Info: parsing 3 file info columns for 3 data file(s):</span></span>
+<span id="cb17-12"><a href="#cb17-12"></a><span class="co">#&gt;  - to integer: &#39;Analysis&#39;</span></span>
+<span id="cb17-13"><a href="#cb17-13"></a><span class="co">#&gt;  - to logical: &#39;Peak Center&#39;</span></span>
+<span id="cb17-14"><a href="#cb17-14"></a><span class="co">#&gt;  - to number: &#39;Sample Weight&#39;</span></span>
+<span id="cb17-15"><a href="#cb17-15"></a><span class="co">#&gt; Info: aggregating file info from 3 data file(s)</span></span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["ID"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Analysis"],"name":[3],"type":["int"],"align":["right"]},{"label":["Method"],"name":[4],"type":["chr"],"align":["left"]},{"label":["Peak Center"],"name":[5],"type":["lgl"],"align":["right"]},{"label":["Date & Time"],"name":[6],"type":["dttm"],"align":["right"]},{"label":["Sample Weight"],"name":[7],"type":["dbl"],"align":["right"]}],"data":[{"1":"dual_inlet_example.did","2":"CIT Carrara","3":"49077","4":"CO2_multiply_16V.met","5":"TRUE","6":"2014-10-27 05:23:54","7":"NA"},{"1":"dual_inlet_example.caf","2":"2H6","3":"16068","4":"CARBO IIIUvU_Clump.met","5":"NA","6":"2017-07-03 16:57:57","7":"113"},{"1":"dual_inlet_nu_example.txt","2":"ETH-01","3":"NA","4":"NA","5":"NA","6":"2017-02-21 10:46:17","7":"3480"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div id="resistors" class="section level1">
+<h1>Resistors</h1>
+<p>Additionally, some IRMS data files contain resistor information that are useful for downstream calculations (see e.g. section on signal conversion later in this vignette):</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>di_files <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iso_get_resistors</span>() <span class="op">%&gt;%</span><span class="st"> </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="co">#&gt; Info: aggregating resistors info from 3 data file(s)</span></span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["cup"],"name":[2],"type":["int"],"align":["right"]},{"label":["R.Ohm"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["mass"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"dual_inlet_example.did","2":"1","3":"3.000000e+08","4":"44"},{"1":"dual_inlet_example.did","2":"2","3":"3.000000e+10","4":"45"},{"1":"dual_inlet_example.did","2":"3","3":"1.000000e+11","4":"46"},{"1":"dual_inlet_example.did","2":"4","3":"1.000000e+12","4":"47"},{"1":"dual_inlet_example.did","2":"5","3":"5.000000e+11","4":"48"},{"1":"dual_inlet_example.did","2":"6","3":"1.000000e+12","4":"49"},{"1":"dual_inlet_example.caf","2":"1","3":"2.970297e+08","4":"44"},{"1":"dual_inlet_example.caf","2":"2","3":"1.500000e+10","4":"45"},{"1":"dual_inlet_example.caf","2":"3","3":"5.000000e+10","4":"46"},{"1":"dual_inlet_example.caf","2":"4","3":"5.000000e+11","4":"47"},{"1":"dual_inlet_example.caf","2":"5","3":"9.900990e+09","4":"48"},{"1":"dual_inlet_example.caf","2":"6","3":"5.000000e+11","4":"49"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="reference-values" class="section level1">
+<h1>Reference values</h1>
+<p>As well as isotopic reference values for the different gases:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># reference delta values without ratio values</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>di_files <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iso_get_standards</span>(file_id<span class="op">:</span>reference) <span class="op">%&gt;%</span><span class="st"> </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="co">#&gt; Info: aggregating standards info from 3 data file(s)</span></span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["standard"],"name":[2],"type":["chr"],"align":["left"]},{"label":["gas"],"name":[3],"type":["chr"],"align":["left"]},{"label":["delta_name"],"name":[4],"type":["chr"],"align":["left"]},{"label":["delta_value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["reference"],"name":[6],"type":["chr"],"align":["left"]}],"data":[{"1":"dual_inlet_example.did","2":"Caltech-1960C","3":"CO2","4":"d 13C/12C","5":"-3.56","6":"VPDB"},{"1":"dual_inlet_example.did","2":"Caltech-1960C","3":"CO2","4":"d 18O/16O","5":"25.01","6":"VSMOW"},{"1":"dual_inlet_example.caf","2":"CO2clump tank","3":"CO2","4":"d 13C/12C","5":"-2.82","6":"VPDB"},{"1":"dual_inlet_example.caf","2":"CO2clump tank","3":"CO2","4":"d 18O/16O","5":"-4.67","6":"VPDB"},{"1":"dual_inlet_example.caf","2":"CO2clump tank","3":"CO2","4":"d 47CO2/44CO2","5":"0.00","6":"None"},{"1":"dual_inlet_example.caf","2":"CO2clump tank","3":"CO2","4":"d 48CO2/44CO2","5":"0.00","6":"None"},{"1":"dual_inlet_example.caf","2":"CO2clump tank","3":"CO2","4":"d 49CO2/44CO2","5":"0.00","6":"None"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># reference values with ratios</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>di_files <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iso_get_standards</span>() <span class="op">%&gt;%</span><span class="st"> </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="co">#&gt; Info: aggregating standards info from 3 data file(s)</span></span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["standard"],"name":[2],"type":["chr"],"align":["left"]},{"label":["gas"],"name":[3],"type":["chr"],"align":["left"]},{"label":["delta_name"],"name":[4],"type":["chr"],"align":["left"]},{"label":["delta_value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["reference"],"name":[6],"type":["chr"],"align":["left"]},{"label":["element"],"name":[7],"type":["chr"],"align":["left"]},{"label":["ratio_name"],"name":[8],"type":["chr"],"align":["left"]},{"label":["ratio_value"],"name":[9],"type":["dbl"],"align":["right"]}],"data":[{"1":"dual_inlet_example.did","2":"Caltech-1960C","3":"CO2","4":"d 13C/12C","5":"-3.56","6":"VPDB","7":"C","8":"R 13C/12C","9":"0.01118020"},{"1":"dual_inlet_example.did","2":"Caltech-1960C","3":"CO2","4":"d 13C/12C","5":"-3.56","6":"VPDB","7":"O","8":"R 18O/16O","9":"0.00206720"},{"1":"dual_inlet_example.did","2":"Caltech-1960C","3":"CO2","4":"d 13C/12C","5":"-3.56","6":"VPDB","7":"O","8":"R 17O/16O","9":"0.00038600"},{"1":"dual_inlet_example.did","2":"Caltech-1960C","3":"CO2","4":"d 18O/16O","5":"25.01","6":"VSMOW","7":"H","8":"R 2H/1H","9":"0.00015575"},{"1":"dual_inlet_example.did","2":"Caltech-1960C","3":"CO2","4":"d 18O/16O","5":"25.01","6":"VSMOW","7":"O","8":"R 17O/16O","9":"0.00037990"},{"1":"dual_inlet_example.did","2":"Caltech-1960C","3":"CO2","4":"d 18O/16O","5":"25.01","6":"VSMOW","7":"O","8":"R 18O/16O","9":"0.00200520"},{"1":"dual_inlet_example.caf","2":"CO2clump tank","3":"CO2","4":"d 13C/12C","5":"-2.82","6":"VPDB","7":"C","8":"R 13C/12C","9":"0.01118020"},{"1":"dual_inlet_example.caf","2":"CO2clump tank","3":"CO2","4":"d 13C/12C","5":"-2.82","6":"VPDB","7":"O","8":"R 18O/16O","9":"0.00206720"},{"1":"dual_inlet_example.caf","2":"CO2clump tank","3":"CO2","4":"d 13C/12C","5":"-2.82","6":"VPDB","7":"O","8":"R 17O/16O","9":"0.00038600"},{"1":"dual_inlet_example.caf","2":"CO2clump tank","3":"CO2","4":"d 18O/16O","5":"-4.67","6":"VPDB","7":"C","8":"R 13C/12C","9":"0.01118020"},{"1":"dual_inlet_example.caf","2":"CO2clump tank","3":"CO2","4":"d 18O/16O","5":"-4.67","6":"VPDB","7":"O","8":"R 18O/16O","9":"0.00206720"},{"1":"dual_inlet_example.caf","2":"CO2clump tank","3":"CO2","4":"d 18O/16O","5":"-4.67","6":"VPDB","7":"O","8":"R 17O/16O","9":"0.00038600"},{"1":"dual_inlet_example.caf","2":"CO2clump tank","3":"CO2","4":"d 47CO2/44CO2","5":"0.00","6":"None","7":"NA","8":"NA","9":"NA"},{"1":"dual_inlet_example.caf","2":"CO2clump tank","3":"CO2","4":"d 48CO2/44CO2","5":"0.00","6":"None","7":"NA","8":"NA","9":"NA"},{"1":"dual_inlet_example.caf","2":"CO2clump tank","3":"CO2","4":"d 49CO2/44CO2","5":"0.00","6":"None","7":"NA","8":"NA","9":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="raw-data" class="section level1">
+<h1>Raw Data</h1>
+<p>The raw data read from the IRMS files can be retrieved similarly using the <code>iso_get_raw_data()</code> function. Most data aggregation functions also allow for inclusion of file information using the <code>include_file_info</code> parameter, which functions identically to the <code>select</code> parameter of the <code>iso_get_file_info</code> function discussed earlier.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># get raw data with default selections (all raw data, no additional file info)</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>di_files <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iso_get_raw_data</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dt">n=</span><span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="co">#&gt; Info: aggregating raw data from 3 data file(s)</span></span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["type"],"name":[2],"type":["chr"],"align":["left"]},{"label":["cycle"],"name":[3],"type":["int"],"align":["right"]},{"label":["v44.mV"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["v45.mV"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["v46.mV"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["v47.mV"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["v48.mV"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["v49.mV"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["block"],"name":[10],"type":["int"],"align":["right"]},{"label":["i44.A"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["i45.A"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["i46.A"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["i47.A"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["i48.A"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["i49.A"],"name":[16],"type":["dbl"],"align":["right"]}],"data":[{"1":"dual_inlet_example.did","2":"standard","3":"0","4":"15946.42","5":"19001.94","6":"21960.62","7":"2513.280","8":"29.78742","9":"-181.2712","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","16":"NA"},{"1":"dual_inlet_example.did","2":"standard","3":"1","4":"15941.14","5":"18995.66","6":"21954.19","7":"2512.345","8":"29.80048","9":"-180.9752","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","16":"NA"},{"1":"dual_inlet_example.did","2":"standard","3":"2","4":"15933.54","5":"18986.64","6":"21943.58","7":"2511.280","8":"29.81818","9":"-180.7748","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","16":"NA"},{"1":"dual_inlet_example.did","2":"standard","3":"3","4":"15916.58","5":"18966.34","6":"21919.97","7":"2508.497","8":"29.78074","9":"-180.4583","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","16":"NA"},{"1":"dual_inlet_example.did","2":"standard","3":"4","4":"15901.62","5":"18948.60","6":"21899.17","7":"2506.104","8":"29.76304","9":"-180.2311","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","16":"NA"},{"1":"dual_inlet_example.did","2":"standard","3":"5","4":"15896.00","5":"18941.97","6":"21891.49","7":"2505.600","8":"29.75818","9":"-180.3095","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","16":"NA"},{"1":"dual_inlet_example.did","2":"standard","3":"6","4":"15884.63","5":"18928.51","6":"21876.19","7":"2503.555","8":"29.72923","9":"-180.2013","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","16":"NA"},{"1":"dual_inlet_example.did","2":"standard","3":"7","4":"15875.89","5":"18918.12","6":"21863.96","7":"2502.444","8":"29.69513","9":"-180.0340","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","16":"NA"},{"1":"dual_inlet_example.did","2":"sample","3":"1","4":"15955.18","5":"19122.71","6":"22237.99","7":"2559.245","8":"31.09436","9":"-181.2460","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","16":"NA"},{"1":"dual_inlet_example.did","2":"sample","3":"2","4":"15945.64","5":"19111.16","6":"22224.65","7":"2557.857","8":"31.09153","9":"-180.9976","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","16":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># get specific raw data and add some file information</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>di_files <span class="op">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="st">  </span><span class="kw">iso_get_raw_data</span>(</span>
+<span id="cb22-4"><a href="#cb22-4"></a>    <span class="co"># select just time and the two ions</span></span>
+<span id="cb22-5"><a href="#cb22-5"></a>    <span class="dt">select =</span> <span class="kw">c</span>(type, cycle, v44.mV, v45.mV),</span>
+<span id="cb22-6"><a href="#cb22-6"></a>    <span class="co"># include the Analysis number fron the file info and rename it to &#39;run&#39;</span></span>
+<span id="cb22-7"><a href="#cb22-7"></a>    <span class="dt">include_file_info =</span> <span class="kw">c</span>(<span class="dt">run =</span> Analysis)</span>
+<span id="cb22-8"><a href="#cb22-8"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb22-9"><a href="#cb22-9"></a><span class="st">  </span><span class="co"># look at first few records only</span></span>
+<span id="cb22-10"><a href="#cb22-10"></a><span class="st">  </span><span class="kw">head</span>(<span class="dt">n=</span><span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span>
+<span id="cb22-11"><a href="#cb22-11"></a><span class="co">#&gt; Info: aggregating raw data from 3 data file(s), selecting data columns &#39;c(type, cycle, v44.mV, v45.mV)&#39;, including file info &#39;c(run = Analysis)&#39;</span></span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["run"],"name":[2],"type":["chr"],"align":["left"]},{"label":["type"],"name":[3],"type":["chr"],"align":["left"]},{"label":["cycle"],"name":[4],"type":["int"],"align":["right"]},{"label":["v44.mV"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["v45.mV"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"dual_inlet_example.did","2":"49077","3":"standard","4":"0","5":"15946.42","6":"19001.94"},{"1":"dual_inlet_example.did","2":"49077","3":"standard","4":"1","5":"15941.14","6":"18995.66"},{"1":"dual_inlet_example.did","2":"49077","3":"standard","4":"2","5":"15933.54","6":"18986.64"},{"1":"dual_inlet_example.did","2":"49077","3":"standard","4":"3","5":"15916.58","6":"18966.34"},{"1":"dual_inlet_example.did","2":"49077","3":"standard","4":"4","5":"15901.62","6":"18948.60"},{"1":"dual_inlet_example.did","2":"49077","3":"standard","4":"5","5":"15896.00","6":"18941.97"},{"1":"dual_inlet_example.did","2":"49077","3":"standard","4":"6","5":"15884.63","6":"18928.51"},{"1":"dual_inlet_example.did","2":"49077","3":"standard","4":"7","5":"15875.89","6":"18918.12"},{"1":"dual_inlet_example.did","2":"49077","3":"sample","4":"1","5":"15955.18","6":"19122.71"},{"1":"dual_inlet_example.did","2":"49077","3":"sample","4":"2","5":"15945.64","6":"19111.16"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="data-processing" class="section level1">
+<h1>Data Processing</h1>
+<p>The isoreader package is intended to make raw stable isotope data easily accessible. However, as with most analytical data, there is significant downstream processing required to turn these raw signal intensities into properly referenced isotopic measurement. This and similar functionality as well as data visualization is part of the <a href="https://isoprocessor.isoverse.org">isoprocessor package</a> which takes isotopic data through the various corrections in a transparent, efficient and reproducible manner.</p>
+<p>That said, most vendor software also performs some of these calculations and it can be useful to be able to compare new data reduction procedures against those implemented in the vendor software. For this purpose, isoreader retrieves vendor computed data tables whenever possible, as illustrated below.</p>
+<div id="vendor-data-table" class="section level2">
+<h2>Vendor Data Table</h2>
+<p>As with most data retrieval functions, the <code>iso_get_vendor_data_table()</code> function also allows specific column selection (by default, all columns are selected) and easy addition of file information via the <code>include_file_info</code> parameter (by default, none is included).</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># entire vendor data table</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>di_files <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iso_get_vendor_data_table</span>() <span class="op">%&gt;%</span><span class="st"> </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="co">#&gt; Info: aggregating vendor data table from 3 data file(s)</span></span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["cycle"],"name":[2],"type":["int"],"align":["right"]},{"label":["d 45CO2/44CO2"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["d 46CO2/44CO2"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["d 13C/12C"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["d 18O/16O"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["d 17O/16O"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AT% 13C/12C"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["AT% 18O/16O"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["d 47CO2/44CO2"],"name":[10],"type":["dbl[permil]"],"align":["right"]},{"label":["d 48CO2/44CO2"],"name":[11],"type":["dbl[permil]"],"align":["right"]},{"label":["d 49CO2/44CO2"],"name":[12],"type":["dbl[permil]"],"align":["right"]}],"data":[{"1":"dual_inlet_example.did","2":"1","3":"3.3287770","4":"37.330647","5":"2.1929917","6":"37.366456","7":"6.202321","8":"1.108056","9":"0.2075809","10":"NA","11":"NA","12":"NA"},{"1":"dual_inlet_example.did","2":"2","3":"3.3209553","4":"37.311799","5":"2.1852948","6":"37.347605","7":"6.192886","8":"1.108048","9":"0.2075772","10":"NA","11":"NA","12":"NA"},{"1":"dual_inlet_example.did","2":"3","3":"3.3263384","4":"37.317514","5":"2.1908570","6":"37.353314","7":"6.195743","8":"1.108054","9":"0.2075783","10":"NA","11":"NA","12":"NA"},{"1":"dual_inlet_example.did","2":"4","3":"3.3200304","4":"37.317207","5":"2.1841057","6":"37.353021","7":"6.195597","8":"1.108047","9":"0.2075782","10":"NA","11":"NA","12":"NA"},{"1":"dual_inlet_example.did","2":"5","3":"3.3187408","4":"37.329768","5":"2.1822644","6":"37.365600","7":"6.201893","8":"1.108045","9":"0.2075808","10":"NA","11":"NA","12":"NA"},{"1":"dual_inlet_example.did","2":"6","3":"3.3177548","4":"37.322849","5":"2.1814601","6":"37.358675","7":"6.198427","8":"1.108044","9":"0.2075794","10":"NA","11":"NA","12":"NA"},{"1":"dual_inlet_example.did","2":"7","3":"3.3217518","4":"37.318368","5":"2.1859087","6":"37.354180","7":"6.196177","8":"1.108049","9":"0.2075785","10":"NA","11":"NA","12":"NA"},{"1":"dual_inlet_example.caf","2":"1","3":"0.7000753","4":"7.543205","5":"0.4669423","6":"7.550236","7":"6.316518","8":"NA","9":"NA","10":"15.65910","11":"22.50135","12":"-58.12863"},{"1":"dual_inlet_example.caf","2":"2","3":"0.6846506","4":"7.518991","5":"0.4512997","6":"7.526031","7":"6.304043","8":"NA","9":"NA","10":"15.62094","11":"22.59733","12":"-54.25812"},{"1":"dual_inlet_example.caf","2":"3","3":"0.6827013","4":"7.503826","5":"0.4497784","6":"7.510853","7":"6.296221","8":"NA","9":"NA","10":"15.56356","11":"22.81077","12":"-52.21288"},{"1":"dual_inlet_example.caf","2":"4","3":"0.6940694","4":"7.513421","5":"0.4616176","6":"7.520432","7":"6.301158","8":"NA","9":"NA","10":"15.64200","11":"23.18259","12":"-66.43734"},{"1":"dual_inlet_example.caf","2":"5","3":"0.6748151","4":"7.499821","5":"0.4414657","6":"7.506862","7":"6.294164","8":"NA","9":"NA","10":"15.56706","11":"22.81533","12":"-67.80591"},{"1":"dual_inlet_example.caf","2":"6","3":"0.6836593","4":"7.492892","5":"0.4512181","6":"7.499905","7":"6.290578","8":"NA","9":"NA","10":"15.65654","11":"23.33585","12":"-66.66771"},{"1":"dual_inlet_example.caf","2":"7","3":"0.6960376","4":"7.491672","5":"0.4645483","6":"7.498654","7":"6.289934","8":"NA","9":"NA","10":"15.56031","11":"23.89354","12":"-42.32076"},{"1":"dual_inlet_example.caf","2":"8","3":"0.6929899","4":"7.499328","5":"0.4609894","6":"7.506326","7":"6.293888","8":"NA","9":"NA","10":"15.45959","11":"24.43994","12":"-48.39355"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># get specific parts and add some file information</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>di_files <span class="op">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="st">  </span><span class="kw">iso_get_vendor_data_table</span>(</span>
+<span id="cb24-4"><a href="#cb24-4"></a>    <span class="co"># select cycle and all carbon columns</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a>    <span class="dt">select =</span> <span class="kw">c</span>(cycle, <span class="kw">matches</span>(<span class="st">&quot;C&quot;</span>)),</span>
+<span id="cb24-6"><a href="#cb24-6"></a>    <span class="co"># include the Identifier 1 fron the file info and rename it to &#39;id&#39;</span></span>
+<span id="cb24-7"><a href="#cb24-7"></a>    <span class="dt">include_file_info =</span> <span class="kw">c</span>(<span class="dt">id =</span> <span class="st">`</span><span class="dt">Identifier 1</span><span class="st">`</span>)</span>
+<span id="cb24-8"><a href="#cb24-8"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span>
+<span id="cb24-9"><a href="#cb24-9"></a><span class="co">#&gt; Info: aggregating vendor data table from 3 data file(s), including file info &#39;c(id = `Identifier 1`)&#39;</span></span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["id"],"name":[2],"type":["chr"],"align":["left"]},{"label":["cycle"],"name":[3],"type":["int"],"align":["right"]},{"label":["d 45CO2/44CO2"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["d 46CO2/44CO2"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["d 13C/12C"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["AT% 13C/12C"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["d 47CO2/44CO2"],"name":[8],"type":["dbl[permil]"],"align":["right"]},{"label":["d 48CO2/44CO2"],"name":[9],"type":["dbl[permil]"],"align":["right"]},{"label":["d 49CO2/44CO2"],"name":[10],"type":["dbl[permil]"],"align":["right"]}],"data":[{"1":"dual_inlet_example.did","2":"CIT Carrara","3":"1","4":"3.3287770","5":"37.330647","6":"2.1929917","7":"1.108056","8":"NA","9":"NA","10":"NA"},{"1":"dual_inlet_example.did","2":"CIT Carrara","3":"2","4":"3.3209553","5":"37.311799","6":"2.1852948","7":"1.108048","8":"NA","9":"NA","10":"NA"},{"1":"dual_inlet_example.did","2":"CIT Carrara","3":"3","4":"3.3263384","5":"37.317514","6":"2.1908570","7":"1.108054","8":"NA","9":"NA","10":"NA"},{"1":"dual_inlet_example.did","2":"CIT Carrara","3":"4","4":"3.3200304","5":"37.317207","6":"2.1841057","7":"1.108047","8":"NA","9":"NA","10":"NA"},{"1":"dual_inlet_example.did","2":"CIT Carrara","3":"5","4":"3.3187408","5":"37.329768","6":"2.1822644","7":"1.108045","8":"NA","9":"NA","10":"NA"},{"1":"dual_inlet_example.did","2":"CIT Carrara","3":"6","4":"3.3177548","5":"37.322849","6":"2.1814601","7":"1.108044","8":"NA","9":"NA","10":"NA"},{"1":"dual_inlet_example.did","2":"CIT Carrara","3":"7","4":"3.3217518","5":"37.318368","6":"2.1859087","7":"1.108049","8":"NA","9":"NA","10":"NA"},{"1":"dual_inlet_example.caf","2":"2H6","3":"1","4":"0.7000753","5":"7.543205","6":"0.4669423","7":"NA","8":"15.65910","9":"22.50135","10":"-58.12863"},{"1":"dual_inlet_example.caf","2":"2H6","3":"2","4":"0.6846506","5":"7.518991","6":"0.4512997","7":"NA","8":"15.62094","9":"22.59733","10":"-54.25812"},{"1":"dual_inlet_example.caf","2":"2H6","3":"3","4":"0.6827013","5":"7.503826","6":"0.4497784","7":"NA","8":"15.56356","9":"22.81077","10":"-52.21288"},{"1":"dual_inlet_example.caf","2":"2H6","3":"4","4":"0.6940694","5":"7.513421","6":"0.4616176","7":"NA","8":"15.64200","9":"23.18259","10":"-66.43734"},{"1":"dual_inlet_example.caf","2":"2H6","3":"5","4":"0.6748151","5":"7.499821","6":"0.4414657","7":"NA","8":"15.56706","9":"22.81533","10":"-67.80591"},{"1":"dual_inlet_example.caf","2":"2H6","3":"6","4":"0.6836593","5":"7.492892","6":"0.4512181","7":"NA","8":"15.65654","9":"23.33585","10":"-66.66771"},{"1":"dual_inlet_example.caf","2":"2H6","3":"7","4":"0.6960376","5":"7.491672","6":"0.4645483","7":"NA","8":"15.56031","9":"23.89354","10":"-42.32076"},{"1":"dual_inlet_example.caf","2":"2H6","3":"8","4":"0.6929899","5":"7.499328","6":"0.4609894","7":"NA","8":"15.45959","9":"24.43994","10":"-48.39355"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div id="for-expert-users-retrieving-all-data" class="section level1">
+<h1>For expert users: retrieving all data</h1>
+<p>For users familiar with the nested data frames from the <a href="https://www.tidyverse.org/">tidyverse</a> (particularly <a href="https://tidyr.tidyverse.org/">tidyr</a>’s <code>nest</code> and <code>unnest</code>), there is an easy way to retrieve all data from the iso file objects in a single nested data frame:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>all_data &lt;-<span class="st"> </span>di_files <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iso_get_all_data</span>()</span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="co">#&gt; Info: aggregating all data from 3 data file(s)</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="co"># not printed out because this data frame is very big</span></span></code></pre></div>
+</div>
+<div id="saving-collections" class="section level1">
+<h1>Saving collections</h1>
+<p>Saving entire collections of isofiles for retrieval at a later point is easily done using the <code>iso_save</code> function which stores collections or individual isoreader file objects in the efficient R data storage format <code>.rds</code> (if not specified, the extension <code>.di.rds</code> will be automatically appended). These saved collections can be conveniently read back using the same <code>iso_read_dual_inlet</code> command used for raw data files.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># export to R data archive</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a>di_files <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iso_save</span>(<span class="st">&quot;di_files_export.di.rds&quot;</span>)</span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="co">#&gt; Info: exporting data from 3 iso_files into R Data Storage &#39;di_files_export.di.rds&#39;</span></span>
+<span id="cb26-4"><a href="#cb26-4"></a></span>
+<span id="cb26-5"><a href="#cb26-5"></a><span class="co"># read back the exported R data storage</span></span>
+<span id="cb26-6"><a href="#cb26-6"></a><span class="kw">iso_read_dual_inlet</span>(<span class="st">&quot;di_files_export.di.rds&quot;</span>)</span>
+<span id="cb26-7"><a href="#cb26-7"></a><span class="co">#&gt; Info: preparing to read 1 data files...</span></span>
+<span id="cb26-8"><a href="#cb26-8"></a><span class="co">#&gt; Info: reading file &#39;di_files_export.di.rds&#39; with &#39;.di.rds&#39; reader...</span></span>
+<span id="cb26-9"><a href="#cb26-9"></a><span class="co">#&gt; Info: loaded 3 data files from R Data Storage</span></span>
+<span id="cb26-10"><a href="#cb26-10"></a><span class="co">#&gt; Info: finished reading 1 files in 0.09 secs</span></span>
+<span id="cb26-11"><a href="#cb26-11"></a><span class="co">#&gt; Data from 3 dual inlet iso files: </span></span>
+<span id="cb26-12"><a href="#cb26-12"></a><span class="co">#&gt; # A tibble: 3 x 6</span></span>
+<span id="cb26-13"><a href="#cb26-13"></a><span class="co">#&gt;   file_id     raw_data      file_info  method_info  vendor_data_tab… file_path  </span></span>
+<span id="cb26-14"><a href="#cb26-14"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;glue&gt;        &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;            &lt;chr&gt;      </span></span>
+<span id="cb26-15"><a href="#cb26-15"></a><span class="co">#&gt; 1 dual_inlet… 7 cycles, 6 … 16 entries standards, … 7 rows, 8 colum… dual_inlet…</span></span>
+<span id="cb26-16"><a href="#cb26-16"></a><span class="co">#&gt; 2 dual_inlet… 8 cycles, 6 … 22 entries standards, … 8 rows, 9 colum… dual_inlet…</span></span>
+<span id="cb26-17"><a href="#cb26-17"></a><span class="co">#&gt; 3 dual_inlet… 82 cycles, 6… 9 entries  no method i… no vendor data … dual_inlet…</span></span></code></pre></div>
+</div>
+<div id="data-export" class="section level1">
+<h1>Data Export</h1>
+<p>At the moment, isoreader supports export of all data to Excel and the <a href="https://blog.rstudio.com/2016/03/29/feather/">Feather file format</a> (a Python/R cross-over format). Note that both export methods have similar syntax and append the appropriate file extension for each type of export file (<code>.di.xlsx</code> and <code>.di.feather</code>, respectively).</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># export to excel</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>di_files <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iso_export_to_excel</span>(<span class="st">&quot;di_files_export&quot;</span>)</span>
+<span id="cb27-3"><a href="#cb27-3"></a><span class="co">#&gt; Info: exporting data from 3 iso_files into Excel &#39;di_files_export.di.xlsx&#39;</span></span>
+<span id="cb27-4"><a href="#cb27-4"></a><span class="co">#&gt; Info: aggregating all data from 3 data file(s)</span></span>
+<span id="cb27-5"><a href="#cb27-5"></a></span>
+<span id="cb27-6"><a href="#cb27-6"></a><span class="co"># data sheets available in the exported data file:</span></span>
+<span id="cb27-7"><a href="#cb27-7"></a>readxl<span class="op">::</span><span class="kw">excel_sheets</span>(<span class="st">&quot;di_files_export.di.xlsx&quot;</span>)</span>
+<span id="cb27-8"><a href="#cb27-8"></a><span class="co">#&gt; [1] &quot;file info&quot;         &quot;raw data&quot;          &quot;standards&quot;        </span></span>
+<span id="cb27-9"><a href="#cb27-9"></a><span class="co">#&gt; [4] &quot;resistors&quot;         &quot;vendor data table&quot; &quot;problems&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># export to feather</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>di_files <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iso_export_to_feather</span>(<span class="st">&quot;di_files_export&quot;</span>)</span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="co">#&gt; Info: exporting data from 3 iso_files into .di.feather files at &#39;di_files_export&#39;</span></span>
+<span id="cb28-4"><a href="#cb28-4"></a><span class="co">#&gt; Info: aggregating all data from 3 data file(s)</span></span>
+<span id="cb28-5"><a href="#cb28-5"></a></span>
+<span id="cb28-6"><a href="#cb28-6"></a><span class="co"># exported feather files</span></span>
+<span id="cb28-7"><a href="#cb28-7"></a><span class="kw">list.files</span>(<span class="dt">pattern =</span> <span class="st">&quot;.di.feather&quot;</span>)</span>
+<span id="cb28-8"><a href="#cb28-8"></a><span class="co">#&gt; [1] &quot;di_files_export_file_info.di.feather&quot;        </span></span>
+<span id="cb28-9"><a href="#cb28-9"></a><span class="co">#&gt; [2] &quot;di_files_export_problems.di.feather&quot;         </span></span>
+<span id="cb28-10"><a href="#cb28-10"></a><span class="co">#&gt; [3] &quot;di_files_export_raw_data.di.feather&quot;         </span></span>
+<span id="cb28-11"><a href="#cb28-11"></a><span class="co">#&gt; [4] &quot;di_files_export_resistors.di.feather&quot;        </span></span>
+<span id="cb28-12"><a href="#cb28-12"></a><span class="co">#&gt; [5] &quot;di_files_export_standards.di.feather&quot;        </span></span>
+<span id="cb28-13"><a href="#cb28-13"></a><span class="co">#&gt; [6] &quot;di_files_export_vendor_data_table.di.feather&quot;</span></span></code></pre></div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

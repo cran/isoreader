@@ -8,9 +8,12 @@ knitr::opts_chunk$set(
 # load isoreader package
 library(isoreader)
 
+## ---- include=FALSE, message=FALSE--------------------------------------------
+iso_turn_reader_caching_off()
+
 ## -----------------------------------------------------------------------------
 # all available examples
-iso_get_reader_examples() %>% rmarkdown::paged_table()
+iso_get_reader_examples() %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # read all available examples

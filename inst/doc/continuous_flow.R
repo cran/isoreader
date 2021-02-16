@@ -10,7 +10,7 @@ library(isoreader)
 
 ## ---- message = FALSE---------------------------------------------------------
 # all available examples
-iso_get_reader_examples() %>% rmarkdown::paged_table()
+iso_get_reader_examples() %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # read a few of the continuous flow examples
@@ -22,15 +22,15 @@ cf_files <-
   )
 
 ## -----------------------------------------------------------------------------
-cf_files %>% iso_get_data_summary() %>% rmarkdown::paged_table()
+cf_files %>% iso_get_data_summary() %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
-cf_files %>% iso_get_problems_summary() %>% rmarkdown::paged_table()
-cf_files %>% iso_get_problems() %>% rmarkdown::paged_table()
+cf_files %>% iso_get_problems_summary() %>% knitr::kable()
+cf_files %>% iso_get_problems() %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # all file information
-cf_files %>% iso_get_file_info(select = c(-file_root)) %>% rmarkdown::paged_table()
+cf_files %>% iso_get_file_info(select = c(-file_root)) %>% knitr::kable()
 # select file information
 cf_files %>%
   iso_get_file_info(
@@ -44,7 +44,7 @@ cf_files %>%
     ),
     # explicitly allow for file specific rename (for the new ID column)
     file_specific = TRUE
-  ) %>% rmarkdown::paged_table()
+  ) %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # select + rename specific file info columns
@@ -58,19 +58,19 @@ cf_files2 <- cf_files %>%
   )
 
 # fetch all file info
-cf_files2 %>% iso_get_file_info() %>% rmarkdown::paged_table()
+cf_files2 %>% iso_get_file_info() %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # find files that have 'acetanilide' in the new ID field
 cf_files2 %>% iso_filter_files(grepl("acetanilide", ID)) %>%
   iso_get_file_info() %>%
-  rmarkdown::paged_table()
+  knitr::kable()
 
 # find files that were run since 2015
 cf_files2 %>%
   iso_filter_files(`Date & Time` > "2015-01-01") %>%
   iso_get_file_info() %>%
-  rmarkdown::paged_table()
+  knitr::kable()
 
 ## -----------------------------------------------------------------------------
 cf_files3 <-
@@ -87,7 +87,7 @@ cf_files3 <-
 cf_files3 %>%
   iso_get_file_info() %>%
   iso_make_units_explicit() %>%
-  rmarkdown::paged_table()
+  knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # this kind of information data frame is frequently read in from a csv or xlsx file
@@ -105,13 +105,13 @@ new_info <-
        "6617_IAEA600",  "no",      "did not inject properly"
     )
   )
-new_info %>% rmarkdown::paged_table()
+new_info %>% knitr::kable()
 
 # adding it to the isofiles
 cf_files3 %>%
   iso_add_file_info(new_info, by1 = "Run since 2015?", by2 = "file_id") %>%
   iso_get_file_info(select = !!names(new_info)) %>%
-  rmarkdown::paged_table()
+  knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # use parsing and extraction in iso_mutate_file_info
@@ -127,13 +127,13 @@ cf_files2 %>%
     name = extract_substring(ID, "(\\w+)-?(.*)?", capture_bracket = 1)
   ) %>%
   iso_get_file_info(select = c(matches("file_id"), ID, name, `Peak Center`)) %>%
-  rmarkdown::paged_table()
+  knitr::kable()
 
 # use parsing in iso_filter_file_info
 cf_files2 %>%
   iso_filter_files(parse_number(`H3 Factor`) > 2) %>%
   iso_get_file_info() %>%
-  rmarkdown::paged_table()
+  knitr::kable()
 
 # use iso_parse_file_info for simplified parsing of column data types
 cf_files2 %>%
@@ -143,20 +143,20 @@ cf_files2 %>%
     logical = `Peak Center`
   ) %>%
   iso_get_file_info() %>%
-  rmarkdown::paged_table()
+  knitr::kable()
 
 ## -----------------------------------------------------------------------------
-cf_files %>% iso_get_resistors() %>% rmarkdown::paged_table()
+cf_files %>% iso_get_resistors() %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # reference delta values without ratio values
-cf_files %>% iso_get_standards(file_id:reference) %>% rmarkdown::paged_table()
+cf_files %>% iso_get_standards(file_id:reference) %>% knitr::kable()
 # reference values with ratios
-cf_files %>% iso_get_standards() %>% rmarkdown::paged_table()
+cf_files %>% iso_get_standards() %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # get raw data with default selections (all raw data, no additional file info)
-cf_files %>% iso_get_raw_data() %>% head(n=10) %>% rmarkdown::paged_table()
+cf_files %>% iso_get_raw_data() %>% head(n=10) %>% knitr::kable()
 # get specific raw data and add some file information
 cf_files %>%
   iso_get_raw_data(
@@ -166,11 +166,11 @@ cf_files %>%
     include_file_info = c(run = Analysis)
   ) %>%
   # look at first few records only
-  head(n=10) %>% rmarkdown::paged_table()
+  head(n=10) %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # entire vendor data table
-cf_files %>% iso_get_vendor_data_table() %>% rmarkdown::paged_table()
+cf_files %>% iso_get_vendor_data_table() %>% knitr::kable()
 # get specific parts and add some file information
 cf_files %>%
   iso_get_vendor_data_table(
@@ -179,7 +179,7 @@ cf_files %>%
     # include the Analysis number fron the file info and rename it to 'run'
     include_file_info = c(run = Analysis)
   ) %>%
-  rmarkdown::paged_table()
+  knitr::kable()
 
 # the data table also provides units if included in the original data file
 # which can be made explicit using the function iso_make_units_explicit()
@@ -192,7 +192,7 @@ cf_files %>%
   ) %>%
   # make column units explicit
   iso_make_units_explicit() %>%
-  rmarkdown::paged_table()
+  knitr::kable()
 
 ## -----------------------------------------------------------------------------
 all_data <- cf_files %>% iso_get_all_data()
@@ -204,7 +204,7 @@ cf_files %>% iso_save("cf_files_export.cf.rds")
 
 # read back the exported R data archive
 cf_files <- iso_read_continuous_flow("cf_files_export.cf.rds")
-cf_files %>% iso_get_data_summary() %>% rmarkdown::paged_table()
+cf_files %>% iso_get_data_summary() %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # export to excel

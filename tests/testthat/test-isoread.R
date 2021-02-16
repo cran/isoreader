@@ -16,6 +16,7 @@ test_that("test that file reader registration works", {
   expect_error(iso_register_continuous_flow_file_reader(".new2", "iso_is_file"), "exists in more than one environment")
   expect_equal(iso_register_continuous_flow_file_reader(".new2", "iso_is_file", env = "isoreader") %>% 
                  dplyr::filter(extension == ".new") %>% nrow(), 1)
+  rm("iso_is_file", envir = .GlobalEnv)
 })
 
 # parameter checks ======
@@ -121,9 +122,9 @@ test_that("test that version checking and re-reads are working properly", {
   temp_storage <- file.path(tempdir(), "scan_storage_old.scan.rds")
   dir.create(temp_cache, showWarnings = FALSE)
   save_files <- files %>% iso_set_file_root(remove_embedded_root = data_folder)
-  readr::write_rds(save_files[[1]], path = file.path(temp_cache, basename(generate_cache_filepaths(test_files)[1])))
-  readr::write_rds(save_files[[2]], path = file.path(temp_cache, basename(generate_cache_filepaths(test_files)[2])))
-  readr::write_rds(save_files[[3]], path = file.path(temp_cache, basename(generate_cache_filepaths(test_files)[3])))
+  readr::write_rds(save_files[[1]], file.path(temp_cache, basename(generate_cache_filepaths(test_files)[1])))
+  readr::write_rds(save_files[[2]], file.path(temp_cache, basename(generate_cache_filepaths(test_files)[2])))
+  readr::write_rds(save_files[[3]], file.path(temp_cache, basename(generate_cache_filepaths(test_files)[3])))
   iso_save(save_files, filepath = temp_storage)
   
   # version warnings for files
@@ -133,7 +134,7 @@ test_that("test that version checking and re-reads are working properly", {
     "running compatibility checks")
   expect_warning(
     capture.output(cached_files <- iso_read_scan(test_files)), 
-    "some files.*outdated cache or storage")
+    "some files.*outdated cache")
   expect_true(nrow(problems(cached_files)) == 4)
   expect_true(is_iso_object_outdated(cached_files))
   isoreader:::set_default("cache_dir", "cache")
@@ -201,7 +202,7 @@ test_that("test that version checking and re-reads are working properly", {
     "running compatibility checks")
   expect_warning(
     capture.output(files <- iso_read_scan(temp_storage)), 
-    "some files.*outdated cache or storage")
+    "some files.*outdated cache")
   expect_true(nrow(problems(files)) == 4)
   expect_true(is_iso_object_outdated(files))
   expect_false(is_iso_object_outdated(files[[3]]))

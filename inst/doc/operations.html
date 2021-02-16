@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
-<meta name="date" content="2020-10-27" />
+<meta name="date" content="2021-02-15" />
 
 <title>Operations</title>
 
@@ -360,7 +360,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 <h1 class="title toc-ignore">Operations</h1>
-<h4 class="date">2020-10-27</h4>
+<h4 class="date">2021-02-15</h4>
 
 
 
@@ -387,39 +387,15 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">.did</td>
-<td align="left">Isodat</td>
-<td align="left">Dual Inlet file format (newer)</td>
-<td align="left">dual inlet</td>
-</tr>
-<tr class="even">
-<td align="left">.caf</td>
-<td align="left">Isodat</td>
-<td align="left">Dual Inlet file format (older)</td>
-<td align="left">dual inlet</td>
-</tr>
-<tr class="odd">
-<td align="left">.txt</td>
-<td align="left">Nu</td>
-<td align="left">Dual Inlet file format</td>
-<td align="left">dual inlet</td>
-</tr>
-<tr class="even">
-<td align="left">.di.rda</td>
-<td align="left">isoreader</td>
-<td align="left">R Data Archive (deprecated)</td>
-<td align="left">dual inlet</td>
-</tr>
-<tr class="odd">
-<td align="left">.di.rds</td>
-<td align="left">isoreader</td>
-<td align="left">R Data Storage</td>
-<td align="left">dual inlet</td>
-</tr>
-<tr class="even">
 <td align="left">.cf</td>
 <td align="left">Isodat</td>
 <td align="left">Continuous Flow file format (older)</td>
+<td align="left">continuous flow</td>
+</tr>
+<tr class="even">
+<td align="left">.cf.rds</td>
+<td align="left">isoreader</td>
+<td align="left">R Data Storage</td>
 <td align="left">continuous flow</td>
 </tr>
 <tr class="odd">
@@ -435,27 +411,39 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="left">continuous flow</td>
 </tr>
 <tr class="odd">
-<td align="left">.cf.rda</td>
-<td align="left">isoreader</td>
-<td align="left">R Data Archive (deprecated)</td>
-<td align="left">continuous flow</td>
+<td align="left">.caf</td>
+<td align="left">Isodat</td>
+<td align="left">Dual Inlet file format (older)</td>
+<td align="left">dual inlet</td>
 </tr>
 <tr class="even">
-<td align="left">.cf.rds</td>
+<td align="left">.di.rds</td>
 <td align="left">isoreader</td>
 <td align="left">R Data Storage</td>
-<td align="left">continuous flow</td>
+<td align="left">dual inlet</td>
 </tr>
 <tr class="odd">
-<td align="left">.scn</td>
+<td align="left">.did</td>
 <td align="left">Isodat</td>
-<td align="left">Scan file format</td>
-<td align="left">scan</td>
+<td align="left">Dual Inlet file format (newer)</td>
+<td align="left">dual inlet</td>
 </tr>
 <tr class="even">
+<td align="left">.txt</td>
+<td align="left">Nu</td>
+<td align="left">Dual Inlet file format</td>
+<td align="left">dual inlet</td>
+</tr>
+<tr class="odd">
 <td align="left">.scan.rds</td>
 <td align="left">isoreader</td>
 <td align="left">R Data Storage</td>
+<td align="left">scan</td>
+</tr>
+<tr class="even">
+<td align="left">.scn</td>
+<td align="left">Isodat</td>
+<td align="left">Scan file format</td>
 <td align="left">scan</td>
 </tr>
 </tbody>
@@ -463,7 +451,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </div>
 <div id="messages" class="section level1">
 <h1>Messages</h1>
-<p>By default, isoreader is quite verbose to let the user know what is happening. However, most functions can be silenced by adding the parameter <code>quiet = TRUE</code> to the function call. This can also be done globally using <code>iso_turn_info_message_off()</code></p>
+<p>By default, isoreader is quite verbose to let the user know what is happening. However, most functions can be silenced by adding the parameter <code>quiet = TRUE</code> to the function call. This can also be done globally using <code>iso_turn_info_messages_off()</code></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># read a file in the default verbose mode</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="kw">iso_get_reader_example</span>(<span class="st">&quot;dual_inlet_example.did&quot;</span>) <span class="op">%&gt;%</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="st">  </span><span class="kw">iso_read_dual_inlet</span>() <span class="op">%&gt;%</span></span>
@@ -472,7 +460,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb3-6"><a href="#cb3-6"></a><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</span>
 <span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; Info: preparing to read 1 data files...</span></span>
 <span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; Info: reading file &#39;dual_inlet_example.did&#39; with &#39;.did&#39; reader...</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; Info: finished reading 1 files in 0.66 secs</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; Info: finished reading 1 files in 0.56 secs</span></span>
 <span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; Info: selecting/renaming the following file info across 1 data file(s): &#39;file_datetime&#39;, &#39;Identifier 1&#39;</span></span>
 <span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; Info: aggregating file info from 1 data file(s)</span></span></code></pre></div>
 <table>
@@ -561,7 +549,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt; Info: processing config &#39;CO2&#39; (345196-369809)</span></span>
 <span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt; Info: processing data for &#39;N2&#39; (128025-158837)</span></span>
 <span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt; Info: processing data for &#39;CO2&#39; (158931-196381)</span></span>
-<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt; Info: finished reading 1 files in 1.91 secs</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt; Info: finished reading 1 files in 1.98 secs</span></span>
 <span id="cb7-15"><a href="#cb7-15"></a></span>
 <span id="cb7-16"><a href="#cb7-16"></a><span class="co"># re-read the same file much faster (it will be read from cache)</span></span>
 <span id="cb7-17"><a href="#cb7-17"></a>cf_file &lt;-<span class="st"> </span><span class="kw">iso_get_reader_example</span>(<span class="st">&quot;continuous_flow_example.dxf&quot;</span>) <span class="op">%&gt;%</span></span>
@@ -572,7 +560,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt; Info: processing config &#39;CO2&#39; (345196-369809)</span></span>
 <span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt; Info: processing data for &#39;N2&#39; (128025-158837)</span></span>
 <span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt; Info: processing data for &#39;CO2&#39; (158931-196381)</span></span>
-<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; Info: finished reading 1 files in 1.81 secs</span></span>
+<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; Info: finished reading 1 files in 1.59 secs</span></span>
 <span id="cb7-26"><a href="#cb7-26"></a></span>
 <span id="cb7-27"><a href="#cb7-27"></a><span class="co"># turn reader caching off</span></span>
 <span id="cb7-28"><a href="#cb7-28"></a><span class="kw">iso_turn_reader_caching_off</span>()</span>
@@ -587,7 +575,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb7-37"><a href="#cb7-37"></a><span class="co">#&gt; Info: processing config &#39;CO2&#39; (345196-369809)</span></span>
 <span id="cb7-38"><a href="#cb7-38"></a><span class="co">#&gt; Info: processing data for &#39;N2&#39; (128025-158837)</span></span>
 <span id="cb7-39"><a href="#cb7-39"></a><span class="co">#&gt; Info: processing data for &#39;CO2&#39; (158931-196381)</span></span>
-<span id="cb7-40"><a href="#cb7-40"></a><span class="co">#&gt; Info: finished reading 1 files in 1.82 secs</span></span>
+<span id="cb7-40"><a href="#cb7-40"></a><span class="co">#&gt; Info: finished reading 1 files in 1.66 secs</span></span>
 <span id="cb7-41"><a href="#cb7-41"></a></span>
 <span id="cb7-42"><a href="#cb7-42"></a><span class="co"># turn reader caching back on</span></span>
 <span id="cb7-43"><a href="#cb7-43"></a><span class="kw">iso_turn_reader_caching_on</span>()</span>
@@ -609,16 +597,12 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb8-10"><a href="#cb8-10"></a><span class="co">#&gt; Info: preparing to read 3 data files (all will be cached), setting up 3 par...</span></span>
 <span id="cb8-11"><a href="#cb8-11"></a><span class="co">#&gt; </span></span>
 <span id="cb8-12"><a href="#cb8-12"></a><span class="co">#&gt; DEBUG  (log files will not be deleted afer run):</span></span>
-<span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt;  log file path &#39;/var/folders/ns/x0fwvm6x22v8gf5tmj9r3yww0000gn/T//RtmptWAsKn/filec8b4451bd00b.log&#39;</span></span>
-<span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt;  progress file path &#39;/var/folders/ns/x0fwvm6x22v8gf5tmj9r3yww0000gn/T//RtmptWAsKn/filec8b4451bd00b.progress&#39;</span></span>
-<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt; Warning: `data_frame()` is deprecated as of tibble 1.1.0.</span></span>
-<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt; Please use `tibble()` instead.</span></span>
-<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
-<span id="cb8-18"><a href="#cb8-18"></a><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></span>
-<span id="cb8-19"><a href="#cb8-19"></a><span class="co">#&gt; Info (process 1): reading file &#39;dual_inlet_example.did&#39; from cache...</span></span>
-<span id="cb8-20"><a href="#cb8-20"></a><span class="co">#&gt; Info (process 2): reading file &#39;dual_inlet_example.caf&#39; from cache...</span></span>
-<span id="cb8-21"><a href="#cb8-21"></a><span class="co">#&gt; Info (process 3): reading file &#39;dual_inlet_nu_example.txt&#39; with &#39;.txt&#39; read...</span></span>
-<span id="cb8-22"><a href="#cb8-22"></a><span class="co">#&gt; Info: finished reading 3 files in 5.45 secs</span></span></code></pre></div>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt;  log file path &#39;/var/folders/ns/x0fwvm6x22v8gf5tmj9r3yww0000gn/T//RtmpTvgvSF/file9a6a20bf5111.log&#39;</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt;  progress file path &#39;/var/folders/ns/x0fwvm6x22v8gf5tmj9r3yww0000gn/T//RtmpTvgvSF/file9a6a20bf5111.progress&#39;</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt; Info (process 1): reading file &#39;dual_inlet_example.did&#39; from cache...</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt; Info (process 2): reading file &#39;dual_inlet_example.caf&#39; from cache...</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#&gt; Info (process 3): reading file &#39;dual_inlet_nu_example.txt&#39; with &#39;.txt&#39; read...</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a><span class="co">#&gt; Info: finished reading 3 files in 5.71 secs</span></span></code></pre></div>
 </div>
 <div id="combining-subsetting-isofiles" class="section level1">
 <h1>Combining / subsetting isofiles</h1>
@@ -696,7 +680,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb10-8"><a href="#cb10-8"></a><span class="co">#&gt; Info: reading file &#39;extdata/continuous_flow_example.dxf&#39; from cache...</span></span>
 <span id="cb10-9"><a href="#cb10-9"></a><span class="co">#&gt; Info: reading file &#39;errdata/cf_without_data.dxf&#39; with &#39;.dxf&#39; reader...</span></span>
 <span id="cb10-10"><a href="#cb10-10"></a><span class="co">#&gt; Warning: caught error - cannot identify measured masses - block &#39;CEvalDataI...</span></span>
-<span id="cb10-11"><a href="#cb10-11"></a><span class="co">#&gt; Info: finished reading 2 files in 0.40 secs</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="co">#&gt; Info: finished reading 2 files in 0.38 secs</span></span>
 <span id="cb10-12"><a href="#cb10-12"></a><span class="co">#&gt; Warning: encountered 1 problem.</span></span>
 <span id="cb10-13"><a href="#cb10-13"></a><span class="co">#&gt; # | FILE                | PROBLEM | OCCURRED IN                  | DETAILS</span></span>
 <span id="cb10-14"><a href="#cb10-14"></a><span class="co">#&gt; 1 | cf_without_data.dxf | error   | extract_dxf_raw_voltage_data | cannot ide...</span></span>

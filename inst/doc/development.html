@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
-<meta name="date" content="2020-10-27" />
+<meta name="date" content="2021-02-15" />
 
 <title>Development features of isoreader</title>
 
@@ -64,1277 +64,6 @@ document.addEventListener('DOMContentLoaded', function() {
     x.appendChild(anchor);
   });
 });
-</script>
-<style type="text/css">.pagedtable {
-overflow: auto;
-padding-left: 8px;
-padding-right: 8px;
-}
-.pagedtable-wrapper {
-border: 1px solid #ccc;
-border-radius: 4px;
-margin-bottom: 10px;
-}
-.pagedtable table {
-width: 100%;
-max-width: 100%;
-margin: 0;
-}
-.pagedtable th {
-padding: 0 5px 0 5px;
-border: none;
-border-bottom: 2px solid #dddddd;
-min-width: 45px;
-}
-.pagedtable-empty th {
-display: none;
-}
-.pagedtable td {
-padding: 0 4px 0 4px;
-}
-.pagedtable .even {
-background-color: rgba(140, 140, 140, 0.1);
-}
-.pagedtable-padding-col {
-display: none;
-}
-.pagedtable a {
--webkit-touch-callout: none;
--webkit-user-select: none;
--khtml-user-select: none;
--moz-user-select: none;
--ms-user-select: none;
-user-select: none;
-}
-.pagedtable-index-nav {
-cursor: pointer;
-padding: 0 5px 0 5px;
-float: right;
-border: 0;
-}
-.pagedtable-index-nav-disabled {
-cursor: default;
-text-decoration: none;
-color: #999;
-}
-a.pagedtable-index-nav-disabled:hover {
-text-decoration: none;
-color: #999;
-}
-.pagedtable-indexes {
-cursor: pointer;
-float: right;
-border: 0;
-}
-.pagedtable-index-current {
-cursor: default;
-text-decoration: none;
-font-weight: bold;
-color: #333;
-border: 0;
-}
-a.pagedtable-index-current:hover {
-text-decoration: none;
-font-weight: bold;
-color: #333;
-}
-.pagedtable-index {
-width: 30px;
-display: inline-block;
-text-align: center;
-border: 0;
-}
-.pagedtable-index-separator-left {
-display: inline-block;
-color: #333;
-font-size: 9px;
-padding: 0 0 0 0;
-cursor: default;
-}
-.pagedtable-index-separator-right {
-display: inline-block;
-color: #333;
-font-size: 9px;
-padding: 0 4px 0 0;
-cursor: default;
-}
-.pagedtable-footer {
-padding-top: 4px;
-padding-bottom: 5px;
-}
-.pagedtable-not-empty .pagedtable-footer {
-border-top: 2px solid #dddddd;
-}
-.pagedtable-info {
-overflow: hidden;
-color: #999;
-white-space: nowrap;
-text-overflow: ellipsis;
-}
-.pagedtable-header-name {
-overflow: hidden;
-text-overflow: ellipsis;
-}
-.pagedtable-header-type {
-color: #999;
-font-weight: 400;
-}
-.pagedtable-na-cell {
-font-style: italic;
-opacity: 0.3;
-}
-</style>
-<script>// Production steps of ECMA-262, Edition 5, 15.4.4.18
-// Reference: http://es5.github.io/#x15.4.4.18
-if (!Array.prototype.forEach) {
-
-  Array.prototype.forEach = function(callback, thisArg) {
-
-    var T, k;
-
-    if (this === null) {
-      throw new TypeError(' this is null or not defined');
-    }
-
-    // 1. Let O be the result of calling toObject() passing the
-    // |this| value as the argument.
-    var O = Object(this);
-
-    // 2. Let lenValue be the result of calling the Get() internal
-    // method of O with the argument "length".
-    // 3. Let len be toUint32(lenValue).
-    var len = O.length >>> 0;
-
-    // 4. If isCallable(callback) is false, throw a TypeError exception.
-    // See: http://es5.github.com/#x9.11
-    if (typeof callback !== "function") {
-      throw new TypeError(callback + ' is not a function');
-    }
-
-    // 5. If thisArg was supplied, let T be thisArg; else let
-    // T be undefined.
-    if (arguments.length > 1) {
-      T = thisArg;
-    }
-
-    // 6. Let k be 0
-    k = 0;
-
-    // 7. Repeat, while k < len
-    while (k < len) {
-
-      var kValue;
-
-      // a. Let Pk be ToString(k).
-      //    This is implicit for LHS operands of the in operator
-      // b. Let kPresent be the result of calling the HasProperty
-      //    internal method of O with argument Pk.
-      //    This step can be combined with c
-      // c. If kPresent is true, then
-      if (k in O) {
-
-        // i. Let kValue be the result of calling the Get internal
-        // method of O with argument Pk.
-        kValue = O[k];
-
-        // ii. Call the Call internal method of callback with T as
-        // the this value and argument list containing kValue, k, and O.
-        callback.call(T, kValue, k, O);
-      }
-      // d. Increase k by 1.
-      k++;
-    }
-    // 8. return undefined
-  };
-}
-
-// Production steps of ECMA-262, Edition 5, 15.4.4.19
-// Reference: http://es5.github.io/#x15.4.4.19
-if (!Array.prototype.map) {
-
-  Array.prototype.map = function(callback, thisArg) {
-
-    var T, A, k;
-
-    if (this == null) {
-      throw new TypeError(' this is null or not defined');
-    }
-
-    // 1. Let O be the result of calling ToObject passing the |this|
-    //    value as the argument.
-    var O = Object(this);
-
-    // 2. Let lenValue be the result of calling the Get internal
-    //    method of O with the argument "length".
-    // 3. Let len be ToUint32(lenValue).
-    var len = O.length >>> 0;
-
-    // 4. If IsCallable(callback) is false, throw a TypeError exception.
-    // See: http://es5.github.com/#x9.11
-    if (typeof callback !== 'function') {
-      throw new TypeError(callback + ' is not a function');
-    }
-
-    // 5. If thisArg was supplied, let T be thisArg; else let T be undefined.
-    if (arguments.length > 1) {
-      T = thisArg;
-    }
-
-    // 6. Let A be a new array created as if by the expression new Array(len)
-    //    where Array is the standard built-in constructor with that name and
-    //    len is the value of len.
-    A = new Array(len);
-
-    // 7. Let k be 0
-    k = 0;
-
-    // 8. Repeat, while k < len
-    while (k < len) {
-
-      var kValue, mappedValue;
-
-      // a. Let Pk be ToString(k).
-      //   This is implicit for LHS operands of the in operator
-      // b. Let kPresent be the result of calling the HasProperty internal
-      //    method of O with argument Pk.
-      //   This step can be combined with c
-      // c. If kPresent is true, then
-      if (k in O) {
-
-        // i. Let kValue be the result of calling the Get internal
-        //    method of O with argument Pk.
-        kValue = O[k];
-
-        // ii. Let mappedValue be the result of calling the Call internal
-        //     method of callback with T as the this value and argument
-        //     list containing kValue, k, and O.
-        mappedValue = callback.call(T, kValue, k, O);
-
-        // iii. Call the DefineOwnProperty internal method of A with arguments
-        // Pk, Property Descriptor
-        // { Value: mappedValue,
-        //   Writable: true,
-        //   Enumerable: true,
-        //   Configurable: true },
-        // and false.
-
-        // In browsers that support Object.defineProperty, use the following:
-        // Object.defineProperty(A, k, {
-        //   value: mappedValue,
-        //   writable: true,
-        //   enumerable: true,
-        //   configurable: true
-        // });
-
-        // For best browser support, use the following:
-        A[k] = mappedValue;
-      }
-      // d. Increase k by 1.
-      k++;
-    }
-
-    // 9. return A
-    return A;
-  };
-}
-
-var PagedTable = function (pagedTable) {
-  var me = this;
-
-  var source = function(pagedTable) {
-    var sourceElems = [].slice.call(pagedTable.children).filter(function(e) {
-      return e.hasAttribute("data-pagedtable-source");
-    });
-
-    if (sourceElems === null || sourceElems.length !== 1) {
-      throw("A single data-pagedtable-source was not found");
-    }
-
-    return JSON.parse(sourceElems[0].innerHTML);
-  }(pagedTable);
-
-  var options = function(source) {
-    var options = typeof(source.options) !== "undefined" &&
-      source.options !== null ? source.options : {};
-
-    var columns = typeof(options.columns) !== "undefined" ? options.columns : {};
-    var rows = typeof(options.rows) !== "undefined" ? options.rows : {};
-
-    var positiveIntOrNull = function(value) {
-      return parseInt(value) >= 0 ? parseInt(value) : null;
-    };
-
-    return {
-      pages: positiveIntOrNull(options.pages),
-      rows: {
-        min: positiveIntOrNull(rows.min),
-        max: positiveIntOrNull(rows.max),
-        total: positiveIntOrNull(rows.total)
-      },
-      columns: {
-        min: positiveIntOrNull(columns.min),
-        max: positiveIntOrNull(columns.max),
-        total: positiveIntOrNull(columns.total)
-      }
-    };
-  }(source);
-
-  var Measurer = function() {
-
-    // set some default initial values that will get adjusted in runtime
-    me.measures = {
-      padding: 12,
-      character: 8,
-      height: 15,
-      defaults: true
-    };
-
-    me.calculate = function(measuresCell) {
-      if (!me.measures.defaults)
-        return;
-
-      var measuresCellStyle = window.getComputedStyle(measuresCell, null);
-
-      var newPadding = parsePadding(measuresCellStyle.paddingLeft) +
-            parsePadding(measuresCellStyle.paddingRight);
-
-      var sampleString = "ABCDEFGHIJ0123456789";
-      var newCharacter = Math.ceil(measuresCell.clientWidth / sampleString.length);
-
-      if (newPadding <= 0 || newCharacter <= 0)
-        return;
-
-      me.measures.padding = newPadding;
-      me.measures.character = newCharacter;
-      me.measures.height = measuresCell.clientHeight;
-      me.measures.defaults = false;
-    };
-
-    return me;
-  };
-
-  var Page = function(data, options) {
-    var me = this;
-
-    var defaults = {
-      max: 7,
-      rows: 10
-    };
-
-    var totalPages = function() {
-      return Math.ceil(data.length / me.rows);
-    };
-
-    me.number = 0;
-    me.max = options.pages !== null ? options.pages : defaults.max;
-    me.visible = me.max;
-    me.rows = options.rows.min !== null ? options.rows.min : defaults.rows;
-    me.total = totalPages();
-
-    me.setRows = function(newRows) {
-      me.rows = newRows;
-      me.total = totalPages();
-    };
-
-    me.setPageNumber = function(newPageNumber) {
-      if (newPageNumber < 0) newPageNumber = 0;
-      if (newPageNumber >= me.total) newPageNumber = me.total - 1;
-
-      me.number = newPageNumber;
-    };
-
-    me.setVisiblePages = function(visiblePages) {
-      me.visible = Math.min(me.max, visiblePages);
-      me.setPageNumber(me.number);
-    };
-
-    me.getVisiblePageRange = function() {
-      var start = me.number - Math.max(Math.floor((me.visible - 1) / 2), 0);
-      var end = me.number + Math.floor(me.visible / 2) + 1;
-      var pageCount = me.total;
-
-      if (start < 0) {
-        var diffToStart = 0 - start;
-        start += diffToStart;
-        end += diffToStart;
-      }
-
-      if (end > pageCount) {
-        var diffToEnd = end - pageCount;
-        start -= diffToEnd;
-        end -= diffToEnd;
-      }
-
-      start = start < 0 ? 0 : start;
-      end = end >= pageCount ? pageCount : end;
-
-      var first = false;
-      var last = false;
-
-      if (start > 0 && me.visible > 1) {
-        start = start + 1;
-        first = true;
-      }
-
-      if (end < pageCount && me.visible > 2) {
-        end = end - 1;
-        last = true;
-      }
-
-      return {
-        first: first,
-        start: start,
-        end: end,
-        last: last
-      };
-    };
-
-    me.getRowStart = function() {
-      var rowStart = page.number * page.rows;
-      if (rowStart < 0)
-        rowStart = 0;
-
-      return rowStart;
-    };
-
-    me.getRowEnd = function() {
-      var rowStart = me.getRowStart();
-      return Math.min(rowStart + me.rows, data.length);
-    };
-
-    me.getPaddingRows = function() {
-      var rowStart = me.getRowStart();
-      var rowEnd = me.getRowEnd();
-      return data.length > me.rows ? me.rows - (rowEnd - rowStart) : 0;
-    };
-  };
-
-  var Columns = function(data, columns, options) {
-    var me = this;
-
-    me.defaults = {
-      min: 5
-    };
-
-    me.number = 0;
-    me.visible = 0;
-    me.total = columns.length;
-    me.subset = [];
-    me.padding = 0;
-    me.min = options.columns.min !== null ? options.columns.min : me.defaults.min;
-    me.max = options.columns.max !== null ? options.columns.max : null;
-    me.widths = {};
-
-    var widthsLookAhead = Math.max(100, options.rows.min);
-    var paddingColChars = 10;
-
-    me.emptyNames = function() {
-      columns.forEach(function(column) {
-        if (columns.label !== null && columns.label !== "")
-          return false;
-      });
-
-      return true;
-    };
-
-    var parsePadding = function(value) {
-      return parseInt(value) >= 0 ? parseInt(value) : 0;
-    };
-
-    me.calculateWidths = function(measures) {
-      columns.forEach(function(column) {
-        var maxChars = Math.max(
-          column.label.toString().length,
-          column.type.toString().length
-        );
-
-        for (var idxRow = 0; idxRow < Math.min(widthsLookAhead, data.length); idxRow++) {
-          maxChars = Math.max(maxChars, data[idxRow][column.name.toString()].length);
-        }
-
-        me.widths[column.name] = {
-          // width in characters
-          chars: maxChars,
-          // width for the inner html columns
-          inner: maxChars * measures.character,
-          // width adding outer styles like padding
-          outer: maxChars * measures.character + measures.padding
-        };
-      });
-    };
-
-    me.getWidth = function() {
-      var widthOuter = 0;
-      for (var idxCol = 0; idxCol < me.subset.length; idxCol++) {
-        var columnName = me.subset[idxCol].name;
-        widthOuter = widthOuter + me.widths[columnName].outer;
-      }
-
-      widthOuter = widthOuter + me.padding * paddingColChars * measurer.measures.character;
-
-      if (me.hasMoreLeftColumns()) {
-        widthOuter = widthOuter + columnNavigationWidthPX + measurer.measures.padding;
-      }
-
-      if (me.hasMoreRightColumns()) {
-        widthOuter = widthOuter + columnNavigationWidthPX + measurer.measures.padding;
-      }
-
-      return widthOuter;
-    };
-
-    me.updateSlice = function() {
-      if (me.number + me.visible >= me.total)
-        me.number = me.total - me.visible;
-
-      if (me.number < 0) me.number = 0;
-
-      me.subset = columns.slice(me.number, Math.min(me.number + me.visible, me.total));
-
-      me.subset = me.subset.map(function(column) {
-        Object.keys(column).forEach(function(colKey) {
-          column[colKey] = column[colKey] === null ? "" : column[colKey].toString();
-        });
-
-        column.width = null;
-        return column;
-      });
-    };
-
-    me.setVisibleColumns = function(columnNumber, newVisibleColumns, paddingCount) {
-      me.number = columnNumber;
-      me.visible = newVisibleColumns;
-      me.padding = paddingCount;
-
-      me.updateSlice();
-    };
-
-    me.incColumnNumber = function(increment) {
-      me.number = me.number + increment;
-    };
-
-    me.setColumnNumber = function(newNumber) {
-      me.number = newNumber;
-    };
-
-    me.setPaddingCount = function(newPadding) {
-      me.padding = newPadding;
-    };
-
-    me.getPaddingCount = function() {
-      return me.padding;
-    };
-
-    me.hasMoreLeftColumns = function() {
-      return me.number > 0;
-    };
-
-    me.hasMoreRightColumns = function() {
-      return me.number + me.visible < me.total;
-    };
-
-    me.updateSlice(0);
-    return me;
-  };
-
-  var data = source.data;
-  var page = new Page(data, options);
-  var measurer = new Measurer(data, options);
-  var columns = new Columns(data, source.columns, options);
-
-  var table = null;
-  var tableDiv = null;
-  var header = null;
-  var footer = null;
-  var tbody = null;
-
-  // Caches pagedTable.clientWidth, specially for webkit
-  var cachedPagedTableClientWidth = null;
-
-  var onChangeCallbacks = [];
-
-  var clearSelection = function() {
-    if(document.selection && document.selection.empty) {
-      document.selection.empty();
-    } else if(window.getSelection) {
-      var sel = window.getSelection();
-      sel.removeAllRanges();
-    }
-  };
-
-  var columnNavigationWidthPX = 5;
-
-  var renderColumnNavigation = function(increment, backwards) {
-    var arrow = document.createElement("div");
-    arrow.setAttribute("style",
-      "border-top: " + columnNavigationWidthPX + "px solid transparent;" +
-      "border-bottom: " + columnNavigationWidthPX + "px solid transparent;" +
-      "border-" + (backwards ? "right" : "left") + ": " + columnNavigationWidthPX + "px solid;");
-
-    var header = document.createElement("th");
-    header.appendChild(arrow);
-    header.setAttribute("style",
-      "cursor: pointer;" +
-      "vertical-align: middle;" +
-      "min-width: " + columnNavigationWidthPX + "px;" +
-      "width: " + columnNavigationWidthPX + "px;");
-
-    header.onclick = function() {
-      columns.incColumnNumber(backwards ? -1 : increment);
-
-      me.animateColumns(backwards);
-      renderFooter();
-
-      clearSelection();
-      triggerOnChange();
-    };
-
-    return header;
-  };
-
-  var maxColumnWidth = function(width) {
-    var padding = 80;
-    var columnMax = Math.max(cachedPagedTableClientWidth - padding, 0);
-
-    return parseInt(width) > 0 ?
-      Math.min(columnMax, parseInt(width)) + "px" :
-      columnMax + "px";
-  };
-
-  var clearHeader = function() {
-    var thead = pagedTable.querySelectorAll("thead")[0];
-    thead.innerHTML = "";
-  };
-
-  var renderHeader = function(clear) {
-    cachedPagedTableClientWidth = pagedTable.clientWidth;
-
-    var fragment = document.createDocumentFragment();
-
-    header = document.createElement("tr");
-    fragment.appendChild(header);
-
-    if (columns.number > 0)
-      header.appendChild(renderColumnNavigation(-columns.visible, true));
-
-    columns.subset = columns.subset.map(function(columnData) {
-      var column = document.createElement("th");
-      column.setAttribute("align", columnData.align);
-      column.style.textAlign = columnData.align;
-
-      column.style.maxWidth = maxColumnWidth(null);
-      if (columnData.width) {
-        column.style.minWidth =
-          column.style.maxWidth = maxColumnWidth(columnData.width);
-      }
-
-      var columnName = document.createElement("div");
-      columnName.setAttribute("class", "pagedtable-header-name");
-      if (columnData.label === "") {
-        columnName.innerHTML = "&nbsp;";
-      }
-      else {
-        columnName.appendChild(document.createTextNode(columnData.label));
-      }
-      column.appendChild(columnName);
-
-      var columnType = document.createElement("div");
-      columnType.setAttribute("class", "pagedtable-header-type");
-      if (columnData.type === "") {
-        columnType.innerHTML = "&nbsp;";
-      }
-      else {
-        columnType.appendChild(document.createTextNode("<" + columnData.type + ">"));
-      }
-      column.appendChild(columnType);
-
-      header.appendChild(column);
-
-      columnData.element = column;
-
-      return columnData;
-    });
-
-    for (var idx = 0; idx < columns.getPaddingCount(); idx++) {
-      var paddingCol = document.createElement("th");
-      paddingCol.setAttribute("class", "pagedtable-padding-col");
-      header.appendChild(paddingCol);
-    }
-
-    if (columns.number + columns.visible < columns.total)
-      header.appendChild(renderColumnNavigation(columns.visible, false));
-
-    if (typeof(clear) == "undefined" || clear) clearHeader();
-    var thead = pagedTable.querySelectorAll("thead")[0];
-    thead.appendChild(fragment);
-  };
-
-  me.animateColumns = function(backwards) {
-    var thead = pagedTable.querySelectorAll("thead")[0];
-
-    var headerOld = thead.querySelectorAll("tr")[0];
-    var tbodyOld = table.querySelectorAll("tbody")[0];
-
-    me.fitColumns(backwards);
-
-    renderHeader(false);
-
-    header.style.opacity = "0";
-    header.style.transform = backwards ? "translateX(-30px)" : "translateX(30px)";
-    header.style.transition = "transform 200ms linear, opacity 200ms";
-    header.style.transitionDelay = "0";
-
-    renderBody(false);
-
-    if (headerOld) {
-      headerOld.style.position = "absolute";
-      headerOld.style.transform = "translateX(0px)";
-      headerOld.style.opacity = "1";
-      headerOld.style.transition = "transform 100ms linear, opacity 100ms";
-      headerOld.setAttribute("class", "pagedtable-remove-head");
-      if (headerOld.style.transitionEnd) {
-        headerOld.addEventListener("transitionend", function() {
-          var headerOldByClass = thead.querySelector(".pagedtable-remove-head");
-          if (headerOldByClass) thead.removeChild(headerOldByClass);
-        });
-      }
-      else {
-        thead.removeChild(headerOld);
-      }
-    }
-
-    if (tbodyOld) table.removeChild(tbodyOld);
-
-    tbody.style.opacity = "0";
-    tbody.style.transition = "transform 200ms linear, opacity 200ms";
-    tbody.style.transitionDelay = "0ms";
-
-    // force relayout
-    window.getComputedStyle(header).opacity;
-    window.getComputedStyle(tbody).opacity;
-
-    if (headerOld) {
-      headerOld.style.transform = backwards ? "translateX(20px)" : "translateX(-30px)";
-      headerOld.style.opacity = "0";
-    }
-
-    header.style.transform = "translateX(0px)";
-    header.style.opacity = "1";
-
-    tbody.style.opacity = "1";
-  }
-
-  me.onChange = function(callback) {
-    onChangeCallbacks.push(callback);
-  };
-
-  var triggerOnChange = function() {
-    onChangeCallbacks.forEach(function(onChange) {
-      onChange();
-    });
-  };
-
-  var clearBody = function() {
-    if (tbody) {
-      table.removeChild(tbody);
-      tbody = null;
-    }
-  };
-
-  var renderBody = function(clear) {
-    cachedPagedTableClientWidth = pagedTable.clientWidth
-
-    var fragment = document.createDocumentFragment();
-
-    var pageData = data.slice(page.getRowStart(), page.getRowEnd());
-
-    pageData.forEach(function(dataRow, idxRow) {
-      var htmlRow = document.createElement("tr");
-      htmlRow.setAttribute("class", (idxRow % 2 !==0) ? "even" : "odd");
-
-      if (columns.hasMoreLeftColumns())
-        htmlRow.appendChild(document.createElement("td"));
-
-      columns.subset.forEach(function(columnData) {
-        var cellName = columnData.name;
-        var dataCell = dataRow[cellName];
-        var htmlCell = document.createElement("td");
-
-        if (dataCell === "NA") htmlCell.setAttribute("class", "pagedtable-na-cell");
-        if (dataCell === "__NA__") dataCell = "NA";
-
-        var cellText = document.createTextNode(dataCell);
-        htmlCell.appendChild(cellText);
-        if (dataCell.length > 50) {
-          htmlCell.setAttribute("title", dataCell);
-        }
-        htmlCell.setAttribute("align", columnData.align);
-        htmlCell.style.textAlign = columnData.align;
-        htmlCell.style.maxWidth = maxColumnWidth(null);
-        if (columnData.width) {
-          htmlCell.style.minWidth = htmlCell.style.maxWidth = maxColumnWidth(columnData.width);
-        }
-        htmlRow.appendChild(htmlCell);
-      });
-
-      for (var idx = 0; idx < columns.getPaddingCount(); idx++) {
-        var paddingCol = document.createElement("td");
-        paddingCol.setAttribute("class", "pagedtable-padding-col");
-        htmlRow.appendChild(paddingCol);
-      }
-
-      if (columns.hasMoreRightColumns())
-        htmlRow.appendChild(document.createElement("td"));
-
-      fragment.appendChild(htmlRow);
-    });
-
-    for (var idxPadding = 0; idxPadding < page.getPaddingRows(); idxPadding++) {
-      var paddingRow = document.createElement("tr");
-
-      var paddingCellRow = document.createElement("td");
-      paddingCellRow.innerHTML = "&nbsp;";
-      paddingCellRow.setAttribute("colspan", "100%");
-      paddingRow.appendChild(paddingCellRow);
-
-      fragment.appendChild(paddingRow);
-    }
-
-    if (typeof(clear) == "undefined" || clear) clearBody();
-    tbody = document.createElement("tbody");
-    tbody.appendChild(fragment);
-
-    table.appendChild(tbody);
-  };
-
-  var getLabelInfo = function() {
-    var pageStart = page.getRowStart();
-    var pageEnd = page.getRowEnd();
-    var totalRows = data.length;
-
-    var totalRowsLabel = options.rows.total ? options.rows.total : totalRows;
-    var totalRowsLabelFormat = totalRowsLabel.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
-
-    var infoText = (pageStart + 1) + "-" + pageEnd + " of " + totalRowsLabelFormat + " rows";
-    if (totalRows < page.rows) {
-      infoText = totalRowsLabel + " row" + (totalRows != 1 ? "s" : "");
-    }
-    if (columns.total > columns.visible) {
-      var totalColumnsLabel = options.columns.total ? options.columns.total : columns.total;
-
-      infoText = infoText + " | " + (columns.number + 1) + "-" +
-        (Math.min(columns.number + columns.visible, columns.total)) +
-        " of " + totalColumnsLabel + " columns";
-    }
-
-    return infoText;
-  };
-
-  var clearFooter = function() {
-    footer = pagedTable.querySelectorAll("div.pagedtable-footer")[0];
-    footer.innerHTML = "";
-
-    return footer;
-  };
-
-  var createPageLink = function(idxPage) {
-    var pageLink = document.createElement("a");
-    pageLinkClass = idxPage === page.number ? "pagedtable-index pagedtable-index-current" : "pagedtable-index";
-    pageLink.setAttribute("class", pageLinkClass);
-    pageLink.setAttribute("data-page-index", idxPage);
-    pageLink.onclick = function() {
-      page.setPageNumber(parseInt(this.getAttribute("data-page-index")));
-      renderBody();
-      renderFooter();
-
-      triggerOnChange();
-    };
-
-    pageLink.appendChild(document.createTextNode(idxPage + 1));
-
-    return pageLink;
-  }
-
-  var renderFooter = function() {
-    footer = clearFooter();
-
-    var next = document.createElement("a");
-    next.appendChild(document.createTextNode("Next"));
-    next.onclick = function() {
-      page.setPageNumber(page.number + 1);
-      renderBody();
-      renderFooter();
-
-      triggerOnChange();
-    };
-    if (data.length > page.rows) footer.appendChild(next);
-
-    var pageNumbers = document.createElement("div");
-    pageNumbers.setAttribute("class", "pagedtable-indexes");
-
-    var pageRange = page.getVisiblePageRange();
-
-    if (pageRange.first) {
-      var pageLink = createPageLink(0);
-      pageNumbers.appendChild(pageLink);
-
-      var pageSeparator = document.createElement("div");
-      pageSeparator.setAttribute("class", "pagedtable-index-separator-left");
-      pageSeparator.appendChild(document.createTextNode("..."))
-      pageNumbers.appendChild(pageSeparator);
-    }
-
-    for (var idxPage = pageRange.start; idxPage < pageRange.end; idxPage++) {
-      var pageLink = createPageLink(idxPage);
-
-      pageNumbers.appendChild(pageLink);
-    }
-
-    if (pageRange.last) {
-      var pageSeparator = document.createElement("div");
-      pageSeparator.setAttribute("class", "pagedtable-index-separator-right");
-      pageSeparator.appendChild(document.createTextNode("..."))
-      pageNumbers.appendChild(pageSeparator);
-
-      var pageLink = createPageLink(page.total - 1);
-      pageNumbers.appendChild(pageLink);
-    }
-
-    if (data.length > page.rows) footer.appendChild(pageNumbers);
-
-    var previous = document.createElement("a");
-    previous.appendChild(document.createTextNode("Previous"));
-    previous.onclick = function() {
-      page.setPageNumber(page.number - 1);
-      renderBody();
-      renderFooter();
-
-      triggerOnChange();
-    };
-    if (data.length > page.rows) footer.appendChild(previous);
-
-    var infoLabel = document.createElement("div");
-    infoLabel.setAttribute("class", "pagedtable-info");
-    infoLabel.setAttribute("title", getLabelInfo());
-    infoLabel.appendChild(document.createTextNode(getLabelInfo()));
-    footer.appendChild(infoLabel);
-
-    var enabledClass = "pagedtable-index-nav";
-    var disabledClass = "pagedtable-index-nav pagedtable-index-nav-disabled";
-    previous.setAttribute("class", page.number <= 0 ? disabledClass : enabledClass);
-    next.setAttribute("class", (page.number + 1) * page.rows >= data.length ? disabledClass : enabledClass);
-  };
-
-  var measuresCell = null;
-
-  var renderMeasures = function() {
-    var measuresTable = document.createElement("table");
-    measuresTable.style.visibility = "hidden";
-    measuresTable.style.position = "absolute";
-    measuresTable.style.whiteSpace = "nowrap";
-    measuresTable.style.height = "auto";
-    measuresTable.style.width = "auto";
-
-    var measuresRow = document.createElement("tr");
-    measuresTable.appendChild(measuresRow);
-
-    measuresCell = document.createElement("td");
-    var sampleString = "ABCDEFGHIJ0123456789";
-    measuresCell.appendChild(document.createTextNode(sampleString));
-
-    measuresRow.appendChild(measuresCell);
-
-    tableDiv.appendChild(measuresTable);
-  }
-
-  me.init = function() {
-    tableDiv = document.createElement("div");
-    pagedTable.appendChild(tableDiv);
-    var pagedTableClass = data.length > 0 ?
-      "pagedtable pagedtable-not-empty" :
-      "pagedtable pagedtable-empty";
-
-    if (columns.total == 0 || (columns.emptyNames() && data.length == 0)) {
-      pagedTableClass = pagedTableClass + " pagedtable-empty-columns";
-    }
-
-    tableDiv.setAttribute("class", pagedTableClass);
-
-    renderMeasures();
-    measurer.calculate(measuresCell);
-    columns.calculateWidths(measurer.measures);
-
-    table = document.createElement("table");
-    table.setAttribute("cellspacing", "0");
-    table.setAttribute("class", "table table-condensed");
-    tableDiv.appendChild(table);
-
-    table.appendChild(document.createElement("thead"));
-
-    var footerDiv = document.createElement("div");
-    footerDiv.setAttribute("class", "pagedtable-footer");
-    tableDiv.appendChild(footerDiv);
-
-    // if the host has not yet provided horizontal space, render hidden
-    if (tableDiv.clientWidth <= 0) {
-      tableDiv.style.opacity = "0";
-    }
-
-    me.render();
-
-    // retry seizing columns later if the host has not provided space
-    function retryFit() {
-      if (tableDiv.clientWidth <= 0) {
-        setTimeout(retryFit, 100);
-      } else {
-        me.render();
-        triggerOnChange();
-      }
-    }
-    if (tableDiv.clientWidth <= 0) {
-      retryFit();
-    }
-  };
-
-  var registerWidths = function() {
-    columns.subset = columns.subset.map(function(column) {
-      column.width = columns.widths[column.name].inner;
-      return column;
-    });
-  };
-
-  var parsePadding = function(value) {
-    return parseInt(value) >= 0 ? parseInt(value) : 0;
-  };
-
-  me.fixedHeight = function() {
-    return options.rows.max != null;
-  }
-
-  me.fitRows = function() {
-    if (me.fixedHeight())
-      return;
-
-    measurer.calculate(measuresCell);
-
-    var rows = options.rows.min !== null ? options.rows.min : 0;
-    var headerHeight = header !== null && header.offsetHeight > 0 ? header.offsetHeight : 0;
-    var footerHeight = footer !== null && footer.offsetHeight > 0 ? footer.offsetHeight : 0;
-
-    if (pagedTable.offsetHeight > 0) {
-      var availableHeight = pagedTable.offsetHeight - headerHeight - footerHeight;
-      rows = Math.floor((availableHeight) / measurer.measures.height);
-    }
-
-    rows = options.rows.min !== null ? Math.max(options.rows.min, rows) : rows;
-
-    page.setRows(rows);
-  }
-
-  // The goal of this function is to add as many columns as possible
-  // starting from left-to-right, when the right most limit is reached
-  // it tries to add columns from the left as well.
-  //
-  // When startBackwards is true columns are added from right-to-left
-  me.fitColumns = function(startBackwards) {
-    measurer.calculate(measuresCell);
-    columns.calculateWidths(measurer.measures);
-
-    if (tableDiv.clientWidth > 0) {
-      tableDiv.style.opacity = 1;
-    }
-
-    var visibleColumns = tableDiv.clientWidth <= 0 ? Math.max(columns.min, 1) : 1;
-    var columnNumber = columns.number;
-    var paddingCount = 0;
-
-    // track a list of added columns as we build the visible ones to allow us
-    // to remove columns when they don't fit anymore.
-    var columnHistory = [];
-
-    var lastTableHeight = 0;
-    var backwards = startBackwards;
-
-    var tableDivStyle = window.getComputedStyle(tableDiv, null);
-    var tableDivPadding = parsePadding(tableDivStyle.paddingLeft) +
-      parsePadding(tableDivStyle.paddingRight);
-
-    var addPaddingCol = false;
-    var currentWidth = 0;
-
-    while (true) {
-      columns.setVisibleColumns(columnNumber, visibleColumns, paddingCount);
-      currentWidth = columns.getWidth();
-
-      if (tableDiv.clientWidth - tableDivPadding < currentWidth) {
-        break;
-      }
-
-      columnHistory.push({
-        columnNumber: columnNumber,
-        visibleColumns: visibleColumns,
-        paddingCount: paddingCount
-      });
-
-      if (columnHistory.length > 100) {
-        console.error("More than 100 tries to fit columns, aborting");
-        break;
-      }
-
-      if (columns.max !== null &&
-        columns.visible + columns.getPaddingCount() >= columns.max) {
-        break;
-      }
-
-      // if we run out of right-columns
-      if (!backwards && columnNumber + columns.visible >= columns.total) {
-        // if we started adding right-columns, try adding left-columns
-        if (!startBackwards && columnNumber > 0) {
-          backwards = true;
-        }
-        else if (columns.min === null || visibleColumns + columns.getPaddingCount() >= columns.min) {
-          break;
-        }
-        else {
-          paddingCount = paddingCount + 1;
-        }
-      }
-
-      // if we run out of left-columns
-      if (backwards && columnNumber == 0) {
-        // if we started adding left-columns, try adding right-columns
-        if (startBackwards && columnNumber + columns.visible < columns.total) {
-          backwards = false;
-        }
-        else if (columns.min === null || visibleColumns + columns.getPaddingCount() >= columns.min) {
-          break;
-        }
-        else {
-          paddingCount = paddingCount + 1;
-        }
-      }
-
-      // when moving backwards try fitting left columns first
-      if (backwards && columnNumber > 0) {
-        columnNumber = columnNumber - 1;
-      }
-
-      if (columnNumber + visibleColumns < columns.total) {
-        visibleColumns = visibleColumns + 1;
-      }
-    }
-
-    var lastRenderableColumn = {
-        columnNumber: columnNumber,
-        visibleColumns: visibleColumns,
-        paddingCount: paddingCount
-    };
-
-    if (columnHistory.length > 0) {
-      lastRenderableColumn = columnHistory[columnHistory.length - 1];
-    }
-
-    columns.setVisibleColumns(
-      lastRenderableColumn.columnNumber,
-      lastRenderableColumn.visibleColumns,
-      lastRenderableColumn.paddingCount);
-
-    if (pagedTable.offsetWidth > 0) {
-      page.setVisiblePages(Math.max(Math.ceil(1.0 * (pagedTable.offsetWidth - 250) / 40), 2));
-    }
-
-    registerWidths();
-  };
-
-  me.fit = function(startBackwards) {
-    me.fitRows();
-    me.fitColumns(startBackwards);
-  }
-
-  me.render = function() {
-    me.fitColumns(false);
-
-    // render header/footer to measure height accurately
-    renderHeader();
-    renderFooter();
-
-    me.fitRows();
-    renderBody();
-
-    // re-render footer to match new rows
-    renderFooter();
-  }
-
-  var resizeLastWidth = -1;
-  var resizeLastHeight = -1;
-  var resizeNewWidth = -1;
-  var resizeNewHeight = -1;
-  var resizePending = false;
-
-  me.resize = function(newWidth, newHeight) {
-
-    function resizeDelayed() {
-      resizePending = false;
-
-      if (
-        (resizeNewWidth !== resizeLastWidth) ||
-        (!me.fixedHeight() && resizeNewHeight !== resizeLastHeight)
-      ) {
-        resizeLastWidth = resizeNewWidth;
-        resizeLastHeight = resizeNewHeight;
-
-        setTimeout(resizeDelayed, 200);
-        resizePending = true;
-      } else {
-        me.render();
-        triggerOnChange();
-
-        resizeLastWidth = -1;
-        resizeLastHeight = -1;
-      }
-    }
-
-    resizeNewWidth = newWidth;
-    resizeNewHeight = newHeight;
-
-    if (!resizePending) resizeDelayed();
-  };
-};
-
-var PagedTableDoc;
-(function (PagedTableDoc) {
-  var allPagedTables = [];
-
-  PagedTableDoc.initAll = function() {
-    allPagedTables = [];
-
-    var pagedTables = [].slice.call(document.querySelectorAll('[data-pagedtable="false"],[data-pagedtable=""]'));
-    pagedTables.forEach(function(pagedTable, idx) {
-      pagedTable.setAttribute("data-pagedtable", "true");
-      pagedTable.setAttribute("pagedtable-page", 0);
-      pagedTable.setAttribute("class", "pagedtable-wrapper");
-
-      var pagedTableInstance = new PagedTable(pagedTable);
-      pagedTableInstance.init();
-
-      allPagedTables.push(pagedTableInstance);
-    });
-  };
-
-  PagedTableDoc.resizeAll = function() {
-    allPagedTables.forEach(function(pagedTable) {
-      pagedTable.render();
-    });
-  };
-
-  window.addEventListener("resize", PagedTableDoc.resizeAll);
-
-  return PagedTableDoc;
-})(PagedTableDoc || (PagedTableDoc = {}));
-
-window.onload = function() {
-  PagedTableDoc.initAll();
-};
 </script>
 
 <style type="text/css">
@@ -1631,7 +360,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 <h1 class="title toc-ignore">Development features of isoreader</h1>
-<h4 class="date">2020-10-27</h4>
+<h4 class="date">2021-02-15</h4>
 
 
 
@@ -1647,12 +376,156 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb1-6"><a href="#cb1-6"></a></span>
 <span id="cb1-7"><a href="#cb1-7"></a><span class="co"># register new reader</span></span>
 <span id="cb1-8"><a href="#cb1-8"></a>readers &lt;-<span class="st"> </span><span class="kw">iso_register_dual_inlet_file_reader</span>(<span class="st">&quot;.new.did&quot;</span>, <span class="st">&quot;new_reader&quot;</span>)</span>
-<span id="cb1-9"><a href="#cb1-9"></a>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>(readers)</span></code></pre></div>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["type"],"name":[1],"type":["chr"],"align":["left"]},{"label":["call"],"name":[2],"type":["chr"],"align":["left"]},{"label":["extension"],"name":[3],"type":["chr"],"align":["left"]},{"label":["func"],"name":[4],"type":["chr"],"align":["left"]},{"label":["cacheable"],"name":[5],"type":["lgl"],"align":["right"]},{"label":["post_read_check"],"name":[6],"type":["lgl"],"align":["right"]},{"label":["description"],"name":[7],"type":["chr"],"align":["left"]},{"label":["software"],"name":[8],"type":["chr"],"align":["left"]},{"label":["env"],"name":[9],"type":["chr"],"align":["left"]}],"data":[{"1":"dual inlet","2":"iso_read_dual_inlet","3":".did","4":"iso_read_did","5":"TRUE","6":"TRUE","7":"Dual Inlet file format (newer)","8":"Isodat","9":"isoreader"},{"1":"dual inlet","2":"iso_read_dual_inlet","3":".caf","4":"iso_read_caf","5":"TRUE","6":"TRUE","7":"Dual Inlet file format (older)","8":"Isodat","9":"isoreader"},{"1":"dual inlet","2":"iso_read_dual_inlet","3":".txt","4":"iso_read_nu","5":"TRUE","6":"TRUE","7":"Dual Inlet file format","8":"Nu","9":"isoreader"},{"1":"dual inlet","2":"iso_read_dual_inlet","3":".di.rda","4":"iso_read_rda","5":"FALSE","6":"TRUE","7":"R Data Archive (deprecated)","8":"isoreader","9":"isoreader"},{"1":"dual inlet","2":"iso_read_dual_inlet","3":".di.rds","4":"iso_read_rds","5":"FALSE","6":"FALSE","7":"R Data Storage","8":"isoreader","9":"isoreader"},{"1":"continuous flow","2":"iso_read_continuous_flow","3":".cf","4":"iso_read_cf","5":"TRUE","6":"TRUE","7":"Continuous Flow file format (older)","8":"Isodat","9":"isoreader"},{"1":"continuous flow","2":"iso_read_continuous_flow","3":".dxf","4":"iso_read_dxf","5":"TRUE","6":"TRUE","7":"Continuous Flow file format (newer)","8":"Isodat","9":"isoreader"},{"1":"continuous flow","2":"iso_read_continuous_flow","3":".iarc","4":"iso_read_flow_iarc","5":"TRUE","6":"TRUE","7":"Continuous Flow data archive","8":"ionOS","9":"isoreader"},{"1":"continuous flow","2":"iso_read_continuous_flow","3":".cf.rda","4":"iso_read_rda","5":"FALSE","6":"TRUE","7":"R Data Archive (deprecated)","8":"isoreader","9":"isoreader"},{"1":"continuous flow","2":"iso_read_continuous_flow","3":".cf.rds","4":"iso_read_rds","5":"FALSE","6":"FALSE","7":"R Data Storage","8":"isoreader","9":"isoreader"},{"1":"scan","2":"iso_read_scan","3":".scn","4":"iso_read_scn","5":"TRUE","6":"TRUE","7":"Scan file format","8":"Isodat","9":"isoreader"},{"1":"scan","2":"iso_read_scan","3":".scan.rds","4":"iso_read_rds","5":"FALSE","6":"FALSE","7":"R Data Storage","8":"isoreader","9":"isoreader"},{"1":"dual inlet","2":"iso_read_dual_inlet","3":".new.did","4":"new_reader","5":"TRUE","6":"TRUE","7":"NA","8":"NA","9":"R_GlobalEnv"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+<span id="cb1-9"><a href="#cb1-9"></a>knitr<span class="op">::</span><span class="kw">kable</span>(readers)</span></code></pre></div>
+<table>
+<colgroup>
+<col width="10%"></col>
+<col width="16%"></col>
+<col width="6%"></col>
+<col width="12%"></col>
+<col width="6%"></col>
+<col width="10%"></col>
+<col width="23%"></col>
+<col width="6%"></col>
+<col width="7%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">type</th>
+<th align="left">call</th>
+<th align="left">extension</th>
+<th align="left">func</th>
+<th align="left">cacheable</th>
+<th align="left">post_read_check</th>
+<th align="left">description</th>
+<th align="left">software</th>
+<th align="left">env</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">dual inlet</td>
+<td align="left">iso_read_dual_inlet</td>
+<td align="left">.caf</td>
+<td align="left">iso_read_caf</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">Dual Inlet file format (older)</td>
+<td align="left">Isodat</td>
+<td align="left">isoreader</td>
+</tr>
+<tr class="even">
+<td align="left">dual inlet</td>
+<td align="left">iso_read_dual_inlet</td>
+<td align="left">.did</td>
+<td align="left">iso_read_did</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">Dual Inlet file format (newer)</td>
+<td align="left">Isodat</td>
+<td align="left">isoreader</td>
+</tr>
+<tr class="odd">
+<td align="left">dual inlet</td>
+<td align="left">iso_read_dual_inlet</td>
+<td align="left">.txt</td>
+<td align="left">iso_read_nu</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">Dual Inlet file format</td>
+<td align="left">Nu</td>
+<td align="left">isoreader</td>
+</tr>
+<tr class="even">
+<td align="left">continuous flow</td>
+<td align="left">iso_read_continuous_flow</td>
+<td align="left">.cf</td>
+<td align="left">iso_read_cf</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">Continuous Flow file format (older)</td>
+<td align="left">Isodat</td>
+<td align="left">isoreader</td>
+</tr>
+<tr class="odd">
+<td align="left">continuous flow</td>
+<td align="left">iso_read_continuous_flow</td>
+<td align="left">.dxf</td>
+<td align="left">iso_read_dxf</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">Continuous Flow file format (newer)</td>
+<td align="left">Isodat</td>
+<td align="left">isoreader</td>
+</tr>
+<tr class="even">
+<td align="left">continuous flow</td>
+<td align="left">iso_read_continuous_flow</td>
+<td align="left">.iarc</td>
+<td align="left">iso_read_flow_iarc</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">Continuous Flow data archive</td>
+<td align="left">ionOS</td>
+<td align="left">isoreader</td>
+</tr>
+<tr class="odd">
+<td align="left">scan</td>
+<td align="left">iso_read_scan</td>
+<td align="left">.scn</td>
+<td align="left">iso_read_scn</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">Scan file format</td>
+<td align="left">Isodat</td>
+<td align="left">isoreader</td>
+</tr>
+<tr class="even">
+<td align="left">continuous flow</td>
+<td align="left">iso_read_continuous_flow</td>
+<td align="left">.cf.rds</td>
+<td align="left">iso_read_rds</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">R Data Storage</td>
+<td align="left">isoreader</td>
+<td align="left">isoreader</td>
+</tr>
+<tr class="odd">
+<td align="left">dual inlet</td>
+<td align="left">iso_read_dual_inlet</td>
+<td align="left">.di.rds</td>
+<td align="left">iso_read_rds</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">R Data Storage</td>
+<td align="left">isoreader</td>
+<td align="left">isoreader</td>
+</tr>
+<tr class="even">
+<td align="left">scan</td>
+<td align="left">iso_read_scan</td>
+<td align="left">.scan.rds</td>
+<td align="left">iso_read_rds</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">R Data Storage</td>
+<td align="left">isoreader</td>
+<td align="left">isoreader</td>
+</tr>
+<tr class="odd">
+<td align="left">dual inlet</td>
+<td align="left">iso_read_dual_inlet</td>
+<td align="left">.new.did</td>
+<td align="left">new_reader</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">R_GlobalEnv</td>
+</tr>
+</tbody>
+</table>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="co"># copy an example file from the package with the new extension</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a><span class="kw">iso_get_reader_example</span>(<span class="st">&quot;dual_inlet_example.did&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">file.copy</span>(<span class="dt">to =</span> <span class="st">&quot;example.new.did&quot;</span>)</span>
@@ -1665,7 +538,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt; Info: this is the new reader!</span></span>
 <span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt; List of 7</span></span>
 <span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt;  $ version          :Classes &#39;package_version&#39;, &#39;numeric_version&#39;  hidden list of 1</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt;   ..$ : int [1:3] 1 2 7</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt;   ..$ : int [1:3] 1 3 0</span></span>
 <span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt;  $ read_options     :List of 4</span></span>
 <span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt;   ..$ file_info        : logi TRUE</span></span>
 <span id="cb2-16"><a href="#cb2-16"></a><span class="co">#&gt;   ..$ method_info      : logi TRUE</span></span>
@@ -1690,7 +563,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb2-35"><a href="#cb2-35"></a><span class="co">#&gt;   ..$ type   : chr(0) </span></span>
 <span id="cb2-36"><a href="#cb2-36"></a><span class="co">#&gt;   ..$ func   : chr(0) </span></span>
 <span id="cb2-37"><a href="#cb2-37"></a><span class="co">#&gt;   ..$ details: chr(0)</span></span>
-<span id="cb2-38"><a href="#cb2-38"></a><span class="co">#&gt; Info: finished reading 1 files in 0.14 secs</span></span>
+<span id="cb2-38"><a href="#cb2-38"></a><span class="co">#&gt; Info: finished reading 1 files in 0.10 secs</span></span>
 <span id="cb2-39"><a href="#cb2-39"></a><span class="co">#&gt; Dual inlet iso file &#39;example.new.did&#39;: 0 cycles, 0 ions ()</span></span>
 <span id="cb2-40"><a href="#cb2-40"></a><span class="kw">file.remove</span>(<span class="st">&quot;example.new.did&quot;</span>)</span>
 <span id="cb2-41"><a href="#cb2-41"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
@@ -1718,7 +591,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt; Info: reading file &#39;dual_inlet_example.caf&#39; with &#39;.caf&#39; reader...</span></span>
 <span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt; Info: starting file #2, named &#39;dual_inlet_example.caf&#39;</span></span>
 <span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt; Info: finished file #2</span></span>
-<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt; Info: finished reading 2 files in 4.16 secs</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt; Info: finished reading 2 files in 3.97 secs</span></span>
 <span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt; Data from 2 dual inlet iso files: </span></span>
 <span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt; # A tibble: 2 x 6</span></span>
 <span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt;   file_id    raw_data       file_info  method_info  vendor_data_tab… file_path  </span></span>
@@ -1754,21 +627,37 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt; 0001505: {/}&lt;fef-0&gt;&lt;fef-12&gt;</span></span></code></pre></div>
 <p>This structure representation shows recognized control elements in <code>&lt;...&gt;</code> and data elements in <code>{...}</code> which are converted to text or numeric representation if the interpretation is unambiguous, or plain hexadecimal characters if the nature of the data cannot be determined with certainty. Because this function tries all possible control elements and data interpretations, it is quite slow and may take a while if run for large stretches of binary code (i.e. if the <code>length</code> parameter is very long).</p>
 <p>For an overview of all the control elements that are currently consider, use the internal <code>get_ctrl_blocks_config_df()</code> function.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>isoreader<span class="op">:::</span><span class="kw">get_ctrl_blocks_config_df</span>() <span class="op">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="st">  </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span></code></pre></div>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["block"],"name":[1],"type":["chr"],"align":["left"]},{"label":["regexp"],"name":[2],"type":["chr"],"align":["left"]},{"label":["hexadecimal"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"del-nl","2":"\\177\\x85","3":"7f 85","_row":"del-nl"},{"1":"eop-nl","2":"܅","3":"dc 85","_row":"eop-nl"},{"1":"0b-80","2":"\\v\\x80","3":"0b 80","_row":"0b-80"},{"1":"e0-81","2":"\\xe0\\x81","3":"e0 81","_row":"e0-81"},{"1":"ce-80","2":"\\u0380","3":"ce 80","_row":"ce-80"},{"1":"ce-8a","2":"Ί","3":"ce 8a","_row":"ce-8a"},{"1":"ee-85","2":"\\xee\\x85","3":"ee 85","_row":"ee-85"},{"1":"75-84","2":"u\\x84","3":"75 84","_row":"75-84"},{"1":"ff-80","2":"\\\\x00\\xff\\x80\\\\x00","3":"5c 78 30 30 ff 80 5c 78 30 30","_row":"ff-80"},{"1":"07-80-id","2":"\\005\\x80.\\xff(\\\\x00|\\x80|\\xff){2}","3":"05 80 2e ff 28 5c 78 30 30 7c 80 7c ff 29 7b 32 7d","_row":"07-80-id"},{"1":"54-fc","2":"T\\xfc\\\\x00\\\\x00","3":"54 fc 5c 78 30 30 5c 78 30 30","_row":"54-fc"},{"1":"nl","2":"\\xff\\xfe\\xff\\n","3":"ff fe ff 0a","_row":"nl"},{"1":"fef-0","2":"\\xff\\xfe\\xff\\\\x00","3":"ff fe ff 5c 78 30 30","_row":"fef-0"},{"1":"fef-x","2":"\\xff\\xfe\\xff.","3":"ff fe ff 2e","_row":"fef-x"},{"1":"eee-0","2":"\\xef\\xef\\xef\\\\x00.","3":"ef ef ef 5c 78 30 30 2e","_row":"eee-0"},{"1":"ffff","2":"\\xff{4}","3":"ff 7b 34 7d","_row":"ffff"},{"1":"stx","2":"\\002\\\\x00{3}","3":"02 5c 78 30 30 7b 33 7d","_row":"stx"},{"1":"etx","2":"\\003\\\\x00{3}","3":"03 5c 78 30 30 7b 33 7d","_row":"etx"},{"1":"x-000","2":"[\\001-\\037]\\\\x00{3}","3":"5b 01 2d 1f 5d 5c 78 30 30 7b 33 7d","_row":"x-000"},{"1":"f-000","2":"\\xff\\\\x00{3}","3":"ff 5c 78 30 30 7b 33 7d","_row":"f-000"},{"1":"C-block","2":"\\xff\\xff(\\\\x00|[\\001-\\017])\\\\x00.\\\\x00C[ -~]+","3":"ff ff 28 5c 78 30 30 7c 5b 01 2d 0f 5d 29 5c 78 30 30 2e 5c 78 30 30 43 5b 20 2d 7e 5d 2b","_row":"C-block"},{"1":"latin","2":"([A-Za-z]\\\\x00)+","3":"28 5b 41 2d 5a 61 2d 7a 5d 5c 78 30 30 29 2b","_row":"latin"},{"1":"alpha","2":"([A-Za-z0-9]\\\\x00)+","3":"28 5b 41 2d 5a 61 2d 7a 30 2d 39 5d 5c 78 30 30 29 2b","_row":"alpha"},{"1":"text","2":"([ -~]\\\\x00)+","3":"28 5b 20 2d 7e 5d 5c 78 30 30 29 2b","_row":"text"},{"1":"text0","2":"([ -~]\\\\x00)*","3":"28 5b 20 2d 7e 5d 5c 78 30 30 29 2a","_row":"text0"},{"1":"permil","2":"0","3":"30 20","_row":"permil"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>isoreader<span class="op">:::</span><span class="kw">get_ctrl_blocks_config_df</span>()</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co">#&gt; # A tibble: 26 x 3</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt;    block    regexp                      hexadecimal                             </span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;                       &lt;chr&gt;                                   </span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt;  1 del-nl   &quot;\x7f\x85&quot;                  7f 85                                   </span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt;  2 eop-nl   &quot;܅&quot;                         dc 85                                   </span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt;  3 0b-80    &quot;\v\x80&quot;                    0b 80                                   </span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt;  4 e0-81    &quot;\xe0\x81&quot;                  e0 81                                   </span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt;  5 ce-80    &quot;\u0380&quot;                    ce 80                                   </span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt;  6 ce-8a    &quot;Ί&quot;                         ce 8a                                   </span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt;  7 ee-85    &quot;\xee\x85&quot;                  ee 85                                   </span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt;  8 75-84    &quot;u\x84&quot;                     75 84                                   </span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt;  9 ff-80    &quot;\\x00\xff\x80\\x00&quot;        5c 78 30 30 ff 80 5c 78 30 30           </span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt; 10 07-80-id &quot;\x05\x80.\xff(\\x00|\x80|… 05 80 2e ff 28 5c 78 30 30 7c 80 7c ff …</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt; # … with 16 more rows</span></span></code></pre></div>
 <p>Additional information can be gleaned from the so-called control blocks, which are larger structural elements of Isodat binary files and are kept in a data frame within the binary object (again only available in debug mode).</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>bin<span class="op">$</span>C_blocks <span class="op">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="st">  </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span></code></pre></div>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["id1"],"name":[1],"type":["chr"],"align":["left"]},{"label":["id2"],"name":[2],"type":["chr"],"align":["left"]},{"label":["block"],"name":[3],"type":["chr"],"align":["left"]},{"label":["start"],"name":[4],"type":["int"],"align":["right"]},{"label":["end"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"06","2":"0b","3":"CFileHeader","4":"1","5":"17"},{"1":"01","2":"0b","3":"CTimeObject","4":"182","5":"198"},{"1":"02","2":"04","3":"CStr","4":"241","5":"250"},{"1":"01","2":"0a","3":"CDataIndex","4":"471","5":"486"},{"1":"01","2":"11","3":"CSeqLineIndexData","4":"513","5":"535"},{"1":"03","2":"05","3":"CData","4":"588","5":"598"},{"1":"01","2":"13","3":"CDualInletBlockData","4":"1133","5":"1157"},{"1":"01","2":"10","3":"CMeasurmentInfos","4":"1240","5":"1261"},{"1":"01","2":"15","3":"CISLScriptMessageData","4":"1324","5":"1350"},{"1":"01","2":"11","3":"CMeasurmentErrors","4":"1945","5":"1967"},{"1":"01","2":"11","3":"CDualInletRawData","4":"2038","5":"2060"},{"1":"02","2":"0a","3":"CBlockData","4":"2099","5":"2114"},{"1":"02","2":"1c","3":"CIntegrationUnitTransferPart","4":"2269","5":"2302"},{"1":"06","2":"0e","3":"CIntensityData","4":"2361","5":"2380"},{"1":"01","2":"0f","3":"CDualInletShout","4":"5299","5":"5319"},{"1":"01","2":"14","3":"CTwoDoublesArrayData","4":"5460","5":"5485"},{"1":"01","2":"10","3":"CStatusArrayData","4":"6412","5":"6433"},{"1":"01","2":"0c","3":"COutlierData","4":"6747","5":"6764"},{"1":"01","2":"15","3":"CResultDataSimpleList","4":"40876","5":"40902"},{"1":"02","2":"11","3":"CResultDataSimple","4":"40951","5":"40973"},{"1":"01","2":"1e","3":"CDualInletEvaluatedDataCollect","4":"73720","5":"73755"},{"1":"02","2":"17","3":"CDualInletEvaluatedData","4":"73790","5":"73818"},{"1":"01","2":"17","3":"CParsedEvaluationString","4":"75944","5":"75972"},{"1":"02","2":"07","3":"CBinary","4":"76883","5":"76895"},{"1":"02","2":"09","3":"CPlotInfo","4":"77216","5":"77230"},{"1":"01","2":"0a","3":"CTraceInfo","4":"77305","5":"77320"},{"1":"01","2":"0f","3":"CTraceInfoEntry","4":"77326","5":"77346"},{"1":"01","2":"0a","3":"CPlotRange","4":"77574","5":"77589"},{"1":"02","2":"09","3":"CPlotInfo","4":"77680","5":"77694"},{"1":"01","2":"0a","3":"CTraceInfo","4":"77769","5":"77784"},{"1":"01","2":"0f","3":"CTraceInfoEntry","4":"77790","5":"77810"},{"1":"01","2":"0a","3":"CPlotRange","4":"78038","5":"78053"},{"1":"02","2":"09","3":"CPlotInfo","4":"78144","5":"78158"},{"1":"01","2":"0a","3":"CTraceInfo","4":"78233","5":"78248"},{"1":"01","2":"0f","3":"CTraceInfoEntry","4":"78254","5":"78274"},{"1":"01","2":"0a","3":"CPlotRange","4":"78502","5":"78517"},{"1":"02","2":"09","3":"CPlotInfo","4":"78608","5":"78622"},{"1":"01","2":"0a","3":"CTraceInfo","4":"78697","5":"78712"},{"1":"01","2":"0f","3":"CTraceInfoEntry","4":"78718","5":"78738"},{"1":"01","2":"0a","3":"CPlotRange","4":"78922","5":"78937"},{"1":"02","2":"09","3":"CPlotInfo","4":"79028","5":"79042"},{"1":"01","2":"0a","3":"CTraceInfo","4":"79117","5":"79132"},{"1":"01","2":"0f","3":"CTraceInfoEntry","4":"79138","5":"79158"},{"1":"01","2":"0a","3":"CPlotRange","4":"79342","5":"79357"},{"1":"02","2":"09","3":"CPlotInfo","4":"79448","5":"79462"},{"1":"01","2":"0a","3":"CTraceInfo","4":"79537","5":"79552"},{"1":"01","2":"0f","3":"CTraceInfoEntry","4":"79558","5":"79578"},{"1":"01","2":"0a","3":"CPlotRange","4":"79762","5":"79777"},{"1":"02","2":"09","3":"CPlotInfo","4":"79868","5":"79882"},{"1":"01","2":"0a","3":"CTraceInfo","4":"79957","5":"79972"},{"1":"01","2":"0f","3":"CTraceInfoEntry","4":"79978","5":"79998"},{"1":"01","2":"0a","3":"CPlotRange","4":"80182","5":"80197"},{"1":"08","2":"07","3":"CMethod","4":"80256","5":"80268"},{"1":"01","2":"09","3":"CMolecule","4":"80307","5":"80321"},{"1":"00","2":"0b","3":"CPartMirror","4":"80406","5":"80422"},{"1":"02","2":"13","3":"CMethodPrintoutDesc","4":"80423","5":"80447"},{"1":"01","2":"1f","3":"CEvalIntegrationUnitHWInfoStore","4":"80828","5":"80864"},{"1":"01","2":"1e","3":"CEvalIntegrationUnitHWInfoList","4":"80891","5":"80926"},{"1":"01","2":"1a","3":"CEvalIntegrationUnitHWInfo","4":"80953","5":"80984"},{"1":"03","2":"11","3":"CGasConfiguration","4":"81279","5":"81301"},{"1":"04","2":"0a","3":"CBasicScan","4":"81336","5":"81351"},{"1":"02","2":"10","3":"CScaleHvScanPart","4":"81418","5":"81439"},{"1":"03","2":"14","3":"CScaleHvHardwarePart","4":"81556","5":"81581"},{"1":"06","2":"12","3":"CFinniganInterface","4":"81664","5":"81687"},{"1":"08","2":"12","3":"CVisualisationData","4":"81768","5":"81791"},{"1":"03","2":"18","3":"CIntegrationUnitScanPart","4":"82156","5":"82185"},{"1":"03","2":"1c","3":"CIntegrationUnitHardwarePart","4":"82208","5":"82241"},{"1":"03","2":"0e","3":"CGpibInterface","4":"82350","5":"82369"},{"1":"02","2":"1b","3":"CIntegrationUnitGasConfPart","4":"82399","5":"82431"},{"1":"03","2":"13","3":"CChannelGasConfPart","4":"82539","5":"82563"},{"1":"05","2":"10","3":"CCupHardwarePart","4":"83062","5":"83083"},{"1":"02","2":"0f","3":"CBasicInterface","4":"83126","5":"83146"},{"1":"02","2":"14","3":"CChannelHardwarePart","4":"85574","5":"85599"},{"1":"02","2":"10","3":"CDioTransferPart","4":"86970","5":"86991"},{"1":"03","2":"1a","3":"CMagnetCurrentTransferPart","4":"88172","5":"88203"},{"1":"05","2":"0c","3":"CCalibration","4":"88320","5":"88337"},{"1":"03","2":"11","3":"CCalibrationPoint","4":"88408","5":"88430"},{"1":"01","2":"11","3":"CPeakCenterOffset","4":"95493","5":"95515"},{"1":"01","2":"1b","3":"CCalculatingDacTransferPart","4":"95564","5":"95596"},{"1":"02","2":"14","3":"CScaleHvTransferPart","4":"96923","5":"96948"},{"1":"07","2":"0e","3":"CConfiguration","4":"97071","5":"97090"},{"1":"02","2":"09","3":"CMsDevice","4":"97181","5":"97195"},{"1":"02","2":"0b","3":"CActivePort","4":"97256","5":"97272"},{"1":"01","2":"10","3":"CDualInletDevice","4":"97323","5":"97344"},{"1":"01","2":"12","3":"CChangeOver2Device","4":"97523","5":"97546"},{"1":"02","2":"05","3":"CPort","4":"98251","5":"98261"},{"1":"01","2":"22","3":"CVisualisationDialogNamesBlockData","4":"98368","5":"98407"},{"1":"03","2":"13","3":"CMsDeviceMethodPart","4":"98820","5":"98844"},{"1":"01","2":"11","3":"CActionPeakCenter","4":"98932","5":"98954"},{"1":"05","2":"1a","3":"CDualInletDeviceMethodPart","4":"99007","5":"99038"},{"1":"03","2":"12","3":"CActionPressAdjust","4":"99127","5":"99150"},{"1":"03","2":"11","3":"CActionBackground","4":"99226","5":"99248"},{"1":"01","2":"17","3":"CActiveDeviceMethodPart","4":"99356","5":"99384"},{"1":"02","2":"17","3":"CMsDeviceEvaluationPart","4":"99467","5":"99495"},{"1":"02","2":"16","3":"COutlierTestMethodPart","4":"99554","5":"99581"},{"1":"01","2":"11","3":"COutlierTestSigma","4":"99660","5":"99682"},{"1":"01","2":"0c","3":"COutlierTest","4":"99695","5":"99712"},{"1":"05","2":"0e","3":"CExtEvaluation","4":"99729","5":"99748"},{"1":"0c","2":"14","3":"CICA_BasicMethodPart","4":"99867","5":"99892"},{"1":"01","2":"1d","3":"CEvalDataItemListTransferPart","4":"99993","5":"100027"},{"1":"02","2":"1a","3":"CPrimaryStandardMethodPart","4":"115425","5":"115456"},{"1":"01","2":"1b","3":"CEvalDataDoubleTransferPart","4":"115559","5":"115591"},{"1":"01","2":"1c","3":"CParsedEvaluationStringArray","4":"116676","5":"116709"},{"1":"0b","2":"23","3":"CDualInletStandardizationMethodPart","4":"116952","5":"116992"},{"1":"03","2":"1c","3":"CSecondaryStandardMethodPart","4":"117093","5":"117126"},{"1":"02","2":"1b","3":"CEvalDataSecStdTransferPart","4":"117275","5":"117307"},{"1":"01","2":"1e","3":"CDualInletDeviceEvaluationPart","4":"134301","5":"134336"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>bin<span class="op">$</span>C_blocks</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co">#&gt; # A tibble: 107 x 5</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt;    id1   id2   block                 start   end</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;                 &lt;int&gt; &lt;dbl&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt;  1 06    0b    CFileHeader               1    17</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt;  2 01    0b    CTimeObject             182   198</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt;  3 02    04    CStr                    241   250</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt;  4 01    0a    CDataIndex              471   486</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt;  5 01    11    CSeqLineIndexData       513   535</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt;  6 03    05    CData                   588   598</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;  7 01    13    CDualInletBlockData    1133  1157</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt;  8 01    10    CMeasurmentInfos       1240  1261</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;  9 01    15    CISLScriptMessageData  1324  1350</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt; 10 01    11    CMeasurmentErrors      1945  1967</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt; # … with 97 more rows</span></span></code></pre></div>
 <p>Same as for specific byte positions, one can use the control blocks to navigate the file and <code>map_binary_structure</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>bin <span class="op">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="st">  </span>isoreader<span class="op">:::</span><span class="kw">move_to_C_block</span>(<span class="st">&quot;CMethod&quot;</span>) <span class="op">%&gt;%</span></span>

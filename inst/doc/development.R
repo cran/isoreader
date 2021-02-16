@@ -14,7 +14,7 @@ new_reader <- function(ds, options = list()) {
 
 # register new reader
 readers <- iso_register_dual_inlet_file_reader(".new.did", "new_reader")
-rmarkdown::paged_table(readers)
+knitr::kable(readers)
 
 # copy an example file from the package with the new extension
 iso_get_reader_example("dual_inlet_example.did") %>% file.copy(to = "example.new.did")
@@ -52,12 +52,10 @@ bin %>%
   isoreader:::map_binary_structure(length = 200)
 
 ## -----------------------------------------------------------------------------
-isoreader:::get_ctrl_blocks_config_df() %>%
-  rmarkdown::paged_table()
+isoreader:::get_ctrl_blocks_config_df()
 
 ## -----------------------------------------------------------------------------
-bin$C_blocks %>%
-  rmarkdown::paged_table()
+bin$C_blocks
 
 ## -----------------------------------------------------------------------------
 bin %>%

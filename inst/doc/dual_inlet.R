@@ -10,7 +10,7 @@ library(isoreader)
 
 ## ---- message=FALSE-----------------------------------------------------------
 # all available examples
-iso_get_reader_examples() %>% rmarkdown::paged_table()
+iso_get_reader_examples() %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # read dual inlet examples
@@ -23,15 +23,15 @@ di_files <-
   )
 
 ## -----------------------------------------------------------------------------
-di_files %>% iso_get_data_summary() %>% rmarkdown::paged_table()
+di_files %>% iso_get_data_summary() %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
-di_files %>% iso_get_problems_summary() %>% rmarkdown::paged_table()
-di_files %>% iso_get_problems() %>% rmarkdown::paged_table()
+di_files %>% iso_get_problems_summary() %>% knitr::kable()
+di_files %>% iso_get_problems() %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # all file information
-di_files %>% iso_get_file_info(select = c(-file_root)) %>% rmarkdown::paged_table()
+di_files %>% iso_get_file_info(select = c(-file_root)) %>% knitr::kable()
 # select file information
 di_files %>%
   iso_get_file_info(
@@ -47,7 +47,7 @@ di_files %>%
     ),
     # explicitly allow for file specific rename (for the new ID column)
     file_specific = TRUE
-  ) %>% rmarkdown::paged_table()
+  ) %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # select + rename specific file info columns
@@ -60,19 +60,19 @@ di_files2 <- di_files %>%
   )
 
 # fetch all file info
-di_files2 %>% iso_get_file_info() %>% rmarkdown::paged_table()
+di_files2 %>% iso_get_file_info() %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # find files that have 'CIT' in the new ID field
 di_files2 %>% iso_filter_files(grepl("CIT", ID)) %>%
   iso_get_file_info() %>%
-  rmarkdown::paged_table()
+  knitr::kable()
 
 # find files that were run in 2017
 di_files2 %>%
   iso_filter_files(`Date & Time` > "2017-01-01" & `Date & Time` < "2018-01-01") %>%
   iso_get_file_info() %>%
-  rmarkdown::paged_table()
+  knitr::kable()
 
 ## -----------------------------------------------------------------------------
 di_files3 <- di_files2 %>%
@@ -88,7 +88,7 @@ di_files3 <- di_files2 %>%
 di_files3 %>%
   iso_get_file_info() %>%
   iso_make_units_explicit() %>%
-  rmarkdown::paged_table()
+  knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # this kind of information data frame is frequently read in from a csv or xlsx file
@@ -106,13 +106,13 @@ new_info <-
        "16068",   "no",      "did not inject properly"
     )
   )
-new_info %>% rmarkdown::paged_table()
+new_info %>% knitr::kable()
 
 # adding it to the isofiles
 di_files3 %>%
   iso_add_file_info(new_info, by1 = "Run in 2017?", by2 = "Analysis") %>%
   iso_get_file_info(select = !!names(new_info)) %>%
-  rmarkdown::paged_table()
+  knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # use parsing and extraction in iso_mutate_file_info
@@ -128,13 +128,13 @@ di_files2 %>%
     extension = extract_substring(file_id, "\\.(\\w+)$", capture_bracket = 1)
   ) %>%
   iso_get_file_info(select = c(extension, `Peak Center`, matches("Method"))) %>%
-  rmarkdown::paged_table()
+  knitr::kable()
 
 # use parsing in iso_filter_file_info
 di_files2 %>%
   iso_filter_files(parse_integer(Analysis) > 1500) %>%
   iso_get_file_info() %>%
-  rmarkdown::paged_table()
+  knitr::kable()
 
 # use iso_parse_file_info for simplified parsing of column data types
 di_files2 %>%
@@ -144,20 +144,20 @@ di_files2 %>%
     logical = `Peak Center`
   ) %>%
   iso_get_file_info() %>%
-  rmarkdown::paged_table()
+  knitr::kable()
 
 ## -----------------------------------------------------------------------------
-di_files %>% iso_get_resistors() %>% rmarkdown::paged_table()
+di_files %>% iso_get_resistors() %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # reference delta values without ratio values
-di_files %>% iso_get_standards(file_id:reference) %>% rmarkdown::paged_table()
+di_files %>% iso_get_standards(file_id:reference) %>% knitr::kable()
 # reference values with ratios
-di_files %>% iso_get_standards() %>% rmarkdown::paged_table()
+di_files %>% iso_get_standards() %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # get raw data with default selections (all raw data, no additional file info)
-di_files %>% iso_get_raw_data() %>% head(n=10) %>% rmarkdown::paged_table()
+di_files %>% iso_get_raw_data() %>% head(n=10) %>% knitr::kable()
 # get specific raw data and add some file information
 di_files %>%
   iso_get_raw_data(
@@ -167,11 +167,11 @@ di_files %>%
     include_file_info = c(run = Analysis)
   ) %>%
   # look at first few records only
-  head(n=10) %>% rmarkdown::paged_table()
+  head(n=10) %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # entire vendor data table
-di_files %>% iso_get_vendor_data_table() %>% rmarkdown::paged_table()
+di_files %>% iso_get_vendor_data_table() %>% knitr::kable()
 # get specific parts and add some file information
 di_files %>%
   iso_get_vendor_data_table(
@@ -179,7 +179,7 @@ di_files %>%
     select = c(cycle, matches("C")),
     # include the Identifier 1 fron the file info and rename it to 'id'
     include_file_info = c(id = `Identifier 1`)
-  ) %>% rmarkdown::paged_table()
+  ) %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 all_data <- di_files %>% iso_get_all_data()

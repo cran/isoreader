@@ -10,7 +10,7 @@ library(isoreader)
 
 ## ---- message=FALSE-----------------------------------------------------------
 # all available examples
-iso_get_reader_examples() %>% rmarkdown::paged_table()
+iso_get_reader_examples() %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # read scan examples
@@ -23,15 +23,15 @@ scan_files <-
   )
 
 ## -----------------------------------------------------------------------------
-scan_files %>% iso_get_data_summary() %>% rmarkdown::paged_table()
+scan_files %>% iso_get_data_summary() %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
-scan_files %>% iso_get_problems_summary() %>% rmarkdown::paged_table()
-scan_files %>% iso_get_problems() %>% rmarkdown::paged_table()
+scan_files %>% iso_get_problems_summary() %>% knitr::kable()
+scan_files %>% iso_get_problems() %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # all file information
-scan_files %>% iso_get_file_info(select = c(-file_root)) %>% rmarkdown::paged_table()
+scan_files %>% iso_get_file_info(select = c(-file_root)) %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # select + rename specific file info columns
@@ -40,14 +40,14 @@ scan_files2 <- scan_files %>%
   iso_rename_file_info(`Date & Time` = file_datetime)
 
 # fetch all file info
-scan_files2 %>% iso_get_file_info() %>% rmarkdown::paged_table()
+scan_files2 %>% iso_get_file_info() %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # find files that have 'CIT' in the new ID field
 scan_files2 %>%
   iso_filter_files(type == "High Voltage") %>%
   iso_get_file_info() %>%
-  rmarkdown::paged_table()
+  knitr::kable()
 
 ## -----------------------------------------------------------------------------
 scan_files3 <- scan_files2 %>%
@@ -58,14 +58,14 @@ scan_files3 <- scan_files2 %>%
 
 scan_files3 %>%
   iso_get_file_info() %>%
-  rmarkdown::paged_table()
+  knitr::kable()
 
 ## -----------------------------------------------------------------------------
-scan_files %>% iso_get_resistors() %>% rmarkdown::paged_table()
+scan_files %>% iso_get_resistors() %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 # get raw data with default selections (all raw data, no additional file info)
-scan_files %>% iso_get_raw_data() %>% head(n=10) %>% rmarkdown::paged_table()
+scan_files %>% iso_get_raw_data() %>% head(n=10) %>% knitr::kable()
 # get specific raw data and add some file information
 scan_files %>%
   iso_get_raw_data(
@@ -75,7 +75,7 @@ scan_files %>%
     include_file_info = c(`Scan Type` = type)
   ) %>%
   # look at first few records only
-  head(n=10) %>% rmarkdown::paged_table()
+  head(n=10) %>% knitr::kable()
 
 ## -----------------------------------------------------------------------------
 all_data <- scan_files %>% iso_get_all_data()

@@ -192,17 +192,17 @@ di_files %>% iso_save("di_files_export.di.rds")
 # read back the exported R data storage
 iso_read_dual_inlet("di_files_export.di.rds")
 
-## -----------------------------------------------------------------------------
-# export to excel
-di_files %>% iso_export_to_excel("di_files_export")
+## ---- eval = FALSE------------------------------------------------------------
+#  # export to excel
+#  di_files %>% iso_export_to_excel("di_files_export")
+#  
+#  # data sheets available in the exported data file:
+#  readxl::excel_sheets("di_files_export.di.xlsx")
 
-# data sheets available in the exported data file:
-readxl::excel_sheets("di_files_export.di.xlsx")
-
-## -----------------------------------------------------------------------------
-# export to feather
-di_files %>% iso_export_to_feather("di_files_export")
-
-# exported feather files
-list.files(pattern = ".di.feather")
+## ---- eval=FALSE--------------------------------------------------------------
+#  # export to feather
+#  di_files %>% iso_export_to_feather("di_files_export")
+#  
+#  # exported feather files
+#  list.files(pattern = ".di.feather")
 

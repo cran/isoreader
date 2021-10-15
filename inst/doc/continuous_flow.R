@@ -206,17 +206,17 @@ cf_files %>% iso_save("cf_files_export.cf.rds")
 cf_files <- iso_read_continuous_flow("cf_files_export.cf.rds")
 cf_files %>% iso_get_data_summary() %>% knitr::kable()
 
-## -----------------------------------------------------------------------------
-# export to excel
-cf_files %>% iso_export_to_excel("cf_files_export")
+## ---- eval = FALSE------------------------------------------------------------
+#  # export to excel
+#  cf_files %>% iso_export_to_excel("cf_files_export")
+#  
+#  # data sheets available in the exported data file:
+#  readxl::excel_sheets("cf_files_export.cf.xlsx")
 
-# data sheets available in the exported data file:
-readxl::excel_sheets("cf_files_export.cf.xlsx")
-
-## -----------------------------------------------------------------------------
-# export to feather
-cf_files %>% iso_export_to_feather("cf_files_export")
-
-# exported feather files
-list.files(pattern = ".cf.feather")
+## ---- eval=FALSE--------------------------------------------------------------
+#  # export to feather
+#  cf_files %>% iso_export_to_feather("cf_files_export")
+#  
+#  # exported feather files
+#  list.files(pattern = ".cf.feather")
 

@@ -88,17 +88,17 @@ scan_files %>% iso_save("scan_files_export.scan.rds")
 # read back the exported R data storage
 iso_read_scan("scan_files_export.scan.rds")
 
-## -----------------------------------------------------------------------------
-# export to excel
-scan_files %>% iso_export_to_excel("scan_files_export")
+## ---- eval=FALSE--------------------------------------------------------------
+#  # export to excel
+#  scan_files %>% iso_export_to_excel("scan_files_export")
+#  
+#  # data sheets available in the exported data file:
+#  readxl::excel_sheets("scan_files_export.scan.xlsx")
 
-# data sheets available in the exported data file:
-readxl::excel_sheets("scan_files_export.scan.xlsx")
-
-## -----------------------------------------------------------------------------
-# export to feather
-scan_files %>% iso_export_to_feather("scan_files_export")
-
-# exported feather files
-list.files(pattern = ".scan.feather")
+## ---- eval=FALSE--------------------------------------------------------------
+#  # export to feather
+#  scan_files %>% iso_export_to_feather("scan_files_export")
+#  
+#  # exported feather files
+#  list.files(pattern = ".scan.feather")
 

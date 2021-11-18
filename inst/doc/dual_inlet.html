@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
-<meta name="date" content="2021-10-15" />
+<meta name="date" content="2021-11-18" />
 
 <title>Dual Inlet Examples</title>
 
@@ -139,7 +139,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <h1 class="title toc-ignore">Dual Inlet Examples</h1>
-<h4 class="date">2021-10-15</h4>
+<h4 class="date">2021-11-18</h4>
 
 
 
@@ -244,7 +244,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: reading file &#39;dual_inlet_example.did&#39; with &#39;.did&#39; reader...</span></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: reading file &#39;dual_inlet_example.caf&#39; with &#39;.caf&#39; reader...</span></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: reading file &#39;dual_inlet_nu_example.txt&#39; with &#39;.txt&#39; reader...</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 3 files in 2.46 secs</span></span></code></pre></div>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 3 files in 2.47 secs</span></span></code></pre></div>
 </div>
 <div id="file-summary" class="section level1">
 <h1>File summary</h1>
@@ -2247,7 +2247,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: preparing to read 1 data files...</span></span>
 <span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: reading file &#39;di_files_export.di.rds&#39; with &#39;.di.rds&#39; reader...</span></span>
 <span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: loaded 3 data files from R Data Storage</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 1 files in 0.08 secs</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 1 files in 0.07 secs</span></span>
 <span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Data from 3 dual inlet iso files: </span></span>
 <span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 6</span></span>
 <span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   file_id     raw_data      file_info  method_info  vendor_data_tab… file_path  </span></span>
@@ -2258,7 +2258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="data-export" class="section level1">
 <h1>Data Export</h1>
-<p>At the moment, isoreader supports export of all data to Excel and the <a href="https://blog.rstudio.com/2016/03/29/feather/">Feather file format</a> (a Python/R cross-over format). Note that both export methods have similar syntax and append the appropriate file extension for each type of export file (<code>.di.xlsx</code> and <code>.di.feather</code>, respectively).</p>
+<p>At the moment, isoreader supports export of all data to Excel and the <a href="https://www.rstudio.com/blog/feather/">Feather file format</a> (a Python/R cross-over format). Note that both export methods have similar syntax and append the appropriate file extension for each type of export file (<code>.di.xlsx</code> and <code>.di.feather</code>, respectively).</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># export to excel</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>di_files <span class="sc">%&gt;%</span> <span class="fu">iso_export_to_excel</span>(<span class="st">&quot;di_files_export&quot;</span>)</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>

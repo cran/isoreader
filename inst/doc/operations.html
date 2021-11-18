@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
-<meta name="date" content="2021-10-15" />
+<meta name="date" content="2021-11-18" />
 
 <title>Operations</title>
 
@@ -139,7 +139,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <h1 class="title toc-ignore">Operations</h1>
-<h4 class="date">2021-10-15</h4>
+<h4 class="date">2021-11-18</h4>
 
 
 
@@ -239,7 +239,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: preparing to read 1 data files...</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: reading file &#39;dual_inlet_example.did&#39; with &#39;.did&#39; reader...</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 1 files in 0.39 secs</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 1 files in 0.37 secs</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: selecting/renaming the following file info across 1 data file(s): &#39;file_datetime&#39;, &#39;Identifier 1&#39;</span></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: aggregating file info from 1 data file(s)</span></span></code></pre></div>
 <table>
@@ -328,7 +328,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: processing config &#39;CO2&#39; (345196-369809)</span></span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: processing data for &#39;N2&#39; (128025-158837)</span></span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: processing data for &#39;CO2&#39; (158931-196381)</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 1 files in 1.22 secs</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 1 files in 1.31 secs</span></span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># re-read the same file much faster (it will be read from cache)</span></span>
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>cf_file <span class="ot">&lt;-</span> <span class="fu">iso_get_reader_example</span>(<span class="st">&quot;continuous_flow_example.dxf&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -339,7 +339,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: processing config &#39;CO2&#39; (345196-369809)</span></span>
 <span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: processing data for &#39;N2&#39; (128025-158837)</span></span>
 <span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: processing data for &#39;CO2&#39; (158931-196381)</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 1 files in 1.28 secs</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 1 files in 1.23 secs</span></span>
 <span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co"># turn reader caching off</span></span>
 <span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="fu">iso_turn_reader_caching_off</span>()</span>
@@ -354,7 +354,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: processing config &#39;CO2&#39; (345196-369809)</span></span>
 <span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: processing data for &#39;N2&#39; (128025-158837)</span></span>
 <span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: processing data for &#39;CO2&#39; (158931-196381)</span></span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 1 files in 1.24 secs</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 1 files in 1.14 secs</span></span>
 <span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="co"># turn reader caching back on</span></span>
 <span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="fu">iso_turn_reader_caching_on</span>()</span>
@@ -376,12 +376,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: preparing to read 3 data files (all will be cached), setting up 3 par...</span></span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; DEBUG  (log files will not be deleted afer run):</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  log file path &#39;/var/folders/ns/x0fwvm6x22v8gf5tmj9r3yww0000gn/T//Rtmp6ufj3R/file41ef36c2f028.log&#39;</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  progress file path &#39;/var/folders/ns/x0fwvm6x22v8gf5tmj9r3yww0000gn/T//Rtmp6ufj3R/file41ef36c2f028.progress&#39;</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  log file path &#39;/var/folders/ns/x0fwvm6x22v8gf5tmj9r3yww0000gn/T//Rtmpdb6PHR/file9aa1f497d7a.log&#39;</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  progress file path &#39;/var/folders/ns/x0fwvm6x22v8gf5tmj9r3yww0000gn/T//Rtmpdb6PHR/file9aa1f497d7a.progress&#39;</span></span>
 <span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Process 1: reading file &#39;dual_inlet_example.did&#39; from cache...</span></span>
 <span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Process 2: reading file &#39;dual_inlet_example.caf&#39; from cache...</span></span>
 <span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Process 3: reading file &#39;dual_inlet_nu_example.txt&#39; with &#39;.txt&#39; reader...</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 3 files in 2.29 secs</span></span></code></pre></div>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 3 files in 2.30 secs</span></span></code></pre></div>
 </div>
 <div id="combining-subsetting-isofiles" class="section level1">
 <h1>Combining / subsetting isofiles</h1>

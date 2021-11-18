@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
-<meta name="date" content="2021-10-15" />
+<meta name="date" content="2021-11-18" />
 
 <title>Continuous Flow Examples</title>
 
@@ -139,7 +139,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <h1 class="title toc-ignore">Continuous Flow Examples</h1>
-<h4 class="date">2021-10-15</h4>
+<h4 class="date">2021-11-18</h4>
 
 
 
@@ -253,7 +253,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       processing sample &#39;6617_IAEA600&#39; (IRMS data &#39;80.hdf5&#39;, &#39;82.hdf5&#39;)</span></span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       processing sample &#39;6630_GlutamicAcid04&#39; (IRMS data &#39;124.hdf5&#39;, &#39;126.h...</span></span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: reading file &#39;continuous_flow_example.dxf&#39; with &#39;.dxf&#39; reader...</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 3 files in 4.03 secs</span></span></code></pre></div>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 3 files in 3.93 secs</span></span></code></pre></div>
 </div>
 <div id="file-summary" class="section level1">
 <h1>File summary</h1>
@@ -4625,7 +4625,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: preparing to read 1 data files (all will be cached)...</span></span>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: reading file &#39;cf_files_export.cf.rds&#39; with &#39;.cf.rds&#39; reader...</span></span>
 <span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: loaded 6 data files from R Data Storage</span></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 1 files in 0.08 secs</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 1 files in 0.07 secs</span></span>
 <span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>cf_files <span class="sc">%&gt;%</span> <span class="fu">iso_get_data_summary</span>() <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span>
 <span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: aggregating data summary from 6 data file(s)</span></span></code></pre></div>
 <table>
@@ -4701,7 +4701,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="data-export" class="section level1">
 <h1>Data Export</h1>
-<p>At the moment, isoreader supports export of all data to Excel and the <a href="https://blog.rstudio.com/2016/03/29/feather/">Feather file format</a> (a Python/R cross-over format). Note that both export methods have similar syntax and append the appropriate file extension for each type of export file (<code>.cf.xlsx</code> and <code>.cf.feather</code>, respectively).</p>
+<p>At the moment, isoreader supports export of all data to Excel and the <a href="https://www.rstudio.com/blog/feather/">Feather file format</a> (a Python/R cross-over format). Note that both export methods have similar syntax and append the appropriate file extension for each type of export file (<code>.cf.xlsx</code> and <code>.cf.feather</code>, respectively).</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># export to excel</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>cf_files <span class="sc">%&gt;%</span> <span class="fu">iso_export_to_excel</span>(<span class="st">&quot;cf_files_export&quot;</span>)</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>

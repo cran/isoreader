@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
-<meta name="date" content="2021-10-15" />
+<meta name="date" content="2021-11-18" />
 
 <title>Quick Start Guide</title>
 
@@ -139,7 +139,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <h1 class="title toc-ignore">Quick Start Guide</h1>
-<h4 class="date">2021-10-15</h4>
+<h4 class="date">2021-11-18</h4>
 
 
 
@@ -247,7 +247,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: reading file &#39;dual_inlet_example.did&#39; with &#39;.did&#39; reader...</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: reading file &#39;dual_inlet_nu_example.txt&#39; with &#39;.txt&#39; reader...</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: found 6 channels but 0 masses were specified - the raw data will b...</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 3 files in 2.46 secs</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 3 files in 2.58 secs</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: encountered 1 problem.</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # | FILE                      | PROBLEM | OCCURRED IN | DETAILS</span></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 | dual_inlet_nu_example.txt | warning | iso_read_nu | found 6 channels but ...</span></span>
@@ -282,7 +282,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       processing sample &#39;6605_USGS41&#39; (IRMS data &#39;40.hdf5&#39;, &#39;43.hdf5&#39;)</span></span>
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       processing sample &#39;6617_IAEA600&#39; (IRMS data &#39;80.hdf5&#39;, &#39;82.hdf5&#39;)</span></span>
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       processing sample &#39;6630_GlutamicAcid04&#39; (IRMS data &#39;124.hdf5&#39;, &#39;126.h...</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 3 files in 3.67 secs</span></span></code></pre></div>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 3 files in 3.92 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># save as r data storage (read back in with iso_read_continuous_flow)</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">iso_save</span>(cf_files, <span class="at">filepath =</span> <span class="st">&quot;cf_save&quot;</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: exporting data from 6 iso_files into R Data Storage &#39;cf_save.cf.rds&#39;</span></span></code></pre></div>
@@ -298,7 +298,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: reading file &#39;full_scan_example.scn&#39; with &#39;.scn&#39; reader...</span></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: reading file &#39;peak_shape_scan_example.scn&#39; with &#39;.scn&#39; reader...</span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: reading file &#39;time_scan_example.scn&#39; with &#39;.scn&#39; reader...</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 4 files in 0.56 secs</span></span></code></pre></div>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: finished reading 4 files in 0.61 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># save as r data storage (read back in with iso_read_scan)</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">iso_save</span>(scan_files, <span class="at">filepath =</span> <span class="st">&quot;scan_save&quot;</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Info: exporting data from 4 iso_files into R Data Storage &#39;scan_save.scan.rds&#39;</span></span></code></pre></div>
